@@ -9,7 +9,7 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+    <div id="navbar" class="navbar navbar-inverse ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,17 +36,17 @@
     <div class="container body-content">
         <div class="row">
             <div class="col-md-6 text-center col-md-push-3">
-                <img id="masthead" class="img-responsive" alt="Heart4Kids Logo" src="@Url.Content("~/Content/Logos/Full2.png")" />
+                <img id="masthead" class="img-responsive" alt="Hearts4Kids Logo" src="@Url.Content("~/Content/Logos/Full2.png")" />
             </div>
         </div>
         <hr />
         @RenderBody()
         <hr />
         <div class="row" id="copyright">
-            <span>&copy; @DateTime.Now.Year - Heart4Kids</span>
+            <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
         </div>
     </div>
-    <footer class="footer panel-footer">
+    <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
             <div class="col-md-4">
                 <div class="btn-group btn-block dropup">
@@ -84,29 +84,3 @@
 </body>
 </html>
 
-<!--
-    
-        <div class="row">
-        <div id="donate">
-            <h3><a id="team-link">DONATE</a></h3>
-            <p>As a Heart4Kids supporter, your donation will help raise XX,000 to send a medical team this year to Fiji to save the lives of XX children and babies. </p>
-            <p> </p>
-            <p>There are two ways to donate. </p>
-            <ul>
-                <li>DONATE By direct credit transfer to the Heart4Kids Trust bank account:  Kiwibank XXXX and the account name is <insert>. Please reference your name. We would like to thank you for your donation and send you a receipt for your donation so please send us an email to info@kiwi4kids.org with your contact details. </li>
-                <li>DONATE by credit card through our page on Give A Little</li>
-            </ul>
-            <p>Thank you for your donation. Your support is vital. We are not funded by the Government and simply can't do this without your help. You donation will go directly to equipment needed and costs associated with the economy travel of our medical team. </p>
-            <p></p>
-        </div>
-        <div id="partners">
-            <h3>PARTNERS</h3>
-            <p>Hearts4Kids simply couldn’t operate without the help of our partners</p>
-            <p>INSERT FOFHF LOGO</p>
-            <p>FOFHF support us logistically with the transport of equipment and disposables in addition to local support on the ground.</p>
-            <p>INSERT ROMAC</p>
-            <p>ROMAC support us with administrative support.  </p>
-            <p></p>
-        </div>
-    </div>
--->
