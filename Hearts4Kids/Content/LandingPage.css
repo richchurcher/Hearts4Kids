@@ -3,7 +3,8 @@
     min-height:340px;
 }
 #quotes ul {
-    min-height:160px;   
+/* this depends on font-size */
+    min-height:196px;   
 }
 #partners ul {
     min-height:144px;  
@@ -113,3 +114,16 @@ hr {
  }
  
 }
+/*G */
+.container .jumbotron {
+border-radius: 20px; 
+}
+.jumbotron { 
+	padding-top: 20px; 
+	padding-bottom: 20px; 
+	color: #292828; 
+	background-color: #D8D7D2; 
+	font-family: Roboto, sans-serif;
+    line-height: 1.5em;
+    margin-bottom: 20px; 
+} 
