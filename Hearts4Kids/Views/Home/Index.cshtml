@@ -2,45 +2,53 @@
     ViewBag.Title = "Home Page";
 }
 
-@section Styles {
-    @Styles.Render("~/Content/LandingPage.css")
-}
+    @section Styles {
+        @Styles.Render("~/Content/LandingPage.css")
+    }
+@**@
+    <style>
+    </style>
     <div class="row">
         <div class="jumbotron text-center">
             A New Zealand volunteer medical team <br/> performing life saving surgery on children born with heart disease.
         </div>
     </div>
-    <div>
-        <div class="col-md-7">
-            <div id="photoContainer">
-                <div class="photobanner">
-                    <img class="first" src="~/Content/Photos/Baby Post Op.jpg" height="233" alt="" />
-                    <img src="~/Content/Photos/Fiji_Mary Sleeping Upright Against Grandmother.jpg" height="233" />
-                    <img src="~/Content/Photos/Surgical Team.jpg" height="233" />
-                </div>
-            </div>
+    <div id ="action-row" class="row">
+      <div class="col-md-7">
+        <div id="photoContainer">
+          <div class="photobanner">
+              <img class="first" src="~/Content/Photos/Slides/Baby Post Op.jpg" height="232" alt="" />
+                <img src="~/Content/Photos/Slides/Fiji_Mary Sleeping Upright Against Grandmother.jpg" height="232" />
+              <img src="~/Content/Photos/Slides/Surgical Team.jpg" height="232" />
+          </div>
         </div>
-        <div class="col-md-5" id="quotes">
-            <ul class="list-unstyled fadeThrough">
-                <li><blockquote>“There are hundreds of children, from neighbouring countries of the Pacific that need our help to get life-saving cardiac care. They depend on the generosity and humanity of others to help them. I speak for the Hearts4Kids team when I say that we enjoy the privilege of using our expertise and time to reach some of the poorest children in the world to change their lives.” <cite class="quoter">Kirsten Finucane <small class="quoterRole">Cardiac Surgeon &amp; Project Leader</small></cite></blockquote></li>
-                <li><blockquote>“These people did not hope for better health but their operations have completely changed their quality of life, or saved children who were otherwise going to die, and their gratitude is overwhelming. When you experience it you just want to keep going back.” <cite class="quoter">Carol Robinson <small class="quoterRole">Intensive Care Nursing Lead</small></cite></blockquote></li>
-                <li><blockquote>“One operation can change a child's life - not just by saving it, but by transforming them from being crippled by heart failure, to leading healthy, physically active lives into their old age.” <cite class="quoter">Brent McSharry <small class="quoterRole">Team Intensive Care Specialist</small></cite></blockquote></li>
-            </ul>
-        </div>
-        <div class="col-md-5" id="partners">
-            <h4>Proudly in partnership with:</h4>
-            <ul class="list-unstyled fadeThrough text-center">
-                <li><a href="http://romac.org.au/">
-                        <img src="~/Content/Logos/Romac.png" alt="ROMAC/Rotary"/>
-                    </a></li>
-                <li class="fof"><a href="http://friends-of-fiji-heart-foundation.org.nz/">
-                        <img src="~/Content/Logos/FOF.png" alt="Friends of Fiji Heart Foundation"/>
-                    </a></li>
-            </ul>
-        </div>
+      </div>
+      <div class="col-md-5" id="quotes">
+        <ul class="list-unstyled fadeThrough">
+			<li><blockquote>“There are hundreds of children, from neighbouring countries of the Pacific that need our help to get life-saving cardiac care. They depend on the generosity and humanity of others to help them. I speak for the Hearts4Kids team when I say that we enjoy the privilege of using our expertise and time to reach some of the poorest children in the world to change their lives.” <cite class="quoter">Kirsten Finucane <small class="quoterRole">Cardiac Surgeon &amp; Project Leader</small></cite></blockquote></li>
+			<li><blockquote>“These people did not hope for better health but their operations have completely changed their quality of life, or saved children who were otherwise going to die, and their gratitude is overwhelming. When you experience it you just want to keep going back.” <cite class="quoter">Carol Robinson <small class="quoterRole">Intensive Care Nursing Lead</small></cite></blockquote></li>
+			<li><blockquote>“One operation can change a child's life - not just by saving it, but by transforming them from being crippled by heart failure, to leading healthy, physically active lives into their old age.” <cite class="quoter">Brent McSharry <small class="quoterRole">Team Intensive Care Specialist</small></cite></blockquote></li>
+        </ul>
+      </div>
+      <div class="col-md-5" id="partners">
+        <h4>Proudly in partnership with:</h4>
+        <ul class="list-unstyled fadeThrough text-center">
+            <li>
+                <a href="http://romac.org.au/">
+                    <img src="~/Content/Logos/Romac.png" alt="ROMAC/Rotary" />
+                </a>
+            </li>
+            <li>
+                <a  class="fof" href="http://friends-of-fiji-heart-foundation.org.nz/">
+                    <img src="~/Content/Logos/FOF.png" alt="Friends of Fiji Heart Foundation" />
+                </a>
+            </li>
+            <li><a href="#">[Contact us to if you would like your corporate logo here]</a></li>
+        </ul>
+      </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div id="final-thought" class="col-md-12">
             <p>Each year in the Pacific, 350* children are born with congenital heart disease.</p>
 
             <p>

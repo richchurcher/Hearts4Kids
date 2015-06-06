@@ -17,15 +17,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Heart4Kids", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <!-- must be visible when nav bar collapsed?-->
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <!-- <li>@Html.ActionLink("Home", "Index", "Home")</li>  -->
+                    <li>@Html.ActionLink("Our Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("The Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("Donor FAQs", "FAQ", "Home")</li>
+                    <li>@Html.ActionLink("Donate", "Donate", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,7 +44,7 @@
         @RenderBody()
         <hr />
         <div class="row" id="copyright">
-            <p>&copy; @DateTime.Now.Year - Hearts4Kids</p>
+			<p>&copy; @DateTime.Now.Year - Hearts4Kids</p>
         </div>
     </div>
     <footer class="footer panel-footer">

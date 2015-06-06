@@ -1,12 +1,39 @@
-﻿#photoContainer {
+﻿/* Hacked by PM - the following are necessary to stabilize postitioning of surrounds during fadeThrough */
+#action-row {
+    min-height:340px;
+}
+#quotes ul {
+    min-height:160px;   
+}
+#partners ul {
+    min-height:144px;  
+}
+#photoContainer {
+    max-height: 232px;
     overflow: hidden;
 }
-
-.photobanner {
-    height: 233px;
-    width: 3550px;
+#photoContainer div.photobanner  {
+    max-height: 232px;
+    min-width: 696px;
+    overflow: hidden;
+} 
+/* get rid of border between images */
+#photoContainer img {
+    /* font-size: 0;*/
+    float: left;
 }
- 
+
+/* sizes hacked by PM */
+hr {
+    margin: 10px 0;
+}
+.photobanner {
+    height: 232px;
+    width: 696px;
+}
+.photobanner img {
+    display:block;
+}
 .photobanner img {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -42,7 +69,7 @@
     margin-left: 0px;
  }
  100% {
-    margin-left: -2125px;
+    margin-left: -696px;
  }
  
 }
@@ -52,7 +79,7 @@
    margin-left: 0px;
  }
  100% {
-   margin-left: -2125px;
+   margin-left: -696px;
  }
  
 }
@@ -62,7 +89,7 @@
    margin-left: 0px;
  }
  100% {
-   margin-left: -2125px;
+   margin-left: -696px;
  }
  
 }
@@ -72,7 +99,7 @@
    margin-left: 0px;
  }
  100% {
-   margin-left: -2125px;
+   margin-left: -696px;
  }
  
 }
@@ -82,7 +109,7 @@
    margin-left: 0px;
  }
  100% {
-   margin-left: -2125px;
+   margin-left: -696px;
  }
  
 }
