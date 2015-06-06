@@ -17,7 +17,7 @@
                 fadeItems.$items.eq(fadeItems.indx).fadeIn(fadeInterval);
                 if (!fadeItems.intervalSet) {
                     fadeItems.intervalSet = true;
-                    window.setTimeout(function () { changeList(fadeItems); }, holdInterval);
+                    window.setInterval(function () { changeList(fadeItems); }, holdInterval);
                 }
             });
         };
