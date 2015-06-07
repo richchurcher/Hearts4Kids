@@ -50,6 +50,16 @@
     <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
             <div class="col-md-4">
+                <a href="#" class="btn btn-warning btn-block" role="button">
+                    Donate
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="btn btn-success btn-block" role="button">
+                    Find out More
+                </a>
+            </div>
+            <div class="col-md-4">
                 <div class="btn-group btn-block dropup">
                     <div class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">
                         Subscribe to Our Newsletter <span class="caret"></span>
@@ -64,12 +74,6 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                @Html.ActionLink("Find out more", "About", null,new { @class = "btn btn-success btn-block", role = "button" })
-            </div>
-            <div class="col-md-4">
-                @Html.ActionLink("Donate","Donate", null,new { @class="btn btn-warning btn-block", role="button"})
             </div>
         </div>
     </footer>
