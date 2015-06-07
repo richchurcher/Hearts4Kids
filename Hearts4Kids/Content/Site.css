@@ -39,7 +39,7 @@ html {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 40px;
+  height: Auto;
   background-color: #FFFFFF;
 }
 
@@ -48,9 +48,11 @@ html {
 	background-color: #4e4a47; 
 	border-color: #4e4a47; 
 } /*G top-menu colour */
+
 .navbar-collapse .navbar-nav.navbar-right:last-child { 
-	margin-right: -50px; 
-} /*G login setting */
+	margin-right: -100px; 
+}
+/* G login setting - bootstrap has -15 here - there is some problem with a left and right menu sharing the same space */
 .navbar-inverse .navbar-nav > li > a { 
 	color: #aba9a4; 
 } /*G text top-menu */
@@ -58,6 +60,10 @@ html {
 .navbar {
     margin-bottom: 5px;
 }
+#navbar ul {
+    display:inline:block;
+}
+
 hr {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -66,8 +72,11 @@ body {
     font-size: 16px;
 }
 body>.container {
-    /* compensate for fixed fotter or copyright disappearas behind it */
-  padding-bottom: 40px;
+    /* compensate for fixed footer or copyright disappearas behind it 
+         needs enough for a vertical footer menu -- 3*34 + padding 20 */
+  padding-bottom: 122px;
 }
-
+#copyright>span {
+    float:right;
+}
 
