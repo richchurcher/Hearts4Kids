@@ -1,9 +1,10 @@
-﻿body {
+﻿/* bad idea - problems in different browsers - use container - PM 
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     margin-bottom: 40px;
 }
-
+*/
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -44,4 +45,31 @@ html {
 
 .fof{
     background:linear-gradient(#C51515, #FA0506)
+}
+
+/*G over-ride bootstrap menu colour */
+.navbar-inverse { 
+	background-color: #4e4a47; 
+	border-color: #4e4a47; 
+} /*G top-menu colour */
+.navbar-collapse .navbar-nav.navbar-right:last-child { 
+	margin-right: -50px; 
+} /*G login setting */
+.navbar-inverse .navbar-nav > li > a { 
+	color: #aba9a4; 
+} /*G text top-menu */
+
+.navbar {
+    margin-bottom: 5px;
+}
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+body {
+    font-size: 16px;
+}
+body>.container {
+    /* compensate for fixed fotter or copyright disappearas behind it */
+  padding-bottom: 40px;
 }

@@ -9,7 +9,7 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+    <div id="navbar" class="navbar navbar-inverse ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,17 +37,17 @@
     <div class="container body-content">
         <div class="row">
             <div class="col-md-6 text-center col-md-push-3">
-                <img class="img-responsive" alt="Heart4Kids Logo" src="@Url.Content("~/Content/Logos/Full2.png")" />
+                <img id="masthead" class="img-responsive" alt="Hearts4Kids Logo" src="@Url.Content("~/Content/Logos/Full2.png")" />
             </div>
         </div>
-
+        <hr />
         @RenderBody()
         <hr />
         <div class="row" id="copyright">
-			<span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
+            <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
         </div>
     </div>
-    <footer class="footer panel-footer">
+    <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
             <div class="col-md-4">
                 <div class="btn-group btn-block dropup">
@@ -80,3 +80,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
