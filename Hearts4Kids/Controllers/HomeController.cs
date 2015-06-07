@@ -42,11 +42,5 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
-        public ActionResult Donate()
-        {
-            ViewBag.Message = "Your Donate page.";
-
-            return View();
-        }
     }
 }

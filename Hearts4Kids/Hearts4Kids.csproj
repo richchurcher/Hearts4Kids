@@ -184,6 +184,9 @@
     <Content Include="Content\Photos\Bios\Fiji_John Wright.jpg" />
     <Content Include="Content\Photos\Fiji_Mary Sleeping Upright Against Grandmother.jpg" />
     <Content Include="Content\Photos\Bios\Kirsten w Baby Patient.jpg" />
+    <Content Include="Content\Photos\Slides\Baby Post Op.jpg" />
+    <Content Include="Content\Photos\Slides\Fiji_Mary Sleeping Upright Against Grandmother.jpg" />
+    <Content Include="Content\Photos\Slides\Surgical Team.jpg" />
     <Content Include="Content\Photos\Surgical Team.jpg" />
     <Content Include="Content\Logos\Full-no sub2.png" />
     <Content Include="Content\Logos\Full2.png" />
@@ -220,7 +223,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -247,7 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Photos\Slides\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
