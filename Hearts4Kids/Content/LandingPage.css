@@ -3,8 +3,7 @@
     min-height:340px;
 }
 #quotes ul {
-/* this depends on font-size */
-    min-height:196px;   
+    min-height:160px;   
 }
 #partners ul {
     min-height:144px;  
@@ -26,8 +25,7 @@
 
 /* sizes hacked by PM */
 hr {
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin: 10px 0;
 }
 .photobanner {
     height: 232px;
@@ -66,7 +64,7 @@ hr {
             animation: bannermove 30s linear infinite;
 }
  
-@keyframes "bannermove" {
+@keyframes bannermove {
  0% {
     margin-left: 0px;
  }
@@ -86,7 +84,7 @@ hr {
  
 }
  
-@-webkit-keyframes "bannermove" {
+@-webkit-keyframes bannermove {
  0% {
    margin-left: 0px;
  }
@@ -96,7 +94,7 @@ hr {
  
 }
  
-@-ms-keyframes "bannermove" {
+@-ms-keyframes bannermove {
  0% {
    margin-left: 0px;
  }
@@ -106,7 +104,7 @@ hr {
  
 }
  
-@-o-keyframes "bannermove" {
+@-o-keyframes bannermove {
  0% {
    margin-left: 0px;
  }
@@ -115,16 +113,13 @@ hr {
  }
  
 }
-/*G */
-.container .jumbotron {
-border-radius: 20px; 
+
+.quoterRole:before {
+    content:"(";
 }
-.jumbotron { 
-	padding-top: 20px; 
-	padding-bottom: 20px; 
-	color: #292828; 
-	background-color: #D8D7D2; 
-	font-family: Roboto, sans-serif;
-    line-height: 1.5em;
-    margin-bottom: 20px; 
-} 
+.quoterRole:after {
+    content:")";
+}
+.quoterRole{
+    font-size:85%;
+}

@@ -6,26 +6,40 @@
         fadeInterval = 4000,
         holdInterval = 15000,
         offsetInterval = holdInterval / fadesCount,
-        nextOffset = offsetInterval,
         fadeItems = $.map($fades,function(el){ return { $items: $(el).children(), indx:0 }; }),
-        changeList = function (fadeItems) {
-            fadeItems.$items.eq(fadeItems.indx).fadeOut(fadeInterval, function () {
-                fadeItems.indx += 1;
-                if (fadeItems.indx === fadeItems.$items.length) {
-                    fadeItems.indx = 0;
+        changeList = function () {
+            var currentGroup;
+            i += 1;
+            if (i === fadeItems.length) { i = 0; }
+            currentGroup = fadeItems[i];
+            currentGroup.$items.eq(currentGroup.indx).fadeOut(fadeInterval, function () {
+                currentGroup.indx += 1;
+                if (currentGroup.indx === currentGroup.$items.length) {
+                    currentGroup.indx = 0;
                 }
-                fadeItems.$items.eq(fadeItems.indx).fadeIn(fadeInterval);
-                if (!fadeItems.intervalSet) {
-                    fadeItems.intervalSet = true;
-                    window.setInterval(function () { changeList(fadeItems); }, holdInterval);
-                }
+                currentGroup.$items.eq(currentGroup.indx).fadeIn(fadeInterval);
             });
         };
-    $.each(fadeItems, function (indx,el) {
-        el.$items.hide().first().show();
-        window.setTimeout(function () { changeList(el); }, nextOffset);
-        nextOffset += offsetInterval;
+    $.each(fadeItems, function (indx, el) {
+        var maxHeight = 0,
+            $parent;
+        el.$items.each(function (indx, el) {
+            var $t = $(el), 
+                ht = $t.outerHeight();
+            if (ht > maxHeight) {
+                maxHeight = ht;
+            }
+            if (indx > 0) {
+                $t.hide();
+            } else {
+                $parent = $t.parent();
+            }
+        });
+        if (maxHeight >= $parent.height()) {
+            $parent.css('height', maxHeight);
+        }
     });
+    window.setInterval(changeList, offsetInterval);
 })(jQuery);
 
 ; (function ($) {
