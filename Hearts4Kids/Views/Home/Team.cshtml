@@ -3,6 +3,11 @@
     ViewBag.Title = "Team";
 }
 
+@section Styles {
+    @Styles.Render("~/Content/TeamPage.css")
+}
+
+
 <div class="row" id="team">
     <div class="col-md-12">
         <h2><a id="team-link">THE TEAM</a></h2>
@@ -36,7 +41,7 @@
                     </dt>
                     <dd  class="clearfix">
                         <figure>
-                            <img alt="photo of Helen Sargent" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left">
+                            <img alt="photo of Helen Sargent" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" src="@Url.Content("~/Content/Photos/Bios/Surgical.png")">
                         </figure>
                         <p>As a surgical nurse assistant, Helen’s main role is to first assist the surgeon at the operations.  Her technical expertise and knowledge allow the operation to be done safely but at speed, which is important for good outcomes in this specialty. The role is more comprehensive than operating alone as it involves both preoperative checks to ensure all the information is available for each patient on the operating table, and postoperative care alongside the medical staff in the wards. </p>
                         <p>Helen has a long background of nursing experience in the cardiothoracic field having worked at Greenlane and the Ascot Cardiac theatres. She came to the Starship unit as paediatric first assistant in 2011. </p>
@@ -59,7 +64,7 @@
                         <figure>
                             <img alt="photo of John Wright" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" src="@Url.Content("~/Content/Photos/Bios/pv/Fiji_John Wright.jpg")">
                         </figure>
-                        <p>John Wright is a paediatric cardiologist who trained in Medicine at Cambridge University and after various junior posts, developed his career in Birmingham Children's cardiac unit working there for over 20 years with the best outcomes in the UK, in particular for complex neonatal surgery.</p> 
+                        <p>John Wright is a paediatric cardiologist who trained in Medicine at Cambridge University and after various junior posts, developed his career in Birmingham Children's cardiac unit working there for over 20 years with the best outcomes in the UK, in particular for complex neonatal surgery.</p>
                         <p>The son of Sir Oliver Wright, a well known British diplomat, he spent his childhood years moving from country to country and thus has always had a love of travelling and learning about different cultures. Over the last 25 years he has volunteered on a variety of surgical missions to support local services or support surgeons visiting to operate where the countries do not have access to services, including East Jerusalem, Malaysia, and India. </p>
                         <p>In 2009 John came to NZ to do a locum and stayed permanently, to become a member of the Starship cardiology team. He was interested in the visits of his colleagues to Tonga, Samoa, and Vanuatu for clinics. A friend on the golf course who is an expatriot from near Lautoka, Fiji, persuaded him to consider visiting Fiji and look at how services to heart children could be improved there, and the ideas for this project were born!</p>
                         <p>He lives with Kirsten and enjoys walking the dogs, playing golf and supporting the All Blacks and the Black caps (unless they are playing England).</p>
@@ -93,7 +98,7 @@
                     <dt>Brent McSharry</dt>
                     <dd class="clearfix">
                         <figure>
-                            <img alt="photo of Brent McSharry" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" >
+                            <img alt="photo of Brent McSharry" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left"  src="@Url.Content("~/Content/Photos/Bios/Surgical.png")">
                         </figure>
                         <p>Brent McSharry is a specialist paediatric intensive care doctor. His primary role on the mission is to care for the children as soon as they leave the operating theatre.</p>
                         <p>Brent's Australian drawl hints at his Sydney origins and training. He has spent years in paediatrics and emergency medicine working in varied locations around Australia including remote north Queensland and the Northern Territory. Brent also volunteered with MSF in Sierra Leone. </p>
