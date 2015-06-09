@@ -123,3 +123,16 @@ hr {
 .quoterRole{
     font-size:85%;
 }
+/* changes to home page layout - override jumbotron */
+.container .jumbotron {
+  border-radius: 20px;
+}
+.jumbotron {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #292828;
+  background-color: #D8D7D2;
+  font-family: Roboto, sans-serif;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}

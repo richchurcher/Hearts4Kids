@@ -23,12 +23,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <!-- <li>@Html.ActionLink("Home", "Index", "Home")</li>  -->
-                    <li>@Html.ActionLink("Our Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("The Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("Donor FAQs", "FAQ", "Home")</li>
-                    <li>@Html.ActionLink("Donate", "Donate", "Home")</li>
+                    <li class="btn-warning">@Html.ActionLink("Donate", "Donate", "Home")</liclass>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -44,16 +43,27 @@
         @RenderBody()
         <hr />
         <div class="row" id="copyright">
+            <!--G Start--><div id="shareContainer" style="left:0 !important">
+                <ul>
+                    <li><a href="http://www.facebook.com/sharethis" class="facebook">&nbsp;</a></li>
+@*  all but facebook disabled on server for a start    
+                    <li><a href="http://twitter.com/sharethis" class="twitter">&nbsp;</a></li>
+                    <li><a href="http://pinterest.com/sharethis/" class="pinterest">&nbsp;</a></li>
+                    <li><a href="http://youtube.com/sharethis" class="youtube">&nbsp;</a></li>
+                    <li><a href="https://plus.google.com/u/0/+sharethis/posts" class="googleplus">&nbsp;</a></li>
+                    <li><a href="http://instagram.com/sharethis" class="instagram">&nbsp;</a></li>
+                    <li><a href="http://www.linkedin.com/company/sharethis" class="linkedin">&nbsp;</a></li>
+                    <!--<li><a href="#" class="rss">&nbsp;</a></li>
+                    <li><a href="http://www.sharethis.com/feed/" class="rss">&nbsp;</a></li>-->
+                    <li></li>
+*@
+                </ul>
+            </div><!--G End-->
             <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
         </div>
     </div>
     <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
-            <div class="col-md-4">
-                <a href="#" class="btn btn-warning btn-block" role="button">
-                    Donate
-                </a>
-            </div>
             <div class="col-md-4">
                 <a href="#" class="btn btn-success btn-block" role="button">
                     Find out More
@@ -75,6 +85,12 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <a href="#" class="btn btn-warning btn-block" role="button">
+                    Donate
+                </a>
+            </div>
+
         </div>
     </footer>
 
