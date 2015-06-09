@@ -26,8 +26,10 @@
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("The Team", "Team", "Home")</li>
+@*
                     <li>@Html.ActionLink("Donor FAQs", "FAQ", "Home")</li>
-                    <li class="btn-warning">@Html.ActionLink("Donate", "Donate", "Home")</liclass>
+*@
+                    <li class="btn-warning">@Html.ActionLink("Donate", "Donate", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,24 +45,25 @@
         @RenderBody()
         <hr />
         <div class="row" id="copyright">
-            <!--G Start--><div id="shareContainer" style="left:0 !important">
+            <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
+            @*--G Start -- only facebook has an H4K link *@
+            <div id="shareContainer">
                 <ul>
-                    <li><a href="http://www.facebook.com/sharethis" class="facebook">&nbsp;</a></li>
-@*  all but facebook disabled on server for a start    
-                    <li><a href="http://twitter.com/sharethis" class="twitter">&nbsp;</a></li>
-                    <li><a href="http://pinterest.com/sharethis/" class="pinterest">&nbsp;</a></li>
-                    <li><a href="http://youtube.com/sharethis" class="youtube">&nbsp;</a></li>
-                    <li><a href="https://plus.google.com/u/0/+sharethis/posts" class="googleplus">&nbsp;</a></li>
-                    <li><a href="http://instagram.com/sharethis" class="instagram">&nbsp;</a></li>
+                     <li><a href="http://www.facebook.com/Hearts4KidsPasifika" class="facebook">&nbsp;</a></li>
+                     @* PM:  following have generic links to sharing sites   move this end comment to cut them out *@
+                     <li><a href="http://twitter.com/sharethis" class="twitter">&nbsp;</a></li>
+                     <li><a href="http://pinterest.com/sharethis/" class="pinterest">&nbsp;</a></li>
+                     <li><a href="http://youtube.com/sharethis" class="youtube">&nbsp;</a></li>
+                     <li><a href="https://plus.google.com/u/0/+sharethis/posts" class="googleplus">&nbsp;</a></li>
+                     <li><a href="http://instagram.com/sharethis" class="instagram">&nbsp;</a></li>
                     <li><a href="http://www.linkedin.com/company/sharethis" class="linkedin">&nbsp;</a></li>
-                    <!--<li><a href="#" class="rss">&nbsp;</a></li>
-                    <li><a href="http://www.sharethis.com/feed/" class="rss">&nbsp;</a></li>-->
                     <li></li>
-*@
                 </ul>
             </div><!--G End-->
-            <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
-        </div>
+@*  Alex's facebook icon (big and blue)
+         <div id="visit-us-fb"> <a href="http://www.facebook.com/Hearts4KidsPasifika"><img alt="Facebook icon" src="@Url.Content("~/Content/Logos/facebook-icon.jpg")"></a></div>
+*@
+                </div>
     </div>
     <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
@@ -90,7 +93,6 @@
                     Donate
                 </a>
             </div>
-
         </div>
     </footer>
 

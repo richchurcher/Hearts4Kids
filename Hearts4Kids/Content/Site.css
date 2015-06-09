@@ -87,9 +87,9 @@ body>.container {
         padding-bottom: 46px;
     }
 }
-
-#copyright>span {
-    float:right;
+#copyright>* {
+    float:left;
+    margin-left: 20px;
 }
 .btn {
     font-size: 16px;
@@ -105,8 +105,20 @@ body>.container {
 .panel-footer {
     padding: 10px 15px 0;
 }
-/* Social from G -- only facebook is active */
-#shareContainer { width: 317px; position: relative ;} 
+
+#copyright>span:first-child {
+    float:right;
+}
+#visit-us-fb {
+    margin-left: 0;
+}
+#visit-us-fb img{
+    height:32px;
+    margin-left: 0;
+}
+
+/* Social from G */
+#shareContainer { position: relative; left: 384px;} 
 #shareContainer ul li { margin-left: 4px; }
 #shareContainer li { display: inline-block; }
 #shareContainer li a { display: block; width: 32px; height: 32px; background-image: url('/Content/Logos/share-icons.png'); background-repeat: no-repeat; text-indent: -9999px; }
@@ -127,7 +139,7 @@ body>.container {
 #shareContainer li a.linkedin:hover { background-position: -240px -40px; }
 #shareContainer li a.rss:hover { background-position: left -152px; }
  
-/* correction */
+/* PM corrections adding FB link */
 div#copyright {
     max-height: 32px;
 }
