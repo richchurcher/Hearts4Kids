@@ -83,7 +83,7 @@ namespace Hearts4Kids.Controllers
                         var credential = new NetworkCredential
                         {
                             UserName = "philm@codesmiths.com.au",  // replace with valid value
-                            Password = "84guava"                   // replace with valid value
+                            Password = "76mangoes"                   // replace with valid value
                         };
                         smtp.Credentials = credential;
                         smtp.Host = "mail.codesmiths.com.au";
