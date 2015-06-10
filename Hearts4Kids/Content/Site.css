@@ -118,26 +118,27 @@ body>.container {
 }
 
 /* Social from G */
-#shareContainer { position: relative; left: 384px;} 
+#shareContainer { position: relative; left: 0;} 
+#shareContainer ul { padding-left: 0;} 
 #shareContainer ul li { margin-left: 4px; }
 #shareContainer li { display: inline-block; }
 #shareContainer li a { display: block; width: 32px; height: 32px; background-image: url('/Content/Logos/share-icons.png'); background-repeat: no-repeat; text-indent: -9999px; }
-#shareContainer li a.facebook { background-position: left top; }
-#shareContainer li a.twitter { background-position: -40px top; }
-#shareContainer li a.pinterest { background-position: -80px top; }
+#shareContainer li a.facebook   { background-position: left top; }
+#shareContainer li a.twitter    { background-position: -40px top; }
+#shareContainer li a.pinterest  { background-position: -80px top; }
 #shareContainer li a.googleplus { background-position: -120px top;}
-#shareContainer li a.instagram { background-position: -160px top; }
-#shareContainer li a.youtube { background-position: -200px top;}
-#shareContainer li a.linkedin { background-position: -240px top; }
-#shareContainer li a.rss { background-position: left -112px; }
-#shareContainer li a.facebook:hover { background-position: left  -40px; }
-#shareContainer li a.twitter:hover { background-position: -40px -40px; }
-#shareContainer li a.pinterest:hover { background-position: -80px -40px; }
+#shareContainer li a.instagram  { background-position: -160px top; }
+#shareContainer li a.youtube    { background-position: -200px top;}
+#shareContainer li a.linkedin   { background-position: -240px top; }
+#shareContainer li a.rss        { background-position: left -112px; }
+#shareContainer li a.facebook:hover   { background-position: left  -40px; }
+#shareContainer li a.twitter:hover    { background-position: -40px -40px; }
+#shareContainer li a.pinterest:hover  { background-position: -80px -40px; }
 #shareContainer li a.googleplus:hover { background-position: -120px  -40px; }
-#shareContainer li a.instagram:hover { background-position: -160px  -40px; }
-#shareContainer li a.youtube:hover { background-position: -200px -40px; }
-#shareContainer li a.linkedin:hover { background-position: -240px -40px; }
-#shareContainer li a.rss:hover { background-position: left -152px; }
+#shareContainer li a.instagram:hover  { background-position: -160px  -40px; }
+#shareContainer li a.youtube:hover    { background-position: -200px -40px; }
+#shareContainer li a.linkedin:hover   { background-position: -240px -40px; }
+#shareContainer li a.rss:hover        { background-position: left -152px; }
  
 /* PM corrections adding FB link */
 div#copyright {
