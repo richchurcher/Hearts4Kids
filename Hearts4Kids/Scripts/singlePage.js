@@ -116,3 +116,21 @@
     });
 
 })(jQuery);
+
+(function ($) {
+    $("form", $("#subscribeMenu").on("click", function (e) {
+        if (e.target.type !== "submit") {
+            e.stopPropagation();
+        }
+    })).on("submit", function (e) {
+        var returnVar = {};
+        e.preventDefault();
+        $.each(e.target, function(indx, el){
+            if (el.type !== "submit" && el.value) {
+                returnVar[el.name || el.id] = el.value;
+            }
+        });
+        $.ajax({ url: e.target.action, method: 'post', data: returnVar });
+    });
+    
+})(jQuery);

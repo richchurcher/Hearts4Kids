@@ -77,14 +77,16 @@
                     <div class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">
                         Subscribe to Our Newsletter <span class="caret"></span>
                     </div>
-                    <div class="dropdown-menu">
-                        <form role="form">
-                            <div class="form-group">
+                    <div id="subscribeMenu" class="dropdown-menu">
+                        @using (Html.BeginForm("Subscribe","Home"))
+                        {
+                            <div class="container-fluid col-md-12">
                                 <label for="name">Email</label>
-                                <input type="email" class="form-control" id="name" placeholder="Your Email">
-                                <span class="help-block">About twice a year we will send you updates on how your money is being spent and how the patients are going</span>
+                                <input type="email" class="form-control" id="subscriberMail" name="subscriberMail" placeholder="Your Email">
+                                <span class="help-block">About twice a year we will send you updates on how your money is being spent, and stories from the children and families.</span>
+                                <input class="btn btn-primary" type="submit" value="Subscribe" />
                             </div>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>
