@@ -13,10 +13,10 @@ namespace Hearts4Kids.Services
     public static class PhotoServices
     {
         public const string bioDir = "~/Content/Photos/Bios";
-        public const int quality = 95;
         public const int maxHeight = 696;
         public const int thumbHeight = 76;
         public const int bannerHeight = 232;
+        public const long defaultQuality = 95;
         //screen * md-7 = 7/12
         public const int maxBannerWidth = 1600 * 7 / 12;
         public const string defaultDir = "~/Content/Photos/Slides";
@@ -27,10 +27,12 @@ namespace Hearts4Kids.Services
             {
                 FolderName = folderName;
                 Height = height;
+                Quality = defaultQuality;
             }
             public string FolderName { get; private set; }
             public int Height { get; private set; }
             public ImageFormat ImgFmt { get; set; }
+            public long Quality { get; set; }
         }
         internal static SiteImageSize[] ImageSizes = new SiteImageSize[]
         {
@@ -55,7 +57,7 @@ namespace Hearts4Kids.Services
             for(int i=1;i < ImageSizes.Length;i++)
             {
                 s = ImageSizes[i];
-                Resize(path, Path.Combine(basePath, s.FolderName, imageName), s.Height, s.ImgFmt);
+                Resize(path, Path.Combine(basePath, s.FolderName, imageName), s.Height, s.ImgFmt, s.Quality);
             }
             return defaultDir + '/' + s.FolderName + '/' + imageName;
         }
@@ -74,14 +76,14 @@ namespace Hearts4Kids.Services
                         ThumbUrl = thumbUr + fn
                     });
         }
-        public static void Resize(string imageFile, string outputFile, int newHeight, ImageFormat fmt = null, EncoderParameters encoderParams= null)
+        public static void Resize(string imageFile, string outputFile, int newHeight, ImageFormat fmt = null, long quality = defaultQuality)
         {
             using (var srcImage = Image.FromFile(imageFile))
             {
-                Resize(srcImage, outputFile, newHeight, fmt);
+                Resize(srcImage, outputFile, newHeight, fmt, quality);
             }
         }
-        public static void Resize(Image srcImage, string outputFile, int newHeight, ImageFormat fmt = null, long quality=95)
+        public static void Resize(Image srcImage, string outputFile, int newHeight, ImageFormat fmt = null, long quality= defaultQuality)
         {
             int newWidth = newHeight * srcImage.Width / srcImage.Height;
             using (var newImage = new Bitmap(newWidth, newHeight))

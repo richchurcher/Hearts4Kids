@@ -236,6 +236,12 @@
     <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
     <Content Include="Content\LandingPage.css" />
     <Content Include="Content\Logos\8515783.jpg" />
+    <Content Include="Content\Logos\FB_FindUsOnFacebook-100.png" />
+    <Content Include="Content\Logos\FB_FindUsOnFacebook-1024.png" />
+    <Content Include="Content\Logos\FB_FindUsOnFacebook-114.png" />
+    <Content Include="Content\Logos\FB_FindUsOnFacebook-144.png" />
+    <Content Include="Content\Logos\FB_FindUsOnFacebook-320.png" />
+    <Content Include="Content\Logos\FB_FindUsOnFacebook-512.png" />
     <Content Include="Content\Logos\FOF-body.png" />
     <Content Include="Content\Logos\FOF.png" />
     <Content Include="Content\Logos\Romac.png" />

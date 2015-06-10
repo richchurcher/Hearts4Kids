@@ -1,1 +1,0 @@
-﻿Upgrade notice: the code that was previously here has moved to N2.Razor. Please update your references and remove any code left here.
