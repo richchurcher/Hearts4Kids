@@ -75,11 +75,72 @@ hr {
 body {
     font-size: 16px;
 }
+
 body>.container {
     /* compensate for fixed footer or copyright disappearas behind it 
-         needs enough for a vertical footer menu -- 3*34 + padding 20 */
-  padding-bottom: 122px;
+         needs enough for a vertical footer menu -- 3*36 + padding 10 */
+  padding-bottom: 118px;
 }
-#copyright>span {
+/* remove the excess padding for folded footer menu on larger screens */
+@media (min-width: 768px) {
+    body > .container {
+        padding-bottom: 46px;
+    }
+}
+#copyright>* {
+    float:left;
+    margin-left: 20px;
+}
+.btn {
+    font-size: 16px;
+}
+
+.nav  li.btn-warning
+{
+    border-radius: 4px;
+}
+.nav li.btn-warning > a {
+    color: #ffffff!important;
+}
+.panel-footer {
+    padding: 10px 15px 0;
+}
+
+#copyright>span:first-child {
     float:right;
+}
+#visit-us-fb {
+    margin-left: 0;
+}
+#visit-us-fb img{
+    height:32px;
+    margin-left: 0;
+}
+
+/* Social from G */
+#shareContainer { position: relative; left: 0;} 
+#shareContainer ul { padding-left: 0;} 
+#shareContainer ul li { margin-left: 4px; }
+#shareContainer li { display: inline-block; }
+#shareContainer li a { display: block; width: 32px; height: 32px; background-image: url('/Content/Logos/share-icons.png'); background-repeat: no-repeat; text-indent: -9999px; }
+#shareContainer li a.facebook   { background-position: left top; }
+#shareContainer li a.twitter    { background-position: -40px top; }
+#shareContainer li a.pinterest  { background-position: -80px top; }
+#shareContainer li a.googleplus { background-position: -120px top;}
+#shareContainer li a.instagram  { background-position: -160px top; }
+#shareContainer li a.youtube    { background-position: -200px top;}
+#shareContainer li a.linkedin   { background-position: -240px top; }
+#shareContainer li a.rss        { background-position: left -112px; }
+#shareContainer li a.facebook:hover   { background-position: left  -40px; }
+#shareContainer li a.twitter:hover    { background-position: -40px -40px; }
+#shareContainer li a.pinterest:hover  { background-position: -80px -40px; }
+#shareContainer li a.googleplus:hover { background-position: -120px  -40px; }
+#shareContainer li a.instagram:hover  { background-position: -160px  -40px; }
+#shareContainer li a.youtube:hover    { background-position: -200px -40px; }
+#shareContainer li a.linkedin:hover   { background-position: -240px -40px; }
+#shareContainer li a.rss:hover        { background-position: left -152px; }
+ 
+/* PM corrections adding FB link */
+div#copyright {
+    max-height: 32px;
 }

@@ -23,10 +23,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
-                    <li>@Html.ActionLink("Our Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("The Team", "Team", "Home")</li>
+@*
                     <li>@Html.ActionLink("Donor FAQs", "FAQ", "Home")</li>
-                    <li>@Html.ActionLink("Donate", "Donate", "Home")</li>
+*@
+                    <li class="btn-warning">@Html.ActionLink("Donate", "Donate", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,15 +45,27 @@
         <hr />
         <div class="row" id="copyright">
             <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
-        </div>
+            @*--G Start -- only facebook has an H4K link *@
+            <div id="shareContainer">
+                <ul>
+                     <li><a target="_blank" href="http://www.facebook.com/Hearts4KidsPasifika" class="facebook">&nbsp;</a></li>
+                     @* PM:  following have generic links to sharing sites   move this end comment to cut them out *@
+                     <li><a target="_blank" href="http://twitter.com/sharethis" class="twitter">&nbsp;</a></li>
+                     <li><a target="_blank" href="http://pinterest.com/sharethis/" class="pinterest">&nbsp;</a></li>
+                     <li><a target="_blank" href="http://youtube.com/sharethis" class="youtube">&nbsp;</a></li>
+                     <li><a target="_blank" href="https://plus.google.com/u/0/+sharethis/posts" class="googleplus">&nbsp;</a></li>
+                     <li><a target="_blank" href="http://instagram.com/sharethis" class="instagram">&nbsp;</a></li>
+                     <li><a target="_blank" href="http://www.linkedin.com/company/sharethis" class="linkedin">&nbsp;</a></li>
+                    <li></li>
+                </ul>
+            </div><!--G End-->
+@*  Alex's facebook icon (big and blue)
+    <div id="visit-us-fb"> <a  target="_blank" href="http://www.facebook.com/Hearts4KidsPasifika"><img alt="Facebook icon" src="@Url.Content("~/Content/Logos/facebook-icon.jpg")"></a></div>
+*@
+                </div>
     </div>
     <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
-            <div class="col-md-4">
-                <a href="#" class="btn btn-warning btn-block" role="button">
-                    Donate
-                </a>
-            </div>
             <div class="col-md-4">
                 <a href="#" class="btn btn-success btn-block" role="button">
                     Find out More
@@ -72,6 +86,11 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="btn btn-warning btn-block" role="button">
+                    Donate
+                </a>
             </div>
         </div>
     </footer>

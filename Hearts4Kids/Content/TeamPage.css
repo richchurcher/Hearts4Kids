@@ -1,0 +1,9 @@
+  .panel-primary > .panel-heading { color: #ffffff; background-color: #4e4a47; border-color: #4e4a47; }
+  .panel-primary { border-color: #4e4a47; }
+  .panel-info > .panel-heading { color: #ffffff; background-color: #85837f; border-color: #85837f; }
+  .panel-info { border-color: #85837f; }
+  .panel-success > .panel-heading { color: #000000; background-color: #aba9a4; border-color: #aba9a4; }
+  .panel-success { border-color: #aba9a4; }
+  .panel-default > .panel-heading { color: #000000; background-color: #d8d7d2; border-color: #d8d7d2; }
+  .panel-default { border-color: #d8d7d2; }
+  #team-link { color: #000000; text-decoration: none; }
