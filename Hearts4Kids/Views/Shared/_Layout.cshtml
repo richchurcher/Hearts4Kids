@@ -22,7 +22,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <!-- <li>@Html.ActionLink("Home", "Index", "Home")</li>  -->
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("The Team", "Team", "Home")</li>
@@ -38,7 +37,7 @@
     <div class="container body-content">
         <div class="row">
             <div class="col-md-6 text-center col-md-push-3">
-                <img id="masthead" class="img-responsive" alt="Hearts4Kids Logo" src="@Url.Content("~/Content/Logos/Full2.png")" />
+                <img id="masthead" class="img-responsive" alt="Hearts4Kids Logo" src="~/Content/Logos/Full2.png" />
             </div>
         </div>
         <hr />
@@ -46,11 +45,11 @@
         <hr />
         <div class="row" id="copyright">
             <span>&copy; @DateTime.Now.Year - Hearts4Kids</span>
-            @*--G Start -- only facebook has an H4K link *@
+            @*--G Start -- only facebook has an H4K link 
             <div id="shareContainer">
                 <ul>
                      <li><a target="_blank" href="http://www.facebook.com/Hearts4KidsPasifika" class="facebook">&nbsp;</a></li>
-                     @* PM:  following have generic links to sharing sites   move this end comment to cut them out *@
+                     // PM:  following have generic links to sharing sites   move this end comment to cut them out 
                      <li><a target="_blank" href="http://twitter.com/sharethis" class="twitter">&nbsp;</a></li>
                      <li><a target="_blank" href="http://pinterest.com/sharethis/" class="pinterest">&nbsp;</a></li>
                      <li><a target="_blank" href="http://youtube.com/sharethis" class="youtube">&nbsp;</a></li>
@@ -60,8 +59,9 @@
                     <li></li>
                 </ul>
             </div><!--G End-->
+        *@
 @*  Alex's facebook icon (big and blue)
-    <div id="visit-us-fb"> <a  target="_blank" href="http://www.facebook.com/Hearts4KidsPasifika"><img alt="Facebook icon" src="@Url.Content("~/Content/Logos/facebook-icon.jpg")"></a></div>
+    
 *@
                 </div>
     </div>
@@ -77,14 +77,16 @@
                     <div class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">
                         Subscribe to Our Newsletter <span class="caret"></span>
                     </div>
-                    <div class="dropdown-menu">
-                        <form role="form">
-                            <div class="form-group">
+                    <div id="subscribeMenu" class="dropdown-menu">
+                        @using (Html.BeginForm("Subscribe","Home"))
+                        {
+                            <div class="container-fluid col-md-12">
                                 <label for="name">Email</label>
-                                <input type="email" class="form-control" id="name" placeholder="Your Email">
-                                <span class="help-block">About twice a year we will send you updates on how your money is being spent and how the patients are going</span>
+                                <input type="email" class="form-control" id="subscriberMail" name="subscriberMail" placeholder="Your Email">
+                                <span class="help-block">About twice a year we will send you updates on how your money is being spent, and stories from the children and families.</span>
+                                <input class="btn btn-primary" type="submit" value="Subscribe" />
                             </div>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>

@@ -33,6 +33,16 @@ namespace Hearts4Kids.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Subscribe(string subscriberMail)
+        {
+            
+            if (!Services.SubscribeServices.AddEmail(subscriberMail))
+            {
+                //to do return error
+            }
+            return Content(string.Empty);
+        }
 
         public ActionResult FAQ()
         {

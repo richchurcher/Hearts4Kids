@@ -1,4 +1,5 @@
-﻿; (function ($) {
+﻿//identify all containers with .fadeThrough, and fade the children 1 at a time but each container out of phase
+; (function ($) {
     "use strict";
     var $fades = $(".fadeThrough"),
         fadesCount = $fades.length,
@@ -42,6 +43,31 @@
     window.setInterval(changeList, offsetInterval);
 })(jQuery);
 
+//manage width of photoBanner so it scrolls flawlessly
+(function ($) {
+    var $banner = $('.photobanner'),
+        image_url = $banner.css('background-image'),
+        image;
+
+    // Remove url() or in case of Chrome url("")
+    image_url = image_url.match(/^url\("?(.+?)"?\)$/);
+
+    if (image_url[1]) {
+        image_url = image_url[1];
+        image = new Image();
+
+        // just in case it is not already loaded
+        $(image).load(function () {
+            var width = image.width,
+                containerWidth = $banner.parent().width();
+            $banner.css('width', Math.floor(width/containerWidth)*width + 'px');
+        });
+
+        image.src = image_url;
+    }
+})(jQuery);
+
+//links for the bios page - truncate to a few words and smaller photo - show details in bootstrap dialog
 ; (function ($) {
     "use strict";
     var detailLink = $("<a>see more…</a>"),
@@ -89,4 +115,22 @@
         });
     });
 
+})(jQuery);
+
+(function ($) {
+    $("form", $("#subscribeMenu").on("click", function (e) {
+        if (e.target.type !== "submit") {
+            e.stopPropagation();
+        }
+    })).on("submit", function (e) {
+        var returnVar = {};
+        e.preventDefault();
+        $.each(e.target, function(indx, el){
+            if (el.type !== "submit" && el.value) {
+                returnVar[el.name || el.id] = el.value;
+            }
+        });
+        $.ajax({ url: e.target.action, method: 'post', data: returnVar });
+    });
+    
 })(jQuery);
