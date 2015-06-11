@@ -4,6 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
+using Hearts4Kids.Models;
 
 namespace Hearts4Kids.Services
 {
@@ -15,8 +18,81 @@ namespace Hearts4Kids.Services
             {
                 return false;
             }
+            if (!HttpContext.Current.User.Identity.IsAuthenticated) //otherwise we already have the email!
+            {
+                using (ApplicationUserManager userManager = Controllers.AccountController.GetApplicationUserManager())
+                {
+                    if (userManager.FindByEmail(email) == null)
+                    {
+                        try
+                        {
+                            using (var db = new Hearts4KidsEntities())
+                            {
+                                db.NewsletterSubscribers.Add(new NewsletterSubscriber { Email = email });
+                            }
+                        }
+                        catch (System.Data.SqlClient.SqlException)
+                        {
+
+                        }
+                    }
+                }
+
+            }
             //todo add to db
             return true;
+        }
+    }
+
+    public class MemberDetailService
+    {
+        public static BiosViewModel GetBioDetails(int userId)
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                return (from u in db.UserBios
+                        where u.Id == userId
+                        select new BiosViewModel
+                        {
+                            Name = u.FirstName + ' ' + u.Surname,
+                            Biography = u.Bio,
+                            BioPicUrl = u.BioPicUrl,
+                            CitationDescription = u.CitationDescription
+                        }).First();
+            }
+        }
+        public static void UpdateMemberDetails(RegisterDetailsViewModel model, int userId, ModelStateDictionary modelState)
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                var details = db.UserBios.Find(userId);
+                if (details!=null)
+                { 
+                    details = new UserBio();
+                    db.UserBios.Add(details);
+                    // user being created - make sure they haven't subscribed
+                    NewsletterSubscriber subDel = new NewsletterSubscriber { Email = model.Email };
+                    db.Entry(subDel).State = System.Data.Entity.EntityState.Deleted;
+                }
+                details.Id = userId;
+                details.FirstName = model.Firstname;
+                details.Surname = model.Surname;
+                details.CitationDescription = model.CitationDescription;
+                details.Profession = (int)model.Profession;
+                details.Team = (int)model.Team;
+                details.Trustee = model.Trustee;
+                db.SaveChanges();
+            }
+        }
+        public static void UpdateBios(string biopicUrl, string bio, int userId, ModelStateDictionary modelState)
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                var details = db.UserBios.Find(userId);
+                details.BioPicUrl = biopicUrl;
+                details.Bio = bio;
+                db.SaveChanges();
+            }
         }
     }
 

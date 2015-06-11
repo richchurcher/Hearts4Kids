@@ -30,7 +30,6 @@ namespace Hearts4Kids.Controllers
         [HttpPost]
         public ActionResult Subscribe(string subscriberMail)
         {
-            
             if (!Services.SubscribeServices.AddEmail(subscriberMail))
             {
                 //to do return error
@@ -51,6 +50,5 @@ namespace Hearts4Kids.Controllers
 
             return View();
         }
-
     }
 }

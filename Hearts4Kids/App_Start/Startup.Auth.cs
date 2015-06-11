@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Owin;
 using Hearts4Kids.Models;
+using System.Linq;
 
 namespace Hearts4Kids
 {
@@ -18,6 +18,7 @@ namespace Hearts4Kids
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -30,9 +31,10 @@ namespace Hearts4Kids
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser,int>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
+                        getUserIdCallback: claimsId=>int.Parse(claimsId.GetUserId()))
                 }
             });            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);

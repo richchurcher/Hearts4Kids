@@ -76,6 +76,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -167,9 +169,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RoleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BiosController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -179,15 +183,41 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HelpBlockFor.cs" />
+    <Compile Include="MembersModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MembersModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MembersModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MembersModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MembersModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MembersModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BioModels.cs" />
+    <Compile Include="Models\BiosViewModel.cs" />
     <Compile Include="Models\GalleryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="NewsletterSubscriber.cs">
+      <DependentUpon>MembersModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quote.cs">
+      <DependentUpon>MembersModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\PhotoServices.cs" />
     <Compile Include="Services\SubscribeServices.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UserBio.cs">
+      <DependentUpon>MembersModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2-set.js" />
@@ -306,13 +336,19 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Icon.png" />
+    <Content Include="MembersModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MembersModel.edmx</DependentUpon>
+      <LastGenOutput>MembersModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MembersModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MembersModel.edmx</DependentUpon>
+      <LastGenOutput>MembersModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ImageUploadMultiple.js" />
-    <None Include="Scripts\jquery-1.11.3.intellisense.js" />
-    <Content Include="Scripts\jquery-1.11.3.min.js" />
-    <Content Include="Scripts\jquery-1.11.3.min.map" />
-    <Content Include="Scripts\jquery-1.11.3.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -334,6 +370,17 @@
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js.map" />
     <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2-set.min.js.map" />
     <Content Include="Content\blueimp-gallery2\_install\_Layout.cshtml" />
+    <EntityDeploy Include="MembersModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MembersModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="MembersModel.edmx.diagram">
+      <DependentUpon>MembersModel.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
@@ -382,7 +429,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -396,7 +445,6 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -417,6 +465,9 @@
     <Content Include="Views\MvcUploaderTest\Demo.cshtml" />
     <Content Include="Views\Gallery\Index.cshtml" />
     <Content Include="Views\Gallery\MakeBanner.cshtml" />
+    <Content Include="Views\Bios\CreateEditBio.cshtml" />
+    <Content Include="Views\Account\CreateUsers.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -430,6 +481,9 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

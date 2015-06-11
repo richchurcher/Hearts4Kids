@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Hearts4Kids.Domain
+namespace Hearts4Kids
 {
-    public enum AccessPrivileges
+    public static class Domain
     {
-        Administrator
-    }
-    public enum ProfessionalRoles
-    {
-        Medical,
-        Nursing,
-        Perfusionist,
-        Anasthetist,
-        AnaestheticTech,
-        LogisticSupport,
-        GroundSupport
+        public const string Admin = "Admin";
+        public enum Teams
+        {
+            Theatres,
+            ICU,
+            Wards,
+            AllAreas,
+            NewZealand
+        }
+        public enum Professions
+        {
+            Perfusionist,
+            Consultant,
+            Registrar,
+            AnaestheticTechnician,
+            NurseSpecialist,
+            Nurse,
+            NonMedical
+        }
     }
 }

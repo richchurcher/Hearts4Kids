@@ -78,13 +78,16 @@
                         Subscribe to Our Newsletter <span class="caret"></span>
                     </div>
                     <div id="subscribeMenu" class="dropdown-menu">
-                        @using (Html.BeginForm("Subscribe","Home"))
+                        @using (Html.BeginForm("Subscribe","Home", FormMethod.Post))
                         {
                             <div class="container-fluid col-md-12">
-                                <label for="name">Email</label>
-                                <input type="email" class="form-control" id="subscriberMail" name="subscriberMail" placeholder="Your Email">
-                                <span class="help-block">About twice a year we will send you updates on how your money is being spent, and stories from the children and families.</span>
+                                <div class="form-group">
+                                    <label for="name">Email</label>
+                                    <input type="email" class="form-control" id="subscriberMail" name="subscriberMail" placeholder="Your Email">
+                                    <span class="help-block">About twice a year we will send you updates on how your money is being spent, and stories from the children and families.</span>
+                                </div>
                                 <input class="btn btn-primary" type="submit" value="Subscribe" />
+                                
                             </div>
                         }
                     </div>

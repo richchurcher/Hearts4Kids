@@ -40,13 +40,14 @@
             $parent.css('height', maxHeight);
         }
     });
-    window.setInterval(changeList, offsetInterval);
+    if (fadesCount) { window.setInterval(changeList, offsetInterval); }
 })(jQuery);
 
 //manage width of photoBanner so it scrolls flawlessly
 (function ($) {
-    var $banner = $('.photobanner'),
-        image_url = $banner.css('background-image'),
+    var $banner = $('.photobanner');
+    if (!$banner.length) { return; }
+    var image_url = $banner.css('background-image'),
         image;
 
     // Remove url() or in case of Chrome url("")
