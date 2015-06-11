@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model=>model.UserId)
     <div class="form-horizontal">
         <h4>Biography</h4>
         <hr />
@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" } })
             </div>
         </div>
 
@@ -56,3 +56,10 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js");
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
+}

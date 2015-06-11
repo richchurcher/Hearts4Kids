@@ -4,6 +4,7 @@ namespace Hearts4Kids.Models
 {
     public class BiosViewModel
     {
+        public int UserId { get; set; }
         public string Name { get; set; }
         [StringLength(128)]
         public string CitationDescription { get; set; }

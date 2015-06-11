@@ -216,11 +216,15 @@ namespace Hearts4Kids.Controllers
         // GET: /Account/Register
         public ActionResult Register()
         {
-            var user = UserManager.FindByName(User.Identity.Name); 
+            var usr = UserManager.FindByName(User.Identity.Name); 
+            if (!string.IsNullOrEmpty(usr.PasswordHash))
+            {
+                return RedirectToAction("UpdateDetails", "Bios");
+            }
             var model = new RegisterDetailsViewModel
             {
-                Email = user.Email,
-                UserName = user.UserName
+                Email = usr.Email,
+                UserName = usr.UserName
             };
             return View(model);
         }

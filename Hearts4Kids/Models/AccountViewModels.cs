@@ -78,8 +78,12 @@ namespace Hearts4Kids.Models
         public string Email { get; set; }
     }
 
-    public class RegisterDetailsViewModel : CreateUserViewModel
+
+
+    public class BioDetailsViewModel : CreateUserViewModel
     {
+        public int UserId { get; set; }
+
         [Required, StringLength(128)]
         [Display(Name = "User Name")]
         public string UserName { get; set; }
@@ -101,7 +105,7 @@ namespace Hearts4Kids.Models
         public Domain.Teams Team { get; set; }
 
         [Required]
-        [Display(Name = "Trustee", Description ="Check if you are you a nominated trustee for Hearts4Kids")]
+        [Display(Name = "Trustee", Description = "Check if you are you a nominated trustee for Hearts4Kids")]
         public bool Trustee { get; set; }
 
         [Display(Name = "Citation Description", Description = "If we quote you, how would you like to be referred to")]
@@ -109,8 +113,12 @@ namespace Hearts4Kids.Models
         public string CitationDescription { get; set; }
 
         [StringLength(128)]
-        [Display(Name = "Phone Number", Description ="Not required, but will help your colleages contact you to discuss planning")]
+        [Display(Name = "Phone Number", Description = "Not required, but will help your colleages contact you to discuss planning")]
         public string PhoneNumber { get; set; }
+    }
+
+    public class RegisterDetailsViewModel : BioDetailsViewModel
+    { 
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

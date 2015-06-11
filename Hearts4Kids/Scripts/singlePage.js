@@ -60,8 +60,9 @@
         // just in case it is not already loaded
         $(image).load(function () {
             var width = image.width,
-                containerWidth = $banner.parent().width();
-            $banner.css('width', Math.floor(width/containerWidth)*width + 'px');
+                containerWidth = $banner.parent().width(),
+                nonRepeatWidth = width - 933;//1600 *7/12 - adjust if changed in photoServices const
+            $banner.css('width', nonRepeatWidth+containerWidth + 'px'); 
         });
 
         image.src = image_url;

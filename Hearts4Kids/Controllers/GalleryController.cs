@@ -7,9 +7,11 @@ using System.Web.Mvc;
 
 namespace Hearts4Kids.Controllers
 {
+    [Authorize]
     public class GalleryController : Controller
     {
         // GET: Gallery
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(PhotoServices.GetImages());

@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" } })
             </div>
         </div>
 
@@ -56,9 +56,11 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Trustee, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 form-group-sm">
+            <div class="col-md-10 form-group">
+                <div class="checkbox">
                     @Html.EditorFor(model => model.Trustee, new { htmlAttributes = new { @class = "form-control checkbox" } })
                     @Html.ValidationMessageFor(model => model.Trustee, "", new { @class = "text-danger" })
+                </div>
             </div>
             @Html.HelpBlockFor(model => model.Trustee)
         </div>
@@ -67,7 +69,7 @@
             @Html.LabelFor(model => model.Team, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EnumDropDownListFor(model => model.Team,"please select..." ,new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EnumDropDownListFor(model => model.Team,"please select..." ,new { @class = "form-control" } )
                     @Html.ValidationMessageFor(model => model.Team, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -78,7 +80,7 @@
             @Html.LabelFor(model => model.Profession, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EnumDropDownListFor(model => model.Profession, "please select...", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EnumDropDownListFor(model => model.Profession, "please select...", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Profession, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,6 +6,7 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using Hearts4Kids.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace Hearts4Kids.Services
 {
@@ -29,6 +29,7 @@ namespace Hearts4Kids.Services
                             using (var db = new Hearts4KidsEntities())
                             {
                                 db.NewsletterSubscribers.Add(new NewsletterSubscriber { Email = email });
+                                db.SaveChanges();
                             }
                         }
                         catch (System.Data.SqlClient.SqlException)
@@ -54,25 +55,51 @@ namespace Hearts4Kids.Services
                         where u.Id == userId
                         select new BiosViewModel
                         {
-                            Name = u.FirstName + ' ' + u.Surname,
+                            Name = u.FirstName + " " + u.Surname,
                             Biography = u.Bio,
                             BioPicUrl = u.BioPicUrl,
                             CitationDescription = u.CitationDescription
                         }).First();
             }
         }
-        public static void UpdateMemberDetails(RegisterDetailsViewModel model, int userId, ModelStateDictionary modelState)
+        public static BioDetailsViewModel GetMemberDetails(int userId)
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                return (from b in db.UserBios
+                        where b.Id == userId
+                        select new RegisterDetailsViewModel
+                        {
+                            Firstname = b.FirstName,
+                            Surname = b.Surname,
+                            CitationDescription = b.CitationDescription,
+                            Profession = (Domain.Professions)b.Profession,
+                            Team = (Domain.Teams)b.Team,
+                            Trustee = b.Trustee,
+                        }).FirstOrDefault();
+            }
+        }
+        public static void UpdateMemberDetails(BioDetailsViewModel model, int userId, ModelStateDictionary modelState)
         {
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(userId);
-                if (details!=null)
-                { 
-                    details = new UserBio();
-                    db.UserBios.Add(details);
+                if (details==null)
+                {
                     // user being created - make sure they haven't subscribed
+                    /* Not sure why this isn't working, but the final savechanges (outside this block) 
+                    Creates DbUpdateConcurrencyException
                     NewsletterSubscriber subDel = new NewsletterSubscriber { Email = model.Email };
                     db.Entry(subDel).State = System.Data.Entity.EntityState.Deleted;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException) { }
+                    */
+                    db.Database.ExecuteSqlCommand("DELETE FROM [dbo].[NewsletterSubscribers] WHERE Email=@p0",model.Email);
+                    details = new UserBio();
+                    db.UserBios.Add(details);
                 }
                 details.Id = userId;
                 details.FirstName = model.Firstname;
@@ -84,13 +111,13 @@ namespace Hearts4Kids.Services
                 db.SaveChanges();
             }
         }
-        public static void UpdateBios(string biopicUrl, string bio, int userId, ModelStateDictionary modelState)
+        public static void UpdateBios(BiosViewModel model, int userId, ModelStateDictionary modelState)
         {
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(userId);
-                details.BioPicUrl = biopicUrl;
-                details.Bio = bio;
+                details.BioPicUrl = model.BioPicUrl;
+                details.Bio = model.Biography;
                 db.SaveChanges();
             }
         }
