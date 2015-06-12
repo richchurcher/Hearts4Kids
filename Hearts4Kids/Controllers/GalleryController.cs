@@ -18,12 +18,12 @@ namespace Hearts4Kids.Controllers
         {
             return View(PhotoServices.GetImages());
         }
-        //[Authorize]
+        [Authorize(Roles =Domain.Admin)]
         public ActionResult MakeBanner()
         {
             return View(PhotoServices.GetImages());
         }
-        /*[Authorize, */ [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles =Domain.Admin), HttpPost, ValidateAntiForgeryToken]
         public ActionResult MakeBanner(string[] forBanner)
         {
             PhotoServices.makeBanner(forBanner);
@@ -33,7 +33,7 @@ namespace Hearts4Kids.Controllers
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
         {
             // here we can send in some extra info to be included with the delete url 
@@ -80,7 +80,7 @@ namespace Hearts4Kids.Controllers
 
 
         //here i am receving the extra info injected
-        [HttpPost] // should accept only post
+        [HttpPost, ValidateAntiForgeryToken] // should accept only post
         public ActionResult DeleteFile(int? entityId, string fileUrl)
         {
             PhotoServices.DeleteImages(fileUrl);

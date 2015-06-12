@@ -40,6 +40,7 @@ namespace Hearts4Kids.Controllers
             }
             if (ModelState.IsValid)
             {
+                bool isAdmin = await IsAdminAsync();
                 if (bioImg != null)
                 {
                     model.BioPicUrl = PhotoServices.processBioImage(bioImg);
@@ -98,15 +99,6 @@ namespace Hearts4Kids.Controllers
         {
             var model = await MemberDetailService.GetBiosForDisplay(isMainPage: false);
             return View(model);
-        }
-        bool? _isAdmin;
-        bool IsAdmin
-        {
-            get
-            {
-                return _isAdmin.HasValue?_isAdmin.Value
-                    :(_isAdmin = UserManager.IsInRole(CurrentUser.Id, Domain.Admin)).Value;
-            }
         }
         bool IsAuthorised(int id)
         {

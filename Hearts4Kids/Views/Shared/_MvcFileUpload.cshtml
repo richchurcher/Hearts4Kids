@@ -25,6 +25,7 @@
                 }
                 
                 <form role="form" class="form-inline" id="@formId" action="@Model.UploadUrl" method="POST" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
                     <div class="fileupload-buttonbar">
                         <div class="btn-group">
                             <!-- The fileinput-button span is used to style the file input field as button -->
@@ -85,6 +86,7 @@
 else //inline
 {
     <form id="@formId" action="@Model.UploadUrl" method="POST" enctype="multipart/form-data">        
+        @Html.AntiForgeryToken()
         <div class="row fileupload-buttonbar">                    
             <div class="col-lg-7">
                 <!-- The fileinput-button span is used to style the file input field as button -->

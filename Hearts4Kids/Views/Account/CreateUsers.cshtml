@@ -27,11 +27,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IsAdministrator, htmlAttributes: new { @class = "control-label col-md-2" })
             
-            <div class="col-md-10 form-group">
-                @Html.EditorFor(model => model.IsAdministrator,  new { @class = "form-control checkbox" })
-                @Html.ValidationMessageFor(model => model.IsAdministrator, "", new { @class = "text-danger" })
-            </div>
-                <p class='help-block col-md-10 col-md-push-2'>@Html.DescriptionFor(model => model.IsAdministrator)</p>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsAdministrator)
+                    @Html.ValidationMessageFor(model => model.IsAdministrator, "", new { @class = "text-danger" })
+                </div>
+
+                </div>
+            <p class='help-block col-md-10'>@Html.DescriptionFor(model => model.IsAdministrator)</p>
             
         </div>
 

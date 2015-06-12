@@ -13,6 +13,7 @@ namespace Hearts4Kids.Controllers
         private ApplicationRoleManager _roleManager;
         private ApplicationUser _currentUser;
         private ApplicationSignInManager _signInManager;
+        bool? _isAdmin;
 
         public BaseUserController()
         {
@@ -85,7 +86,25 @@ namespace Hearts4Kids.Controllers
                 return _currentUser;
             }
         }
-        
+        protected async Task<bool> IsAdminAsync()
+        {
+            if (_currentUser == null)
+            {
+                string name = User.Identity.Name;
+                _currentUser = await UserManager.FindByNameAsync(name);
+            }
+            _isAdmin = await UserManager.IsInRoleAsync(_currentUser.Id, Domain.Admin);
+            return _isAdmin.Value;
+        }
+        protected bool IsAdmin
+        {
+            get
+            {
+                return _isAdmin.HasValue ? _isAdmin.Value
+                    : (_isAdmin = UserManager.IsInRole(CurrentUser.Id, Domain.Admin)).Value;
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

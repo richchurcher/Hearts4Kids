@@ -26,15 +26,15 @@ namespace Hearts4Kids.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-            var userIdString = User.Identity.GetUserId();
-            var userId = int.Parse(userIdString);
+            ViewBag.IsAdmin = await IsAdminAsync();
+            var userId = CurrentUser.Id;
             var model = new IndexViewModel
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                HasPassword = CurrentUser.PasswordHash != null,
+                PhoneNumber = CurrentUser.PhoneNumber,
+                TwoFactor = CurrentUser.TwoFactorEnabled,
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userIdString)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString())
             };
             return View(model);
         }
