@@ -43,19 +43,17 @@ html {
   background-color: #FFFFFF;
 }
 
-.fof{
-    background:linear-gradient(#C51515, #FA0506)
-}
-
 /*G over-ride bootstrap menu colour */
 .navbar-inverse { 
 	background-color: #000000;/* #4e4a47; */
 	border-color: #4e4a47; 
 } /*G top-menu colour */
 
+/*
 .navbar-collapse .navbar-nav.navbar-right:last-child { 
-	margin-right: -100px; 
+	margin-right: -50px; 
 }
+*/
 /* G login setting - bootstrap has -15 here - there is some problem with a left and right menu sharing the same space */
 .navbar-inverse .navbar-nav > li > a { 
 	color: #aba9a4; 
@@ -76,20 +74,23 @@ body {
     font-size: 16px;
 }
 
-body>.container {
+body > .container {
     /* compensate for fixed footer or copyright disappearas behind it 
          needs enough for a vertical footer menu -- 3*36 + padding 10 */
-  padding-bottom: 118px;
+  padding-bottom: 125px;
 }
 /* remove the excess padding for folded footer menu on larger screens */
 @media (min-width: 768px) {
     body > .container {
-        padding-bottom: 46px;
+        padding-bottom: 85px;
     }
 }
-#copyright>* {
-    float:left;
-    margin-left: 20px;
+#copyright > span {
+    float: right;
+}
+#copyright ul {
+    list-style: outside none none;
+    padding: 0;
 }
 .btn {
     font-size: 16px;
@@ -117,40 +118,47 @@ body>.container {
     margin-left: 0;
 }
 
-/* Social from G */
-#shareContainer { position: relative; left: 0;} 
-#shareContainer ul { padding-left: 0;} 
-#shareContainer ul li { margin-left: 4px; }
-#shareContainer li { display: inline-block; }
-#shareContainer li a { display: block; width: 32px; height: 32px; background-image: url('/Content/Logos/share-icons.png'); background-repeat: no-repeat; text-indent: -9999px; }
-#shareContainer li a.facebook   { background-position: left top; }
-#shareContainer li a.twitter    { background-position: -40px top; }
-#shareContainer li a.pinterest  { background-position: -80px top; }
-#shareContainer li a.googleplus { background-position: -120px top;}
-#shareContainer li a.instagram  { background-position: -160px top; }
-#shareContainer li a.youtube    { background-position: -200px top;}
-#shareContainer li a.linkedin   { background-position: -240px top; }
-#shareContainer li a.rss        { background-position: left -112px; }
-#shareContainer li a.facebook:hover   { background-position: left  -40px; }
-#shareContainer li a.twitter:hover    { background-position: -40px -40px; }
-#shareContainer li a.pinterest:hover  { background-position: -80px -40px; }
-#shareContainer li a.googleplus:hover { background-position: -120px  -40px; }
-#shareContainer li a.instagram:hover  { background-position: -160px  -40px; }
-#shareContainer li a.youtube:hover    { background-position: -200px -40px; }
-#shareContainer li a.linkedin:hover   { background-position: -240px -40px; }
-#shareContainer li a.rss:hover        { background-position: left -152px; }
+  /* Menu-top */
+  #current { text-decoration: none; background: transparent url('/Content/Logos/menu-hover.png') repeat-y left top; color: #fff; }
+
+  /* Facebook */
+  .fb-like { float: right; bottom: 0; right: 0; }
+
+   .menu-donate { border-radius: 4px; }
+
+  /* Social */
+  #copyright ul { list-style: none; padding: 0; }  /*margin: 10px 0; display: inline; border: 0; vertical-align: baseline; list-style-position: inside;*/
+  #shareContainer { top: 30px; position: relative ; right: 0; }  /* position: absolute */
+  #shareContainer ul li { margin-left: 4px; vertical-align:middle }
+  #shareContainer ul li small { color: cadetblue }
+  #shareContainer li { display: inline-block; }
+  #shareContainer li a { display: block; width: 32px; height: 32px; background-image: url('/Content/Logos/share-icons.png'); background-repeat: no-repeat; text-indent: -9999px; }
+  #shareContainer li a.facebook { background-position: left top; }
+  #shareContainer li a.twitter { background-position: -40px top; }
+  #shareContainer li a.pinterest { background-position: -80px top; }
+  #shareContainer li a.googleplus { background-position: -120px top;}
+  #shareContainer li a.instagram { background-position: -160px top; }
+  #shareContainer li a.youtube { background-position: -200px top;}
+  #shareContainer li a.linkedin { background-position: -240px top; }
+  #shareContainer li a.rss { background-position: left -112px; }
+  #shareContainer li a.facebook:hover { background-position: left  -40px; }
+  #shareContainer li a.twitter:hover { background-position: -40px -40px; }
+  #shareContainer li a.pinterest:hover { background-position: -80px -40px; }
+  #shareContainer li a.googleplus:hover { background-position: -120px  -40px; }
+  #shareContainer li a.instagram:hover { background-position: -160px  -40px; }
+  #shareContainer li a.youtube:hover { background-position: -200px -40px; }
+  #shareContainer li a.linkedin:hover { background-position: -240px -40px; }
+  #shareContainer li a.rss:hover { background-position: left -152px; }
+  /* G Test End */
  
 /* PM corrections adding FB link */
 div#copyright {
     max-height: 32px;
 }
 
-#facebookLink{
-    padding-top:10px;
-    padding-bottom:0;
-}
-
 #logoutForm{
     padding-top :15px;
     padding-right:15px;
 }
+
+  .form-group { margin-bottom: 0; padding: 10px; } /*G-- Subscribe --*/

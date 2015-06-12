@@ -21,10 +21,10 @@
     top: 0;
 
     /* Keyframes */
-    animation:    620s linear 0s normal none infinite running moveSlideshow;
-    -moz-animation:    620s linear 0s normal none infinite running moveSlideshow;
-    -webkit-animation:    620s linear 0s normal none infinite running moveSlideshow;
-    -o-animation:    620s linear 0s normal none infinite running moveSlideshow;
+    animation:    180s linear 0s normal none infinite running moveSlideshow;
+    -moz-animation:    180s linear 0s normal none infinite running moveSlideshow;
+    -webkit-animation:    180s linear 0s normal none infinite running moveSlideshow;
+    -o-animation:    180s linear 0s normal none infinite running moveSlideshow;
     /* -ms-animation:    slideshow 10s linear infinite; - doesn't seem to exist*/
     /* Hey browser, use your GPU */
     transform:translate3d(0, 0, 0);
@@ -101,3 +101,25 @@ hr {
   line-height: 1.5em;
   margin-bottom: 20px;
 }
+
+  /* Partnership */
+  /* .fof { background: linear-gradient(#C51515, #FA0506); } changed to having background & rounded corners */
+  .fof > a > img { width: 50%; height: 50%; }
+
+    /* G Test Start */
+  /* Mission */
+  h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; }
+  h3 > span { font-weight: bold; }
+  .parabox { border-right: 5px solid #eeeeee; padding: 0; }
+  .parabox a:hover, .parabox a:active { color: #2a6496; text-decoration: none; text-shadow: 0px 0px 6px rgba(255,255,255,0.7); }
+  .vreport { float: right; width: 170px; font: 28px/1em 'Changa One', cursive; color: #4e4a47; text-transform: uppercase; margin-left: 50px; letter-spacing: 1px; font-weight: bold; color: #4e4a47; text-decoration: none; }
+  .vreport span { font-size: 50px; line-height: 40px; color: #f0ad4e; font-weight: bold; }
+  .report { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.428571429; color: #333333; border-left: 0; text-transform: lowercase; letter-spacing: 1px; }
+  .parabox-right { background: #aba9a4 url("Home Page - Hearts4Kids_files/parabox-right.png") no-repeat; background-size: 80%; background-position: right; color: #FFFFFF; border-radius: 20px; padding: 15px; }
+  .parabox-right > img { height: 98%; float: right; }
+  .learnmore-btn { color: #ffffff; background-color: #4e4a47; border-color: #eea236; padding: 8px; border-radius: 4px; margin-left: 150px; }
+  div.bg-image { height: 250px; width: 80%; }
+
+  #mission {
+      margin-bottom:3px;
+  }

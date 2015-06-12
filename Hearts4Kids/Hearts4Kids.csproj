@@ -130,9 +130,7 @@
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
-
       <Private>True</Private>
-
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -202,7 +200,7 @@
       <DependentUpon>MembersModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BioModels.cs" />
+    <Compile Include="Models\BiosViewModel.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\GalleryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -269,6 +267,7 @@
     <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
     <Content Include="Content\LandingPage.css" />
     <Content Include="Content\Logos\8515783.jpg" />
+    <Content Include="Content\Logos\favicon.ico" />
     <Content Include="Content\Logos\FB_FindUsOnFacebook-100.png" />
     <Content Include="Content\Logos\FB_FindUsOnFacebook-1024.png" />
     <Content Include="Content\Logos\FB_FindUsOnFacebook-114.png" />
@@ -276,7 +275,9 @@
     <Content Include="Content\Logos\FB_FindUsOnFacebook-320.png" />
     <Content Include="Content\Logos\FB_FindUsOnFacebook-512.png" />
     <Content Include="Content\Logos\FOF-body.png" />
+    <Content Include="Content\Logos\FOF-large-tranparent.png" />
     <Content Include="Content\Logos\FOF.png" />
+    <Content Include="Content\Logos\menu-hover.png" />
     <Content Include="Content\Logos\Romac.png" />
     <Content Include="Content\mvcfileupload\blueimp\jquery.fileupload-noscript.css" />
     <Content Include="Content\mvcfileupload\blueimp\jquery.fileupload-ui-noscript.css" />
@@ -300,7 +301,7 @@
     <Content Include="Content\Logos\Full-no sub2.png" />
     <Content Include="Content\Logos\Full2.png" />
     <Content Include="Content\Logos\Heart2.png" />
-		<Content Include="Content\TeamPage.css" />
+    <Content Include="Content\TeamPage.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -637,7 +638,6 @@
     <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-video.js" />
     <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\jQuery.FileUpload\jquery.iframe-transport.js" />
-
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -664,7 +664,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Shared\_MvcFileUploaderLayout.cshtml" />
     <Content Include="Views\Shared\_MvcFileUploaderLayout_jui.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

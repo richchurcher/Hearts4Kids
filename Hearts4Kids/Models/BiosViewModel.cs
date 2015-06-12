@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 
 namespace Hearts4Kids.Models
-{
+{ 
     public class BiosViewModel
     {
         public int UserId { get; set; }
@@ -21,4 +21,12 @@ namespace Hearts4Kids.Models
         [Display(Name="Bio Picture",Description ="Picture to accompany your biography")]
         public string BioPicUrl { get; set; }
     }
+    public class AdminBiosViewModel :BiosViewModel
+    {
+        [Display(Name="Team Leader Page")]
+        public bool MainTeamPage { get; set; }
+        public bool Approved { get; set; }
+    }
+
+
 }
