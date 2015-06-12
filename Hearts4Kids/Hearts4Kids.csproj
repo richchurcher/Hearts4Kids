@@ -200,7 +200,6 @@
       <DependentUpon>MembersModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BioModels.cs" />
     <Compile Include="Models\BiosViewModel.cs" />
     <Compile Include="Models\GalleryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
