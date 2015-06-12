@@ -48,6 +48,21 @@ namespace Hearts4Kids.Services
 
     public class MemberDetailService
     {
+        public static IEnumerable<BioSumaryModel> GetBioSumarries()
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                return (from u in db.UserBios
+                        select new BioSumaryModel
+                        {
+                            Name = u.FirstName + " " + u.Surname,
+                            CitationDescription = u.CitationDescription,
+                            UserId = u.Id,
+                            MainTeamPage = u.MainTeamPage,
+                            Approved = u.Approved
+                        }).ToList();
+            }
+        }
         public static BiosViewModel GetBioDetails(int userId)
         {
             using (var db = new Hearts4KidsEntities())
@@ -80,11 +95,11 @@ namespace Hearts4Kids.Services
                         }).FirstOrDefault();
             }
         }
-        public static void UpdateMemberDetails(BioDetailsViewModel model, int userId, ModelStateDictionary modelState)
+        public static void UpdateMemberDetails(BioDetailsViewModel model, ModelStateDictionary modelState)
         {
             using (var db = new Hearts4KidsEntities())
             {
-                var details = db.UserBios.Find(userId);
+                var details = db.UserBios.Find(model.UserId);
                 if (details==null)
                 {
                     // user being created - make sure they haven't subscribed
@@ -102,7 +117,7 @@ namespace Hearts4Kids.Services
                     details = new UserBio();
                     db.UserBios.Add(details);
                 }
-                details.Id = userId;
+                details.Id = model.UserId;
                 details.FirstName = model.Firstname;
                 details.Surname = model.Surname;
                 details.CitationDescription = model.CitationDescription;
@@ -119,13 +134,13 @@ namespace Hearts4Kids.Services
             var request = HttpContext.Current.Request;
             return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
         }
-        public static void UpdateBios(BiosViewModel model, int userId, ModelStateDictionary modelState)
+        public static void UpdateBios(BiosViewModel model, ModelStateDictionary modelState)
         {
             var san = new Ganss.XSS.HtmlSanitizer();
             model.Biography = san.Sanitize(model.Biography, GetBaseUrl()); //heavy op - do this before opening db connection
             using (var db = new Hearts4KidsEntities())
             {
-                var details = db.UserBios.Find(userId);
+                var details = db.UserBios.Find(model.UserId);
                 details.BioPicUrl = model.BioPicUrl;
                 details.Bio = model.Biography;
                 db.SaveChanges();

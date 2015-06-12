@@ -181,6 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\BiosController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,7 +208,7 @@
       <DependentUpon>MembersModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BiosViewModel.cs" />
+    <Compile Include="Models\BiosViewModels.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\GalleryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -718,6 +719,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Bios\UpdateDetails.cshtml" />
     <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\Bios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -725,6 +727,7 @@
     <Folder Include="Content\Photos\Slides\pv\" />
     <Folder Include="Content\Photos\Slides\th\" />
     <Folder Include="Domain\Tables\" />
+    <Folder Include="Views\BaseUser\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

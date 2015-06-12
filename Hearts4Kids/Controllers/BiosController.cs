@@ -10,41 +10,49 @@ using Hearts4Kids.Models;
 namespace Hearts4Kids.Controllers
 {
     [Authorize]
-    public class BiosController : Controller
+    public class BiosController : BaseUserController
     {
+        [Authorize(Roles=Domain.Admin)]
+        public ActionResult Index()
+        {
+            return View(MemberDetailService.GetBioSumarries());
+        }
         // GET: Bios
         public ActionResult CreateEditBio(int id=0)
         {
-            if (id == 0) { id = User.Identity.GetUserId<int>(); }
-            else if (!IsAuthorised())
+            if (id == 0) { id = CurrentUser.Id; }
+            else if (!IsAuthorised(CurrentUser.Id))
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            
-            return View(MemberDetailService.GetBioDetails(id));
+            var model = MemberDetailService.GetBioDetails(id);
+            model.IsAdmin = IsAdmin;
+            return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateEditBio(BiosViewModel model)
+        public ActionResult CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model)
         {
-            if (!IsAuthorised())
+            if (!IsAuthorised(model.UserId))
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                 return RedirectToAction("Error");
             }
             if (ModelState.IsValid)
             {
-                MemberDetailService.UpdateBios(model, User.Identity.GetUserId<int>(), ModelState);
+                model.Approved = model.Approved && IsAdmin;
+                MemberDetailService.UpdateBios(model, ModelState);
                 if (ModelState.IsValid)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
             }
+            model.IsAdmin = IsAdmin;
             return View(model);
         }
         public ActionResult UpdateDetails(int id=0)
         {
-            var usr = GetUser(id);
+            var usr = UserManager.FindById(id);
             if (string.IsNullOrEmpty(usr.PasswordHash))
             {
                 RedirectToAction("Register","Account");
@@ -62,14 +70,14 @@ namespace Hearts4Kids.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult UpdateDetails(BioDetailsViewModel model)
         {
-            if (!IsAuthorised())
+            if (!IsAuthorised(model.UserId))
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                 return RedirectToAction("Error");
             }
             if (ModelState.IsValid)
             {
-                MemberDetailService.UpdateMemberDetails(model, User.Identity.GetUserId<int>(), ModelState);
+                MemberDetailService.UpdateMemberDetails(model, ModelState);
                 //to do allow phone number update
                 if (ModelState.IsValid)
                 {
@@ -79,26 +87,18 @@ namespace Hearts4Kids.Controllers
             }
             return View(model);
         }
-        bool IsAuthorised(int id = 0)
+        bool? _isAdmin;
+        bool IsAdmin
         {
-            return id == 0 || id == User.Identity.GetUserId<int>() || User.IsInRole(Domain.Admin);
-        }
-        ApplicationUser GetUser(int id=0)
-        {
-            using (var um = AccountController.GetApplicationUserManager())
+            get
             {
-                ApplicationUser usr;
-                if (id == 0)
-                {
-                    usr = um.FindByName(User.Identity.Name);
-                }
-                else
-                {
-                    usr = um.FindById(id);
-                }
-                
-                return usr;
+                return _isAdmin.HasValue?_isAdmin.Value
+                    :(_isAdmin = UserManager.IsInRole(CurrentUser.Id, Domain.Admin)).Value;
             }
+        }
+        bool IsAuthorised(int id)
+        {
+            return id == CurrentUser.Id || IsAdmin;
         }
     }
 }

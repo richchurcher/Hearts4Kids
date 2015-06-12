@@ -11,27 +11,26 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model=>model.UserId)
     <div class="form-horizontal">
-        <h4>BioDetailsViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" } })
+                @Html.EditorFor(model => model.Email,  new { @class = "form-control disabled", @readonly = "readonly" } )
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" } })
+                @Html.EditorFor(model => model.UserName,  new { @class = "form-control disabled", @readonly = "readonly" } )
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Firstname,  new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -39,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Surname,  new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +47,7 @@
             @Html.LabelFor(model => model.Trustee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 form-group">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Trustee, new { htmlAttributes = new { @class = "form-control checkbox" } })
+                    @Html.EditorFor(model => model.Trustee, new { @class = "form-control checkbox" } )
                     @Html.ValidationMessageFor(model => model.Trustee, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -80,7 +79,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CitationDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CitationDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CitationDescription,  new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.CitationDescription, "", new { @class = "text-danger" })
             </div>
             @Html.HelpBlockFor(model=>model.CitationDescription)
@@ -89,7 +88,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.PhoneNumber,  new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>

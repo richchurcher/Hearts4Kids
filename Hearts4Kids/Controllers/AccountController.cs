@@ -7,27 +7,23 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Hearts4Kids.Services;
 
 namespace Hearts4Kids.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseUserController
     {
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        //private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager /* ,ApplicationRoleManager roleManager */ )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,ApplicationRoleManager roleManager )
+                :base(userManager, roleManager)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
-            //RoleManager = roleManager;
+            SignInManager = signInManager;   
         }
         public ApplicationSignInManager SignInManager
         {
@@ -40,38 +36,6 @@ namespace Hearts4Kids.Controllers
                 _signInManager = value; 
             }
         }
-        internal static ApplicationUserManager GetApplicationUserManager()
-        {
-            return System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
-        }
-        internal static ApplicationRoleManager GetApplicationRoleManager()
-        {
-            return System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-        }
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? GetApplicationUserManager();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-        /*
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? GetApplicationRoleManager();
-            }
-            private set
-            {
-                _roleManager = value;
-            }
-        }
-        */
 
         //
         // GET: /Account/Login
@@ -216,15 +180,14 @@ namespace Hearts4Kids.Controllers
         // GET: /Account/Register
         public ActionResult Register()
         {
-            var usr = UserManager.FindByName(User.Identity.Name); 
-            if (!string.IsNullOrEmpty(usr.PasswordHash))
+            if (!string.IsNullOrEmpty(CurrentUser.PasswordHash))
             {
                 return RedirectToAction("UpdateDetails", "Bios");
             }
             var model = new RegisterDetailsViewModel
             {
-                Email = usr.Email,
-                UserName = usr.UserName
+                Email = CurrentUser.Email,
+                UserName = CurrentUser.UserName
             };
             return View(model);
         }
@@ -237,22 +200,25 @@ namespace Hearts4Kids.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = UserManager.FindByName(User.Identity.Name);
-                bool newUserName = user.UserName != model.UserName;
-                user.UserName = model.UserName;
-                user.PhoneNumber = model.PhoneNumber;
-                var result = await UserManager.UpdateAsync(user);
+                if (model.UserId != CurrentUser.Id)
+                {
+                    throw new System.Security.SecurityException();
+                }
+                bool newUserName = CurrentUser.UserName != model.UserName;
+                CurrentUser.UserName = model.UserName;
+                CurrentUser.PhoneNumber = model.PhoneNumber;
+                var result = await UserManager.UpdateAsync(CurrentUser);
                 if (result.Succeeded)
                 {
                     if (newUserName)
                     {
                         AuthenticationManager.SignOut();
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager.SignInAsync(CurrentUser, isPersistent: false, rememberBrowser: false);
                     }
-                    result = await UserManager.AddPasswordAsync(user.Id, model.Password);
+                    result = await UserManager.AddPasswordAsync(CurrentUser.Id, model.Password);
                     if (result.Succeeded)
                     {
-                        MemberDetailService.UpdateMemberDetails(model, user.Id, ModelState);
+                        MemberDetailService.UpdateMemberDetails(model, ModelState);
                         if (ModelState.IsValid)
                         {
                             return RedirectToAction("CreateEditBio", "Bios");
@@ -280,14 +246,14 @@ namespace Hearts4Kids.Controllers
             }
             int id;
             int.TryParse(userId, out id);
-            var user = await UserManager.FindByIdAsync(id);
-            if (user != null) {
-                if (user.EmailConfirmed){
+            var usr = await UserManager.FindByIdAsync(id);
+            if (usr != null) {
+                if (usr.EmailConfirmed){
                     return RedirectToAction("Index", "Home");
                 }
                 var result = await UserManager.ConfirmEmailAsync(id, code);
                 if (result.Succeeded) {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(usr, isPersistent: false, rememberBrowser: false);
                     return RedirectToAction("Register");
                 }
             }
@@ -528,19 +494,17 @@ namespace Hearts4Kids.Controllers
                 var result = await UserManager.CreateAsync(user, "Abcd.1");
                 CheckResult(result, "Register User");
             }
-            using (var roleManager = GetApplicationRoleManager())
-            {
-                if (!roleManager.RoleExists(Domain.Admin))
-                {
-                    if (user == null) { user = UserManager.FindByName("brentm"); }
-                    System.Diagnostics.Debug.Assert(user.Id != 0, "userId not assigned");
 
-                    ApplicationRole role = new ApplicationRole { Name = Domain.Admin };
-                    var result = await roleManager.CreateAsync(role);
-                    CheckResult(result, "Create Role");
-                    result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
-                    CheckResult(result, "Assign Role To User");
-                }
+            if (!RoleManager.RoleExists(Domain.Admin))
+            {
+                if (user == null) { user = UserManager.FindByName("brentm"); }
+                System.Diagnostics.Debug.Assert(user.Id != 0, "userId not assigned");
+
+                ApplicationRole role = new ApplicationRole { Name = Domain.Admin };
+                var result = await RoleManager.CreateAsync(role);
+                CheckResult(result, "Create Role");
+                result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
+                CheckResult(result, "Assign Role To User");
             }
         }
         static void CheckResult(IdentityResult result, string taskDescription)
@@ -557,24 +521,12 @@ namespace Hearts4Kids.Controllers
         {
             if (disposing)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
                 if (_signInManager != null)
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
                 }
-                /*
-                if (_roleManager != null)
-                {
-                    _roleManager.Dispose();
-                    _roleManager = null;
-                }
-                */
+               
             }
 
             base.Dispose(disposing);
