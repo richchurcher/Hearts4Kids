@@ -27,6 +27,20 @@ namespace Hearts4Kids
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mvcFileUploader").Include(
+                "~/Scripts/mvcfileupload/blueimp/jquery.ui.widget.js",
+                "~/Scripts/mvcfileupload/blueimp/tmpl.min.js",
+                //< !--The Load Image plugin is included for the preview images and image resizing functionality-- >
+                "~/Scripts/mvcfileupload/blueimp/load-image.min.js",
+                //< !--The Canvas to Blob plugin is included for image resizing functionality-- >
+                "~/Scripts/mvcfileupload/blueimp/canvas-to-blob.min.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.iframe-transport.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-process.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-image.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-validate.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-ui.js"));
         }
     }
 }

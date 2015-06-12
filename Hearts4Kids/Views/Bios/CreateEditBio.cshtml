@@ -4,6 +4,33 @@
     ViewBag.Title = "Edit Biography";
 }
 
+@section Styles{
+    <style>
+        .btn-file {
+          position: relative;
+          overflow: hidden;
+        }
+        .btn-file input[type=file] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          min-width: 100%;
+          min-height: 100%;
+          font-size: 100px;
+          text-align: right;
+          filter: alpha(opacity=0);
+          opacity: 0;
+          background: red;
+          cursor: inherit;
+          display: block;
+        }
+        #dummyFile {
+          background-color: white !important;
+          cursor: text !important;
+        }
+    </style>
+}
+
 <h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
@@ -16,14 +43,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" } })
+                @Html.EditorFor(model => model.Name, new { @class = "form-control disabled", @readonly = "readonly" } )
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CitationDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CitationDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.CitationDescription,  new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CitationDescription, "", new { @class = "text-danger" })
             </div>
             @Html.HelpBlockFor(model=>model.CitationDescription)
@@ -32,7 +59,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Biography,  new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,27 +67,39 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BioPicUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BioPicUrl, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BioPicUrl, "", new { @class = "text-danger" })
-            </div>
-            @Html.HelpBlockFor(model => model.BioPicUrl)
-        </div>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-primary btn-file">
+                            Browse&hellip; @Html.TextBoxFor(model => model.BioPicUrl, new { type = "file", accept = "image/*" })
+                        </span>
+                    </span>
+                    <input id="dummyFile" type="text" class="form-control" disabled>
+                </div>
+                    
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                    @Html.ValidationMessageFor(model => model.BioPicUrl, "", new { @class = "text-danger" })
+                </div>
+                @Html.HelpBlockFor(model => model.BioPicUrl)
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
         </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts{
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
-    <script>
-        CKEDITOR.replace('@Html.IdFor(model=>model.Biography)');
-    </script>
-}
+    @section Scripts{
+        @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+        <script>
+            CKEDITOR.replace('@Html.IdFor(model=>model.Biography)');
+            $(@Html.IdFor(model=>model.BioPicUrl)).on('change', function () {
+                document.getElementById("dummyFile").value = this.value.replace(/\\/g, '/').replace(/.*\//, '');
+            });
+        </script>
+    }

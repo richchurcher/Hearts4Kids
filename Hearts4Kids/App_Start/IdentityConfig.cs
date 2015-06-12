@@ -8,6 +8,8 @@ using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System.Net.Mail;
 using System.Linq;
+using System.Collections.Generic;
+using System.Web;
 
 namespace Hearts4Kids
 {
@@ -19,12 +21,48 @@ namespace Hearts4Kids
             client.SendCompleted += (s, e) => {
                 client.Dispose();
             };
-            var mail = new MailMessage { Subject = message.Subject, Body = message.Body, IsBodyHtml = true };
-            foreach (var to in message.Destination.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
+            var mail = new MailMessage
             {
-                mail.To.Add(to);
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true
+            };
+            mail.To.Add(message.Destination);
+            return client.SendMailAsync(mail);
+        }
+        public static Task SendEmailsToRoleAsync(string roleName, IdentityMessage message)
+        {
+            var client = new SmtpClient();
+            client.SendCompleted += (s, e) => {
+                client.Dispose();
+            };
+            var mail = new MailMessage { Subject = message.Subject, Body = message.Body, IsBodyHtml = true };
+            //I am not sure I can guarantee where the context will be disposed if using this route
+            //var context = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
+            using (var context = new ApplicationDbContext())
+            {
+                foreach (var to in GetEmailsInRole(roleName, context))
+                {
+                    mail.To.Add(to);
+                }
             }
             return client.SendMailAsync(mail);
+        }
+        public static IEnumerable<string> GetEmailsInRole(string roleName, ApplicationDbContext context)
+        {
+            return from u in GetUsersInRole(roleName, context)
+                   select u.Email;
+        }
+        public static IQueryable<ApplicationUser> GetUsersInRole(string roleName, ApplicationDbContext context)
+        {
+            return from role in context.Roles
+                   where role.Name == roleName
+                   from userRoles in role.Users
+                   join user in context.Users
+                   on userRoles.UserId equals user.Id
+                   where user.EmailConfirmed == true
+                   // && user.LockoutEndDateUtc < DateTime.UtcNow
+                   select user;
         }
     }
 

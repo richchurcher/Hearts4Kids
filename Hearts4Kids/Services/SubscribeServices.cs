@@ -44,25 +44,6 @@ namespace Hearts4Kids.Services
             }
             return true;
         }
-        public static IEnumerable<string> GetAdminEmails()
-        {
-            using (var a = new ApplicationDbContext())
-            {
-                return (from u in GetAdminContacts(Domain.Admin,a)
-                        select u.Email).ToList();
-            }
-        }
-        public static IQueryable<ApplicationUser> GetAdminContacts(string roleName, ApplicationDbContext context)
-        {
-            return from role in context.Roles
-                   where role.Name == roleName
-                   from userRoles in role.Users
-                   join user in context.Users
-                   on userRoles.UserId equals user.Id
-                   where user.EmailConfirmed == true
-                     // && user.LockoutEndDateUtc < DateTime.UtcNow
-                   select user;
-        }
     }
 
     public class MemberDetailService
@@ -131,8 +112,17 @@ namespace Hearts4Kids.Services
                 db.SaveChanges();
             }
         }
+        public static string GetBaseUrl()
+        {
+            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
+            if (!string.IsNullOrWhiteSpace(appUrl)) { appUrl += "/"; }
+            var request = HttpContext.Current.Request;
+            return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+        }
         public static void UpdateBios(BiosViewModel model, int userId, ModelStateDictionary modelState)
         {
+            var san = new Ganss.XSS.HtmlSanitizer();
+            model.Biography = san.Sanitize(model.Biography, GetBaseUrl()); //heavy op - do this before opening db connection
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(userId);

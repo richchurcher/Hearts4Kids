@@ -59,6 +59,11 @@ namespace Hearts4Kids.Controllers
             return View(model);
         }
 
+        public ActionResult Success()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ContactSubmit(
@@ -69,14 +74,14 @@ namespace Hearts4Kids.Controllers
             {
                if (ModelState.IsValid)
                 {
-                    const string body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-                    var es = new EmailService();
-                    await es.SendAsync(new IdentityMessage
+                    const string body = "<p>Email From: {0} ({1}) Ph: {2}</p><p>Message:</p><p>{3}</p>";
+                    var msg = new IdentityMessage
                     {
-                        Body = string.Format(body, model.FromName, model.FromEmail, model.Message),
-                        Destination = string.Join(";", SubscribeServices.GetAdminEmails()),
+                        Body = string.Format(body, model.FromName, model.FromEmail, model.FromPhone, model.Message),
                         Subject = "H4K Web form Message"
-                    });
+                    };
+                    await EmailService.SendEmailsToRoleAsync(Domain.Admin, msg);
+                    return RedirectToAction("Success");
                 }
             }
             catch (DataException /* dex */)

@@ -13,9 +13,9 @@ namespace Hearts4Kids.Controllers
         //
         // GET: /MvcUploaderTest/Demo
 
-        public ActionResult Demo(bool? inline, string ui = "bootstrap")
+        public ActionResult Upload()
         {
-            return View(inline);
+            return View();
         }
         [HttpPost]
 		public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper

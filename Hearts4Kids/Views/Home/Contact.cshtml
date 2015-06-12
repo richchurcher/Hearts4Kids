@@ -51,9 +51,6 @@
                 @Html.ValidationMessageFor(m => m.FromName)
             </div>
         </div>
-        <div class="row">
-            <strong> OR...</strong>
-        </div>
         <div class="row-message">
             @Html.LabelFor(m => m.FromEmail)
 
@@ -61,6 +58,9 @@
                 @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.FromEmail)
             </div>
+        </div>
+        <div class="row">
+            <strong> AND/OR...</strong>
         </div>
         <div class="row-message">
             @Html.LabelFor(m => m.FromPhone)
