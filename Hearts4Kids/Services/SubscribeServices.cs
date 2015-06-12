@@ -136,7 +136,7 @@ namespace Hearts4Kids.Services
             var request = HttpContext.Current.Request;
             return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
         }
-        public static void UpdateBios(BiosViewModel model, ModelStateDictionary modelState, bool isAdmin)
+        public static async Task UpdateBios(BiosViewModel model, ModelStateDictionary modelState, bool isAdmin)
         {
             var san = new Ganss.XSS.HtmlSanitizer();
             model.Biography = san.Sanitize(model.Biography, GetBaseUrl()); //heavy op - do this before opening db connection
@@ -149,7 +149,7 @@ namespace Hearts4Kids.Services
                 details.Approved = isAdmin?model.Approved: 
                     (details.Approved
                         && !db.ChangeTracker.Entries().Any(e => e.State == System.Data.Entity.EntityState.Modified));
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
         public static string defaultBioPic = "~/Content/Photos/Bios/Surgical.png";
@@ -160,6 +160,7 @@ namespace Hearts4Kids.Services
             {
                 bios = await (from b in db.UserBios
                             where b.MainTeamPage == isMainPage
+                                && b.Approved
                             select new BioDisplay
                             {
                                 Bio = b.Bio,

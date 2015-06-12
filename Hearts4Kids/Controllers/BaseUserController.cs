@@ -12,15 +12,17 @@ namespace Hearts4Kids.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationUser _currentUser;
+        private ApplicationSignInManager _signInManager;
 
         public BaseUserController()
         {
         }
 
-        public BaseUserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager )
+        public BaseUserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager,ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             RoleManager = roleManager;
+            SignInManager = signInManager;
         }
         // GET: BaseUser
         internal static ApplicationUserManager GetApplicationUserManager()
@@ -30,6 +32,18 @@ namespace Hearts4Kids.Controllers
         internal static ApplicationRoleManager GetApplicationRoleManager()
         {
             return System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+        }
+
+        protected ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
         protected ApplicationUserManager UserManager
         {
@@ -88,6 +102,11 @@ namespace Hearts4Kids.Controllers
                     _roleManager = null;
                 }
 
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
             }
 
             base.Dispose(disposing);

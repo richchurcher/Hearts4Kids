@@ -14,34 +14,23 @@ namespace Hearts4Kids.Controllers
     [Authorize]
     public class AccountController : BaseUserController
     {
-        private ApplicationSignInManager _signInManager;
+
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,ApplicationRoleManager roleManager )
-                :base(userManager, roleManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
+                : base(userManager, roleManager, signInManager)
         {
-            SignInManager = signInManager;   
         }
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
+
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
-        {   
+        {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -72,7 +61,7 @@ namespace Hearts4Kids.Controllers
                 // To enable password failures to trigger account lockout, change to shouldLockout: true
                 result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             }
-                switch (result)
+            switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -116,7 +105,7 @@ namespace Hearts4Kids.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -141,11 +130,11 @@ namespace Hearts4Kids.Controllers
             if (ModelState.IsValid)
             {
                 var emailVal = new Services.RegexUtilities();
-                foreach (var em in (model.EmailList ?? string.Empty).Split( new char[] { ';', ',' } , StringSplitOptions.RemoveEmptyEntries))
+                foreach (var em in (model.EmailList ?? string.Empty).Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     if (emailVal.IsValidEmail(em))
                     {
-                        var user = new ApplicationUser { UserName = em, Email = em};
+                        var user = new ApplicationUser { UserName = em, Email = em };
                         var result = await UserManager.CreateAsync(user);
                         if (result.Succeeded && model.IsAdministrator)
                         {
@@ -249,7 +238,7 @@ namespace Hearts4Kids.Controllers
             int.TryParse(userId, out id);
             var usr = await UserManager.FindByIdAsync(id);
             if (usr != null) {
-                if (usr.EmailConfirmed){
+                if (usr.EmailConfirmed) {
                     return RedirectToAction("Index", "Home");
                 }
                 var result = await UserManager.ConfirmEmailAsync(id, code);
@@ -288,7 +277,7 @@ namespace Hearts4Kids.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -512,25 +501,10 @@ namespace Hearts4Kids.Controllers
         {
             if (!result.Succeeded)
             {
-                var ex = new Exception(string.Format("Unable to {0}.",taskDescription));
+                var ex = new Exception(string.Format("Unable to {0}.", taskDescription));
                 ex.Data.Add("CreateErrors", string.Join(";\r\n", result.Errors));
                 throw ex;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
-               
-            }
-
-            base.Dispose(disposing);
         }
 
 #region Helpers

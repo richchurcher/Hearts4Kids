@@ -31,7 +31,7 @@ namespace Hearts4Kids.Controllers
             return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model, HttpPostedFileBase bioImg)
+        public async Task<ActionResult> CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model, HttpPostedFileBase bioImg)
         {
             if (!IsAuthorised(model.UserId))
             {
@@ -45,7 +45,7 @@ namespace Hearts4Kids.Controllers
                     model.BioPicUrl = PhotoServices.processBioImage(bioImg);
                 }
                 
-                MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
+                await MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
                 if (ModelState.IsValid)
                 {
                     return RedirectToAction("Index", "Home");
@@ -57,6 +57,7 @@ namespace Hearts4Kids.Controllers
         }
         public ActionResult UpdateDetails(int id=0)
         {
+            if (id == 0) { id = CurrentUser.Id; }
             var usr = UserManager.FindById(id);
             if (string.IsNullOrEmpty(usr.PasswordHash))
             {
