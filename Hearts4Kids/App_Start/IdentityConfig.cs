@@ -7,6 +7,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System.Net.Mail;
+using System.Linq;
 
 namespace Hearts4Kids
 {
@@ -19,7 +20,10 @@ namespace Hearts4Kids
                 client.Dispose();
             };
             var mail = new MailMessage { Subject = message.Subject, Body = message.Body, IsBodyHtml = true };
-            mail.To.Add(message.Destination);
+            foreach (var to in message.Destination.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                mail.To.Add(to);
+            }
             return client.SendMailAsync(mail);
         }
     }

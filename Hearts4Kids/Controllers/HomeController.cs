@@ -9,6 +9,8 @@ using System.Net.Mail;
 
 using Hearts4Kids.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Hearts4Kids.Services;
 
 namespace Hearts4Kids.Controllers
 {
@@ -67,32 +69,14 @@ namespace Hearts4Kids.Controllers
             {
                if (ModelState.IsValid)
                 {
-                    var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress("recipient@gmail.com"));  // replace with valid value 
-                    message.Subject = "H4K Web form Message";
-                    message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
-                    message.IsBodyHtml = true;
-
-                    using (var smtp = new SmtpClient())
+                    const string body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                    var es = new EmailService();
+                    await es.SendAsync(new IdentityMessage
                     {
-/* Only for testing -- SetPasswordViewModel ICredentials in WebClient.config mailSettings (template already inserted) for the host site */
-                        message.To.Add(new MailAddress("philm@codesmiths.com.au"));  // replace with valid value 
-                        message.From = new MailAddress("philm@codesmiths.com.au");   // replace with valid value
-                        var credential = new NetworkCredential
-                        {
-                            UserName = "philm@codesmiths.com.au",  // replace with valid value
-                            Password = "76mangoes"                   // replace with valid value
-                        };
-                        smtp.Credentials = credential;
-                        smtp.Host = "mail.codesmiths.com.au";
-                        smtp.Port = 25;
-                        smtp.EnableSsl = false;
-/* end testing block */
-                        await smtp.SendMailAsync(message);
-                        model.Success = true;
-                        return View("Contact", model);
-                    }                    
+                        Body = string.Format(body, model.FromName, model.FromEmail, model.Message),
+                        Destination = string.Join(";", SubscribeServices.GetAdminEmails()),
+                        Subject = "H4K Web form Message"
+                    });
                 }
             }
             catch (DataException /* dex */)

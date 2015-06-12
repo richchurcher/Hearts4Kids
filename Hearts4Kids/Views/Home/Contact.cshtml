@@ -20,26 +20,23 @@
     (00) 0000 0000-->
 </address>
 
-@*
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-    
-*@
-
 <!--G Start -->
 <address>
     <strong>Social media: </strong><br />
-    Send us a tweet: <a target ="_blank" href="">twitter.com/Hearts4KidsPasifika</a><br />
+    @*
+        Send us a tweet: <a target ="_blank" href="">twitter.com/Hearts4KidsPasifika</a><br />
+    *@
     Post on our Facebook wall:&nbsp;<a target="_blank" href="https://www.facebook.com/Hearts4KidsPasifika">facebook.com/Hearts4KidsPasifika</a>
 </address>
 
 <hr>
 <div>
     <h3 class="text-center"><strong>Send us a Letter</strong></h3>
-    <p class="text-center">
-        We'd love to hear from you, it can take a few days to answer because we all have hospital jobs which can be quite demanding.
+    <p>
+        We'd love to hear from you. 
+     </p>
+    <p>
+        It may take a few days to answer because Hearts4Kids is run entirely by volunteers (all of whom work full time in our respective professions).
     </p>
 </div>
 <hr>
@@ -54,8 +51,11 @@
                 @Html.ValidationMessageFor(m => m.FromName)
             </div>
         </div>
+        <div class="row">
+            <strong> OR...</strong>
+        </div>
         <div class="row-message">
-            @Html.LabelFor(m => m.FromEmail)<strong> OR...</strong>
+            @Html.LabelFor(m => m.FromEmail)
 
             <div class="row-message">
                 @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })

@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using Hearts4Kids.Models;
 using System.Data.Entity.Infrastructure;
+using System.Collections.Generic;
+using Hearts4Kids.Controllers;
 
 namespace Hearts4Kids.Services
 {
@@ -40,8 +42,26 @@ namespace Hearts4Kids.Services
                 }
 
             }
-            //todo add to db
             return true;
+        }
+        public static IEnumerable<string> GetAdminEmails()
+        {
+            using (var a = new ApplicationDbContext())
+            {
+                return (from u in GetAdminContacts(Domain.Admin,a)
+                        select u.Email).ToList();
+            }
+        }
+        public static IQueryable<ApplicationUser> GetAdminContacts(string roleName, ApplicationDbContext context)
+        {
+            return from role in context.Roles
+                   where role.Name == roleName
+                   from userRoles in role.Users
+                   join user in context.Users
+                   on userRoles.UserId equals user.Id
+                   where user.EmailConfirmed == true
+                     // && user.LockoutEndDateUtc < DateTime.UtcNow
+                   select user;
         }
     }
 
