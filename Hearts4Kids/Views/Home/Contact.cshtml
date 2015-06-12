@@ -1,6 +1,14 @@
-﻿@{
+﻿@model Hearts4Kids.Models.ContactViewModel
+
+@{
     ViewBag.Title = "Contact";
 }
+
+@section Styles {
+    @Styles.Render("~/Content/ContactPage.css")
+}
+
+
 <h2>@ViewBag.Title.</h2>
 
 <address>
@@ -12,7 +20,99 @@
     (00) 0000 0000-->
 </address>
 
+@*
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>
+    
+*@
+
+<!--G Start -->
 <address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    <strong>Social media: </strong><br />
+    Send us a tweet: <a target ="_blank" href="">twitter.com/Hearts4KidsPasifika</a><br />
+    Post on our Facebook wall:&nbsp;<a target="_blank" href="https://www.facebook.com/Hearts4KidsPasifika">facebook.com/Hearts4KidsPasifika</a>
 </address>
+
+<hr>
+<div>
+    <h3 class="text-center"><strong>Send us a Letter</strong></h3>
+    <p class="text-center">
+        We'd love to hear from you, it can take a few days to answer because we all have hospital jobs which can be quite demanding.
+    </p>
+</div>
+<hr>
+<div>
+    @using (Html.BeginForm("ContactSubmit", "Home", FormMethod.Post, new { id = "contact-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row-message">
+            @Html.LabelFor(m => m.FromName)
+            <div class="row-message">
+                @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromName)
+            </div>
+        </div>
+        <div class="row-message">
+            @Html.LabelFor(m => m.FromEmail)<strong> OR...</strong>
+
+            <div class="row-message">
+                @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromEmail)
+            </div>
+        </div>
+        <div class="row-message">
+            @Html.LabelFor(m => m.FromPhone)
+            <div class="row-message">
+                @Html.TextBoxFor(m => m.FromPhone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromPhone)
+            </div>
+        </div>
+        <div class="row-message">
+            @Html.LabelFor(m => m.Message)
+            <div class="row-message">
+                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", @cols = "40", @rows = "3" })
+                @Html.ValidationMessageFor(m => m.Message)
+            </div>
+        </div>
+        <div class="row-message">
+            <div>
+                @if (Model.Success == null)
+                {
+                    <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
+                }
+                else if (Model.Success == true)
+                {
+                    <hr /><p><em>Thank you your message has been sent to Hearts4Kids.</em></p>
+                }
+                else
+                {
+                    <hr /><p>Apologies, there is a problem with the mail system and your message could not be sent at present.  Please copy your message to try again later</p>
+                }
+
+            </div>
+        </div>
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    @*  G's prototype layout
+               <div class="row-message">
+                <label for="name">Your name:</label><br />
+                <input id="name" class="input" name="name" type="text" value="" size="30" /><br />  <!--G placeholder="First Name" -->
+            </div>
+            <div class="row-message">
+                <label for="email">Your email or phone number:</label><br />
+                <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
+            </div>
+            <div class="row-message">
+                <label for="message">Your message:</label><br />
+                <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
+            </div>
+            <input type="hidden" name="action" value="submit" /><br />
+            <input id="submit_button" type="submit" value="Send Your Message" />
+        </form>
+    *@
+</div>
+<!--G End -->

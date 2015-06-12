@@ -130,7 +130,9 @@
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+
       <Private>True</Private>
+
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +202,8 @@
       <DependentUpon>MembersModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BiosViewModel.cs" />
+    <Compile Include="Models\BioModels.cs" />
+    <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\GalleryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -297,6 +300,7 @@
     <Content Include="Content\Logos\Full-no sub2.png" />
     <Content Include="Content\Logos\Full2.png" />
     <Content Include="Content\Logos\Heart2.png" />
+		<Content Include="Content\TeamPage.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -633,6 +637,7 @@
     <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-video.js" />
     <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\jQuery.FileUpload\jquery.iframe-transport.js" />
+
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
