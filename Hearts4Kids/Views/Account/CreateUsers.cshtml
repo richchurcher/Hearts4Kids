@@ -18,20 +18,20 @@
             @Html.LabelFor(model => model.EmailList, htmlAttributes: new { @class = "control-label col-md-2" })
             
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EmailList, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.EmailList,  new { htmlAttributes = new { @class  = "form-control" } } )
                 @Html.ValidationMessageFor(model => model.EmailList, "", new { @class = "text-danger" })
             </div>
-            @Html.HelpBlockFor(model => model.EmailList)
+            <p class='help-block col-md-10 col-md-push-2'>@Html.DescriptionFor(model => model.EmailList)</p>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.IsAdministrator, htmlAttributes: new { @class = "control-label col-md-2" })
             
             <div class="col-md-10 form-group">
-                @Html.EditorFor(model => model.IsAdministrator, new { htmlAttributes = new { @class = "form-control checkbox" } })
+                @Html.EditorFor(model => model.IsAdministrator,  new { @class = "form-control checkbox" })
                 @Html.ValidationMessageFor(model => model.IsAdministrator, "", new { @class = "text-danger" })
             </div>
-                @Html.HelpBlockFor(model => model.IsAdministrator)
+                <p class='help-block col-md-10 col-md-push-2'>@Html.DescriptionFor(model => model.IsAdministrator)</p>
             
         </div>
 

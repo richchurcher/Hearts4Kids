@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { @class = "form-control disabled", @readonly = "readonly" } )
+                @Html.EditorFor(model => model.Name,  new { htmlAttributes = new { @class  = "form-control disabled", @readonly = "readonly" } } )
             </div>
         </div>
 
@@ -53,7 +53,7 @@
                 @Html.TextBoxFor(model => model.CitationDescription,  new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CitationDescription, "", new { @class = "text-danger" })
             </div>
-            @Html.HelpBlockFor(model=>model.CitationDescription)
+            <p class='help-block col-md-10 col-md-push-2'>@Html.DescriptionFor(model=>model.CitationDescription)</p>
         </div>
 
         <div class="form-group">
@@ -79,7 +79,7 @@
 
                     @Html.ValidationMessageFor(model => model.BioPicUrl, "", new { @class = "text-danger" })
                 </div>
-                @Html.HelpBlockFor(model => model.BioPicUrl)
+                <p class='help-block col-md-10 col-md-push-2'>@Html.DescriptionFor(model => model.BioPicUrl)</p>
             </div>
         @if (Model.IsAdmin)
         {
@@ -87,7 +87,7 @@
                 @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.Approved, new { @class = "form-control checkbox" })
+                        @Html.EditorFor(model => model.Approved,  new { htmlAttributes = new { @class  = "form-control checkbox" } })
                     </div>
                 </div>
             </div>
@@ -95,10 +95,10 @@
                 @Html.LabelFor(model => model.MainTeamPage, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.MainTeamPage, new { @class = "form-control checkbox" })
+                        @Html.EditorFor(model => model.MainTeamPage,  new { htmlAttributes = new { @class  = "form-control checkbox" } })
                     </div>
                 </div>
-                @Html.HelpBlockFor(model => model.MainTeamPage)
+                <p class='help-block col-md-10'>@Html.DescriptionFor(model => model.MainTeamPage)</p>
             </div>
         }
 
