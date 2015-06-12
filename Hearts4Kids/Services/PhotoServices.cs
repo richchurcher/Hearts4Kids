@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System;
 using Hearts4Kids.Models;
 using System.IO;
+using System.Web;
 
 namespace Hearts4Kids.Services
 {
@@ -43,6 +44,17 @@ namespace Hearts4Kids.Services
         public static string GetDefaultDir()
         {
             return Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName);
+        }
+        public static string processBioImage(HttpPostedFileBase file, string dir = defaultDir)
+        {
+            var newSize = ImageSizes[1];
+            string basePath = HostingEnvironment.MapPath(dir);
+            string path = Path.Combine(basePath, newSize.FolderName, file.FileName);
+            using (var srcImage = Image.FromStream(file.InputStream))
+            {
+                Resize(srcImage, path, newSize.Height, newSize.ImgFmt, newSize.Quality);
+            }
+            return defaultDir + '/' + newSize.FolderName + '/' + file.FileName;
         }
         /// <summary>
         /// makes various sizes, added to appropriate folders, and returns the full path to the thumbnail

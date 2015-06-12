@@ -6,9 +6,9 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using Hearts4Kids.Models;
-using System.Data.Entity.Infrastructure;
 using System.Collections.Generic;
-using Hearts4Kids.Controllers;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Hearts4Kids.Services
 {
@@ -74,7 +74,8 @@ namespace Hearts4Kids.Services
                             Name = u.FirstName + " " + u.Surname,
                             Biography = u.Bio,
                             BioPicUrl = u.BioPicUrl,
-                            CitationDescription = u.CitationDescription
+                            CitationDescription = u.CitationDescription,
+                            UserId = userId
                         }).First();
             }
         }
@@ -92,6 +93,7 @@ namespace Hearts4Kids.Services
                             Profession = (Domain.Professions)b.Profession,
                             Team = (Domain.Teams)b.Team,
                             Trustee = b.Trustee,
+                            UserId = userId
                         }).FirstOrDefault();
             }
         }
@@ -134,17 +136,47 @@ namespace Hearts4Kids.Services
             var request = HttpContext.Current.Request;
             return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
         }
-        public static void UpdateBios(BiosViewModel model, ModelStateDictionary modelState)
+        public static void UpdateBios(BiosViewModel model, ModelStateDictionary modelState, bool isAdmin)
         {
             var san = new Ganss.XSS.HtmlSanitizer();
             model.Biography = san.Sanitize(model.Biography, GetBaseUrl()); //heavy op - do this before opening db connection
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(model.UserId);
-                details.BioPicUrl = model.BioPicUrl;
+                details.BioPicUrl = model.BioPicUrl; 
                 details.Bio = model.Biography;
+                details.MainTeamPage = model.MainTeamPage;
+                details.Approved = isAdmin?model.Approved: 
+                    (details.Approved
+                        && !db.ChangeTracker.Entries().Any(e => e.State == System.Data.Entity.EntityState.Modified));
                 db.SaveChanges();
             }
+        }
+        public static string defaultBioPic = "~/Content/Photos/Bios/Surgical.png";
+        public static async Task<IEnumerable<IGrouping<Domain.Teams,IGrouping<Domain.Professions,BioDisplay>>>> GetBiosForDisplay(bool isMainPage)
+        {
+            var bios = new List<BioDisplay>();
+            using (var db = new Hearts4KidsEntities())
+            {
+                bios = await (from b in db.UserBios
+                            where b.MainTeamPage == isMainPage
+                            select new BioDisplay
+                            {
+                                Bio = b.Bio,
+                                BioPicUrl = b.BioPicUrl ?? defaultBioPic,
+                                CitationDescription = b.CitationDescription,
+                                Name = b.FirstName + " " + b.Surname,
+                                Profession = (Domain.Professions)b.Profession,
+                                Team = (Domain.Teams)b.Team,
+                                Trustee = b.Trustee
+                            }).ToListAsync();
+            }
+            return (from person in bios
+                    group person by person.Team into teams
+                    from professions in
+                        (from person in teams
+                            group person by person.Profession)
+                    group professions by teams.Key);
         }
     }
 

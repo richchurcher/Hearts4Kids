@@ -187,7 +187,8 @@ namespace Hearts4Kids.Controllers
             var model = new RegisterDetailsViewModel
             {
                 Email = CurrentUser.Email,
-                UserName = CurrentUser.UserName
+                UserName = CurrentUser.UserName,
+                UserId = CurrentUser.Id
             };
             return View(model);
         }

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Hearts4Kids.Models;
+using System.Threading.Tasks;
 
 namespace Hearts4Kids.Controllers
 {
@@ -30,7 +31,7 @@ namespace Hearts4Kids.Controllers
             return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model)
+        public ActionResult CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model, HttpPostedFileBase bioImg)
         {
             if (!IsAuthorised(model.UserId))
             {
@@ -39,8 +40,12 @@ namespace Hearts4Kids.Controllers
             }
             if (ModelState.IsValid)
             {
-                model.Approved = model.Approved && IsAdmin;
-                MemberDetailService.UpdateBios(model, ModelState);
+                if (bioImg != null)
+                {
+                    model.BioPicUrl = PhotoServices.processBioImage(bioImg);
+                }
+                
+                MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
                 if (ModelState.IsValid)
                 {
                     return RedirectToAction("Index", "Home");
@@ -85,6 +90,12 @@ namespace Hearts4Kids.Controllers
                 }
                 
             }
+            return View(model);
+        }
+        [AllowAnonymous]
+        public async Task<ActionResult> UserBios()
+        {
+            var model = await MemberDetailService.GetBiosForDisplay(isMainPage: false);
             return View(model);
         }
         bool? _isAdmin;

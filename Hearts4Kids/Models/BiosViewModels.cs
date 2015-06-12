@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
+using static Hearts4Kids.Domain;
 
 namespace Hearts4Kids.Models
 { 
@@ -31,4 +33,14 @@ namespace Hearts4Kids.Models
         public bool Approved { get; set; }
     }
 
+    public class BioDisplay
+    {
+        public string Name { get; set; }
+        public Teams Team { get; set; }
+        public Professions Profession { get; set; }
+        public string BioPicUrl { get; set; }
+        public string Bio { get; set; }
+        public bool Trustee { get; set; }
+        public string CitationDescription { get; set; }
+    }
 }

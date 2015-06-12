@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<IGrouping<Domain.Teams,IGrouping<Domain.Professions,Hearts4Kids.Models.BioDisplay>>>
+
+@{
+    ViewBag.Title = "Team Bios";
+}
+
+<h2>The rest of the team</h2>
+<ul class="list-unstyled clearfix">
+    @foreach (var t in Model)
+    {
+    <li>
+        <h3>@t.Key.ToString().SplitCamelCase()</h3>
+        <ul>
+            @foreach (var prof in t)
+            {
+                <li>
+                    <h4>@prof.Key.ToString().SplitCamelCase()</h4>
+                    <ul>
+                        @foreach (var person in prof)
+                        {
+                            <li>
+                                <h5>@person.Name <small>@person.CitationDescription</small></h5>
+                                <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" />
+                                <div class="bio">@Html.Raw(person.Bio)</div>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </li>
+    }
+</ul>

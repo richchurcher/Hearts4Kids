@@ -117,6 +117,9 @@ body > .container {
     height:32px;
     margin-left: 0;
 }
+.checkbox > input[type=checkbox]{
+    margin-left:0;
+}
 
   /* Menu-top */
   #current { text-decoration: none; background: transparent url('/Content/Logos/menu-hover.png') repeat-y left top; color: #fff; }

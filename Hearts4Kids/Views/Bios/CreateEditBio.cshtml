@@ -24,7 +24,7 @@
           cursor: inherit;
           display: block;
         }
-        #dummyFile {
+        .bioUrl {
           background-color: white !important;
           cursor: text !important;
         }
@@ -33,7 +33,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateEditBio","Bios",FormMethod.Post,new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model=>model.UserId)
@@ -70,14 +70,20 @@
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-primary btn-file">
-                            Browse&hellip; @Html.TextBoxFor(model => model.BioPicUrl, new { type = "file", accept = "image/*" })
+                            Browse&hellip; <input type="file" accept="image/*" name="bioImg" id="bioImg"/>
                         </span>
                     </span>
-                    <input id="dummyFile" type="text" class="form-control" disabled>
+                    @Html.TextBoxFor(model=>model.BioPicUrl, new{ @class="form-control bioUrl", readonly="readonly"})
                 </div>
-                    
+                @if (Model.BioPicUrl != null)
+                {
+                    <div class="pull-right">
+                        <img src="@Url.Content(Model.BioPicUrl)" class="img-thumbnail" />
+                    </div>
+                }
+                </div>
+                <div>
 
-                    @Html.ValidationMessageFor(model => model.BioPicUrl, "", new { @class = "text-danger" })
                 </div>
                 <p class='help-block col-md-10 col-md-push-2'>@Html.DescriptionFor(model => model.BioPicUrl)</p>
             </div>
@@ -87,7 +93,7 @@
                 @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.Approved,  new { htmlAttributes = new { @class  = "form-control checkbox" } })
+                        @Html.EditorFor(model => model.Approved)
                     </div>
                 </div>
             </div>
@@ -95,7 +101,7 @@
                 @Html.LabelFor(model => model.MainTeamPage, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.MainTeamPage,  new { htmlAttributes = new { @class  = "form-control checkbox" } })
+                        @Html.EditorFor(model => model.MainTeamPage)
                     </div>
                 </div>
                 <p class='help-block col-md-10'>@Html.DescriptionFor(model => model.MainTeamPage)</p>
@@ -118,8 +124,8 @@
         @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
         <script>
             CKEDITOR.replace('@Html.IdFor(model=>model.Biography)');
-            $(@Html.IdFor(model=>model.BioPicUrl)).on('change', function () {
-                document.getElementById("dummyFile").value = this.value.replace(/\\/g, '/').replace(/.*\//, '');
+            $('#bioImg').on('change', function () {
+                $('.bioUrl')[0].value = this.value.replace(/\\/g, '/').replace(/.*\//, '');
             });
         </script>
     }

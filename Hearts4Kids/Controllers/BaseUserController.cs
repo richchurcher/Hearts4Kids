@@ -61,7 +61,15 @@ namespace Hearts4Kids.Controllers
         }
         protected ApplicationUser CurrentUser
         {
-            get { return _currentUser ?? (_currentUser = UserManager.FindByName(User.Identity.Name)); }
+            get
+            {
+                if (_currentUser == null)
+                {
+                    string name = User.Identity.Name;
+                    _currentUser = UserManager.FindByName(name);
+                }
+                return _currentUser;
+            }
         }
         
         protected override void Dispose(bool disposing)

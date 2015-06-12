@@ -188,6 +188,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\WebApi\UploadController.cs" />
     <Compile Include="Domain\Roles.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -720,6 +721,7 @@
     <Content Include="Views\Bios\UpdateDetails.cshtml" />
     <Content Include="Views\Home\Success.cshtml" />
     <Content Include="Views\Bios\Index.cshtml" />
+    <Content Include="Views\Bios\UserBios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
