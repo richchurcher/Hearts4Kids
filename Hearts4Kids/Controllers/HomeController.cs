@@ -21,9 +21,10 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
-        public ActionResult Team()
+        public async Task<ActionResult> Team()
         {
-            return View();
+            var model = await MemberDetailService.GetBiosForDisplay(true);
+            return View(model);
         }
 
         public ActionResult About()
@@ -54,7 +55,6 @@ namespace Hearts4Kids.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

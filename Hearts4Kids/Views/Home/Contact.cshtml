@@ -78,7 +78,7 @@
         </div>
         <div class="row-message">
             <div>
-                @if (Model.Success == null)
+                @if (Model==null || Model.Success == null)
                 {
                     <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
                 }

@@ -18,14 +18,26 @@ namespace Hearts4Kids.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+            string msg;
+            switch (message){
+
+                case ManageMessageId.ChangePasswordSuccess : msg = "Your password has been changed."; break;
+                case ManageMessageId.SetPasswordSuccess: msg = "Your password has been set."; break;
+                case ManageMessageId.SetTwoFactorSuccess: msg = "Your two-factor authentication provider has been set."; break;
+                case ManageMessageId.Error: msg = "An error has occurred."; break;
+                case ManageMessageId.AddPhoneSuccess: msg = "Your phone number was added."; break;
+                case ManageMessageId.RemovePhoneSuccess: msg ="Your phone number was removed.";break;
+                case ManageMessageId.UpdateBioSuccess:
+                    msg = "Your biography was updated" + (IsAdmin ? string.Empty : " (pending admin approval)");
+                    break;
+                case ManageMessageId.UpdateUserDetailsSuccess:
+                    msg = "Your details were succesfully udated";
+                    break;
+                default: //includes null
+                    msg = string.Empty;
+                    break;
+            }
+            ViewBag.StatusMessage = msg;
             ViewBag.IsAdmin = await IsAdminAsync();
             var userId = CurrentUser.Id;
             var model = new IndexViewModel
@@ -333,6 +345,8 @@ namespace Hearts4Kids.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            UpdateBioSuccess,
+            UpdateUserDetailsSuccess,
             Error
         }
 

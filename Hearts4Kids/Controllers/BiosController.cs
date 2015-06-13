@@ -62,7 +62,7 @@ namespace Hearts4Kids.Controllers
                         });
                     }
                     return IsAdmin? RedirectToAction("Index")
-                        : RedirectToAction("Index", "Manage");
+                        : RedirectToAction("Index", "Manage", ManageController.ManageMessageId.UpdateBioSuccess);
                 }
 
             }
@@ -101,7 +101,8 @@ namespace Hearts4Kids.Controllers
                 //to do allow phone number update
                 if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return IsAdmin ? RedirectToAction("Index")
+                        : RedirectToAction("Index", "Manage", ManageController.ManageMessageId.UpdateUserDetailsSuccess);
                 }
                 
             }

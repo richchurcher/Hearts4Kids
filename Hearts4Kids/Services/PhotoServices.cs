@@ -35,7 +35,7 @@ namespace Hearts4Kids.Services
             public int Height { get; private set; }
             public ImageFormat ImgFmt { get; set; }
             public long Quality { get; set; }
-            public string GetNewFileName(string originalFileName)
+            public string GetFileNameWithExt(string originalFileName)
             {
                 string newExt;
                 if (ImgFmt == ImageFormat.Bmp)
@@ -80,7 +80,7 @@ namespace Hearts4Kids.Services
             Thread reduceFurtherSizes = new Thread(processBioImg);
             reduceFurtherSizes.Start(file);
             var returnSize = ImageSizes[1];
-            return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetNewFileName(file.FileName));
+            return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetFileNameWithExt(file.FileName));
         }
         static string GetBioFileName(string fileName)
         {
@@ -91,7 +91,7 @@ namespace Hearts4Kids.Services
             var file = (HttpPostedFileBase)fileBase;
             var newSize = ImageSizes[0];
             string basePath = HostingEnvironment.MapPath(defaultDir);
-            string newFileName = GetBioFileName(newSize.GetNewFileName(file.FileName));
+            string newFileName = GetBioFileName(newSize.GetFileNameWithExt(file.FileName));
             string path = Path.Combine(basePath, newSize.FolderName, newFileName);
             using (var srcImage = Image.FromStream(file.InputStream))
             {
@@ -113,7 +113,7 @@ namespace Hearts4Kids.Services
             for(int i=1;i < ImageSizes.Length;i++)
             {
                 s = ImageSizes[i];
-                newFileName = s.GetNewFileName(imageName);
+                newFileName = s.GetFileNameWithExt(imageName);
                 Resize(path, Path.Combine(basePath, s.FolderName, newFileName), s.Height, s.ImgFmt, s.Quality);
             }
             return defaultDir + '/' + s.FolderName + '/' + newFileName;
@@ -123,14 +123,16 @@ namespace Hearts4Kids.Services
             string[] imgExt = new string[] { ".jpg", ".jpeg", ".png", ".bmp" };
             string baseUr = defaultDir.Substring(1) + '/';//hack
             string fullUr = baseUr + ImageSizes[0].FolderName +'/';
-            string thumbUr = baseUr + ImageSizes[ImageSizes.Length - 1].FolderName +'/';
+            SiteImageSize thumb = ImageSizes[ImageSizes.Length - 1];
+            string thumbUr = baseUr + thumb.FolderName +'/';
+            
             return (from p in Directory.EnumerateFiles(Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName),"*.*",SearchOption.TopDirectoryOnly)
                     where imgExt.Any(e=>p.EndsWith(e, StringComparison.InvariantCultureIgnoreCase))
                     let fn = Path.GetFileName(p)
                     select new GalleryModel
                     {
                         FullsizeUri = fullUr + fn,
-                        ThumbUrl = thumbUr + fn
+                        ThumbUrl = thumbUr + thumb.GetFileNameWithExt(fn)
                     });
         }
         public static void Resize(string imageFile, string outputFile, int newHeight, ImageFormat fmt = null, long quality = defaultQuality)
