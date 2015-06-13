@@ -13,7 +13,7 @@
 //=================================================================================================
 
 using System;
-using ImageMagick;
+//using ImageMagick;
 
 namespace Hearts4Kids.Tests.Samples.MagickNET
 {
@@ -23,27 +23,29 @@ namespace Hearts4Kids.Tests.Samples.MagickNET
 		{
 			Console.WriteLine(message);
 		}
+        /*
+public static void MagickNET_Log(object sender, LogEventArgs arguments)
+{
+    // Write log message
+    WriteLogMessage(arguments.Message);
+}
 
-		public static void MagickNET_Log(object sender, LogEventArgs arguments)
-		{
-			// Write log message
-			WriteLogMessage(arguments.Message);
-		}
+public static void ReadImage()
+{
+    // Log all events
+    ImageMagick.MagickNET.SetLogEvents(LogEvents.All | LogEvents.Trace);
+    // Set the log handler (all threads use the same handler)
+    ImageMagick.MagickNET.Log += MagickNET_Log;
 
-		public static void ReadImage()
-		{
-			// Log all events
-			ImageMagick.MagickNET.SetLogEvents(LogEvents.All | LogEvents.Trace);
-			// Set the log handler (all threads use the same handler)
-			ImageMagick.MagickNET.Log += MagickNET_Log;
+    using (MagickImage image = new MagickImage())
+    {
+        // Reading the image will send all log events to the log handler
+        image.Read(SampleFiles.SnakewareJpg);
+        image.Resize(200,47);
+        image.Write(SampleFiles.SnakewareJpg + "resize.jpg");
+    }
 
-			using (MagickImage image = new MagickImage())
-			{
-				// Reading the image will send all log events to the log handler
-				image.Read(SampleFiles.SnakewareJpg);
-                image.Resize(200,47);
-                image.Write(SampleFiles.SnakewareJpg + "resize.jpg");
-			}
-		}
-	}
+    }
+        */
+    }
 }

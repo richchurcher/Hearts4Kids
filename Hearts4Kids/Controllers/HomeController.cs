@@ -52,11 +52,11 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
-        public ActionResult Contact(ContactViewModel model)
+        public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View(model);
+            return View();
         }
 
         public ActionResult Success()

@@ -62,7 +62,7 @@ html {
     margin-bottom: 5px;
 }
 #navbar ul {
-    display:inline:block;
+    display:inline-block;
 }
 
 hr {

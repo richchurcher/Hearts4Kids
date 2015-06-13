@@ -8,6 +8,7 @@ using System;
 using Hearts4Kids.Models;
 using System.IO;
 using System.Web;
+using System.Threading;
 
 namespace Hearts4Kids.Services
 {
@@ -34,10 +35,39 @@ namespace Hearts4Kids.Services
             public int Height { get; private set; }
             public ImageFormat ImgFmt { get; set; }
             public long Quality { get; set; }
+            public string GetNewFileName(string originalFileName)
+            {
+                string newExt;
+                if (ImgFmt == ImageFormat.Bmp)
+                {
+                    newExt = "bmp";
+                }
+                else if (ImgFmt == ImageFormat.Jpeg)
+                {
+                    newExt = "jpg";
+                }
+                else if (ImgFmt == ImageFormat.Png)
+                {
+                    newExt = "png";
+                }
+                else if (ImgFmt == ImageFormat.Tiff)
+                {
+                    newExt = "tiff";
+                }
+                else if (ImgFmt == ImageFormat.Icon)
+                {
+                    newExt = "icon";
+                }
+                else
+                {
+                    throw new Exception("unsupported type");
+                }
+                return Path.ChangeExtension(originalFileName, newExt);
+            }
         }
         internal static SiteImageSize[] ImageSizes = new SiteImageSize[]
         {
-            new SiteImageSize ( "lg", maxHeight), //936
+            new SiteImageSize ( "lg", maxHeight) { ImgFmt=ImageFormat.Png }, //936
             new SiteImageSize ( "pv", bannerHeight) { ImgFmt=ImageFormat.Png }, //312
             new SiteImageSize ( "th", thumbHeight) { ImgFmt=ImageFormat.Png } //104
         };
@@ -45,16 +75,29 @@ namespace Hearts4Kids.Services
         {
             return Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName);
         }
-        public static string processBioImage(HttpPostedFileBase file, string dir = defaultDir)
+        public static string processBioImage(HttpPostedFileBase file)
         {
-            var newSize = ImageSizes[1];
-            string basePath = HostingEnvironment.MapPath(dir);
-            string path = Path.Combine(basePath, newSize.FolderName, file.FileName);
+            Thread reduceFurtherSizes = new Thread(processBioImg);
+            reduceFurtherSizes.Start(file);
+            var returnSize = ImageSizes[1];
+            return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetNewFileName(file.FileName));
+        }
+        static string GetBioFileName(string fileName)
+        {
+            return "bio_" + fileName;
+        }
+        static void processBioImg(object fileBase)
+        {
+            var file = (HttpPostedFileBase)fileBase;
+            var newSize = ImageSizes[0];
+            string basePath = HostingEnvironment.MapPath(defaultDir);
+            string newFileName = GetBioFileName(newSize.GetNewFileName(file.FileName));
+            string path = Path.Combine(basePath, newSize.FolderName, newFileName);
             using (var srcImage = Image.FromStream(file.InputStream))
             {
                 Resize(srcImage, path, newSize.Height, newSize.ImgFmt, newSize.Quality);
             }
-            return defaultDir + '/' + newSize.FolderName + '/' + file.FileName;
+            processImage(newFileName);
         }
         /// <summary>
         /// makes various sizes, added to appropriate folders, and returns the full path to the thumbnail
@@ -66,12 +109,14 @@ namespace Hearts4Kids.Services
             string basePath = HostingEnvironment.MapPath(dir);
             string path = Path.Combine(basePath, ImageSizes[0].FolderName,imageName);
             SiteImageSize s=null;
+            string newFileName = null;
             for(int i=1;i < ImageSizes.Length;i++)
             {
                 s = ImageSizes[i];
-                Resize(path, Path.Combine(basePath, s.FolderName, imageName), s.Height, s.ImgFmt, s.Quality);
+                newFileName = s.GetNewFileName(imageName);
+                Resize(path, Path.Combine(basePath, s.FolderName, newFileName), s.Height, s.ImgFmt, s.Quality);
             }
-            return defaultDir + '/' + s.FolderName + '/' + imageName;
+            return defaultDir + '/' + s.FolderName + '/' + newFileName;
         }
         public static IEnumerable<GalleryModel> GetImages()
         {
@@ -232,7 +277,7 @@ namespace Hearts4Kids.Services
                 if (finalImage != null)
                     finalImage.Dispose();
 
-                throw ex;
+                throw;
             }
             finally
             {

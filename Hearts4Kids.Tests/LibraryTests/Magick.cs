@@ -7,10 +7,12 @@ namespace Hearts4Kids.Tests.LibraryTests
     [TestClass]
     public class Magick
     {
+        /*
         [TestMethod]
         public void TestLog()
         {
             DetailedDebugInformationSamples.ReadImage();
         }
+        */
     }
 }

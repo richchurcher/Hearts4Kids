@@ -49,7 +49,8 @@ namespace Hearts4Kids.Controllers
                 await MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
                 if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return IsAdmin? RedirectToAction("Index")
+                        : RedirectToAction("Index", "Manage");
                 }
 
             }
