@@ -153,7 +153,7 @@ namespace Hearts4Kids.Services
             }
         }
         public static string defaultBioPic = "~/Content/Photos/Bios/Surgical.png";
-        public static async Task<IEnumerable<IGrouping<Domain.Teams,IGrouping<Domain.Professions,BioDisplay>>>> GetBiosForDisplay(bool isMainPage)
+        public static async Task<Dictionary<Domain.Teams,ILookup<Domain.Professions,BioDisplay>>> GetBiosForDisplay(bool isMainPage)
         {
             var bios = new List<BioDisplay>();
             using (var db = new Hearts4KidsEntities())
@@ -172,12 +172,19 @@ namespace Hearts4Kids.Services
                                 Trustee = b.Trustee
                             }).ToListAsync();
             }
+            //
+
+            return bios.GroupBy(b => b.Team)
+                .ToDictionary(teamGroup => teamGroup.Key,
+                              teamGroup => teamGroup.ToLookup(thing => thing.Profession));
+            /*
             return (from person in bios
                     group person by person.Team into teams
                     from professions in
                         (from person in teams
                             group person by person.Profession)
                     group professions by teams.Key);
+                    */
         }
     }
 

@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<IGrouping<Domain.Teams,IGrouping<Domain.Professions,Hearts4Kids.Models.BioDisplay>>>
+@model Dictionary<Domain.Teams,ILookup<Domain.Professions,Hearts4Kids.Models.BioDisplay>>
 
 @{
     ViewBag.Title = "Team Bios";
@@ -12,20 +12,22 @@
     <li>
         <h3>@t.Key.ToString().SplitCamelCase()</h3>
         <ul>
-            @foreach (var prof in t)
+            @foreach (var prof in t.Value)
             {
                 <li>
                     <h4>@prof.Key.ToString().SplitCamelCase()</h4>
-                    <ul>
+                    <dl class="userBios">
                         @foreach (var person in prof)
                         {
-                            <li>
-                                <h5>@person.Name <small>@person.CitationDescription</small></h5>
+                            <dt>
+                                @person.Name <small>(@person.CitationDescription)</small>
+                            </dt>
+                            <dd class="clearfix">
                                 <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" />
-                                <div class="bio">@Html.Raw(person.Bio)</div>
-                            </li>
+                                @Html.Raw(person.Bio)
+                            </dd>
                         }
-                    </ul>
+                    </dl>
                 </li>
             }
         </ul>

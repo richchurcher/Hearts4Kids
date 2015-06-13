@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("testN2CMS")]
+[assembly: AssemblyTitle("Hearts4Kids.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("testN2CMS")]
+[assembly: AssemblyProduct("Hearts4Kids.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9165083f-6d1a-4843-a0a7-d363e9da5684")]
+[assembly: Guid("5962cfe5-0f19-4aee-a4e6-d956abe83f0e")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -100,11 +100,12 @@
                 }
             }
         };
-    $("dd").each(function (index, el) {
+    $("dd",$(".userBios")).each(function (index, el) {
         var $el = $(el),
             inner = el.innerHTML,
             title = $el.prev().text(),
-            className = /panel-\w+/.exec($el.closest('.panel').attr('class'))[0];
+            panelClass = $el.closest('.panel').attr('class'),
+            className = ?panelClass.length? /panel-\w+/.exec()[0] : 'panel-default';
         shorten1stTextNode(el);
         detailLink.clone().appendTo($el.children('p:first')).on("click", function () {
             var $bioPhoto;
