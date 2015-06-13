@@ -6,7 +6,7 @@
 }
 
 <h2>The rest of the team</h2>
-<ul class="list-unstyled clearfix">
+<ul class="list-unstyled clearfix userBios">
     @foreach (var t in Model)
     {
     <li>
@@ -16,14 +16,14 @@
             {
                 <li>
                     <h4>@prof.Key.ToString().SplitCamelCase()</h4>
-                    <dl class="userBios">
+                    <dl>
                         @foreach (var person in prof)
                         {
                             <dt>
                                 @person.Name <small>(@person.CitationDescription)</small>
                             </dt>
                             <dd class="clearfix">
-                                <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" />
+                                <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-1 col-lg-1 img-responsive pull-left" />
                                 @Html.Raw(person.Bio)
                             </dd>
                         }

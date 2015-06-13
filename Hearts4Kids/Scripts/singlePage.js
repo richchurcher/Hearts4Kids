@@ -105,7 +105,7 @@
             inner = el.innerHTML,
             title = $el.prev().text(),
             panelClass = $el.closest('.panel').attr('class'),
-            className = ?panelClass.length? /panel-\w+/.exec()[0] : 'panel-default';
+            className = panelClass? /panel-\w+/.exec(panelClass)[0] : 'panel-default';
         shorten1stTextNode(el);
         detailLink.clone().appendTo($el.children('p:first')).on("click", function () {
             var $bioPhoto;

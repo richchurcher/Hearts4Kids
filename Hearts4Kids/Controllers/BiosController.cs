@@ -49,6 +49,18 @@ namespace Hearts4Kids.Controllers
                 await MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
                 if (ModelState.IsValid)
                 {
+                    if (!isAdmin)
+                    {
+                        await EmailService.SendEmailsToRoleAsync(Domain.Admin, new IdentityMessage
+                        {
+                            Subject = "New H4K bio awaiting approval",
+                            Body = string.Format("<p>A biography has been created or updated for <strong>{0}</strong> "
+                            + "please go to <a href='{1}' >to approve</a></p>", model.Name,
+                               Url.Action("CreateEditBio", "Bios",
+                                   routeValues: model.UserId,
+                                   protocol: Request.Url.Scheme /* This is the trick */))
+                        });
+                    }
                     return IsAdmin? RedirectToAction("Index")
                         : RedirectToAction("Index", "Manage");
                 }
