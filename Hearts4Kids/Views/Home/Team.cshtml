@@ -42,6 +42,8 @@
                 }
                     </dl>
                 </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -49,24 +51,24 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                        @foreach (var prof in Model[Domain.Teams.Wards].OrderByDescending(m => m.Key))
-                        {
-                            foreach (var p in prof)
-                            {
-                                <dt>
-                                    @p.Name
-                                </dt>
-                                <dd class="clearfix">
-                                    <img alt="photo of @p.Name" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" src="@Url.Content(p.BioPicUrl)" />
-                                    @Html.Raw(p.Bio)
-                                </dd>
-                            }
-                        }
-                    </dl>
+                @foreach (var prof in Model[Domain.Teams.Wards].OrderByDescending(m => m.Key))
+                {
+                    foreach (var p in prof)
+                    {
+                        <dt>
+                            @p.Name
+                        </dt>
+                        <dd class="clearfix">
+                            <img alt="photo of @p.Name" class="bioPhoto col-md-2 col-lg-2 img-responsive pull-left" src="@Url.Content(p.BioPicUrl)" />
+                            @Html.Raw(p.Bio)
+                        </dd>
+                    }
+                }
+                        </dl>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> <!--row-->
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-success">
@@ -98,7 +100,7 @@
                     The (pro-bono) support Crew
                 </div>
                 <div class="panel-body">
-                    @if (Model[Domain.Teams.NewZealand].Any())
+                    @if (Model.ContainsKey(Domain.Teams.NewZealand))
                     {
                     <dl>
                         @foreach (var prof in Model[Domain.Teams.NewZealand])

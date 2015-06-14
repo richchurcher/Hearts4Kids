@@ -15,7 +15,7 @@ namespace Hearts4Kids
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             var client = new SmtpClient();
             client.SendCompleted += (s, e) => {
@@ -28,41 +28,7 @@ namespace Hearts4Kids
                 IsBodyHtml = true
             };
             mail.To.Add(message.Destination);
-            return client.SendMailAsync(mail);
-        }
-        public static Task SendEmailsToRoleAsync(string roleName, IdentityMessage message)
-        {
-            var client = new SmtpClient();
-            client.SendCompleted += (s, e) => {
-                client.Dispose();
-            };
-            var mail = new MailMessage { Subject = message.Subject, Body = message.Body, IsBodyHtml = true };
-            //I am not sure I can guarantee where the context will be disposed if using this route
-            //var context = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
-            using (var context = new ApplicationDbContext())
-            {
-                foreach (var to in GetEmailsInRole(roleName, context))
-                {
-                    mail.To.Add(to);
-                }
-            }
-            return client.SendMailAsync(mail);
-        }
-        public static IEnumerable<string> GetEmailsInRole(string roleName, ApplicationDbContext context)
-        {
-            return from u in GetUsersInRole(roleName, context)
-                   select u.Email;
-        }
-        public static IQueryable<ApplicationUser> GetUsersInRole(string roleName, ApplicationDbContext context)
-        {
-            return from role in context.Roles
-                   where role.Name == roleName
-                   from userRoles in role.Users
-                   join user in context.Users
-                   on userRoles.UserId equals user.Id
-                   where user.EmailConfirmed == true
-                   // && user.LockoutEndDateUtc < DateTime.UtcNow
-                   select user;
+            await client.SendMailAsync(mail);
         }
     }
 

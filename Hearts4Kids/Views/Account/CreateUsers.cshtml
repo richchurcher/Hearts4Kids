@@ -25,16 +25,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsAdministrator, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MakeAdministrator, htmlAttributes: new { @class = "control-label col-md-2" })
             
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsAdministrator)
-                    @Html.ValidationMessageFor(model => model.IsAdministrator, "", new { @class = "text-danger" })
+                    @Html.CheckBoxFor(model => model.MakeAdministrator)
+                    @Html.ValidationMessageFor(model => model.MakeAdministrator, "", new { @class = "text-danger" })
                 </div>
 
                 </div>
-            <p class='help-block col-md-10'>@Html.DescriptionFor(model => model.IsAdministrator)</p>
+            <p class='help-block col-md-10'>@Html.DescriptionFor(model => model.MakeAdministrator)</p>
             
         </div>
 

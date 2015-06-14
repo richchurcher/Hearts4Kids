@@ -8,6 +8,8 @@ using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System;
 using Hearts4Kids.Services;
+using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace Hearts4Kids.Controllers
 {
@@ -118,7 +120,18 @@ namespace Hearts4Kids.Controllers
                     return View(model);
             }
         }
-
+        [HttpPost]
+        public async Task<ActionResult> DeleteUser(int id)
+        { 
+            if (id==User.Identity.GetUserId<int>()){
+                throw new UnauthorizedAccessException();
+            }
+            var usr = await UserManager.FindByIdAsync(id);
+            await UserManager.DeleteAsync(usr);
+            await SendToUserAsync(usr, "Heart4Kids Account", "This account has been deleted. Usually this will be because another email has been associated "
+                +"with you. If this is a mistake, please let Brent know.");
+            return new JsonResult { Data = new { success = true } };
+        }
         [Authorize(Roles = Domain.Admin)]
         public ActionResult CreateUsers()
         {
@@ -129,14 +142,15 @@ namespace Hearts4Kids.Controllers
         {
             if (ModelState.IsValid)
             {
-                var emailVal = new Services.RegexUtilities();
-                foreach (var em in (model.EmailList ?? string.Empty).Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries))
+                var emailVal = new RegexUtilities();
+                var errorMails = new List<string>();
+                foreach (var em in (model.EmailList ?? string.Empty).Split(new char[] { ';', ',','\r','\n',' ' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     if (emailVal.IsValidEmail(em))
                     {
                         var user = new ApplicationUser { UserName = em, Email = em };
                         var result = await UserManager.CreateAsync(user);
-                        if (result.Succeeded && model.IsAdministrator)
+                        if (result.Succeeded && model.MakeAdministrator)
                         {
                             result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
                         }
@@ -153,6 +167,9 @@ namespace Hearts4Kids.Controllers
                                 + "<p>After clicking the link, you will be asked to provide some details "
                                 + "(which like this email address will only be available to team members), after which you will be taken to a page "
                                 + "where you will be asked to provide a short biography and picture to go up on our website for public viewing.</p>");
+                        }else
+                        {
+                            errorMails.Add(em);
                         }
                         AddErrors(result);
                     }
@@ -161,8 +178,15 @@ namespace Hearts4Kids.Controllers
                         ModelState.AddModelError("EmailList", "Invalid email:" + em);
                     }
                 }
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction("Index", "Manage", new { message = ManageController.ManageMessageId.UsersAdded });
+                }
+                model.EmailList = string.Join("r\n", errorMails);
             }
-            return View();
+            
+            return View(model);
+
         }
         //optional param in case they come back later
         //

@@ -16,7 +16,8 @@ namespace Hearts4Kids.Controllers
         [Authorize(Roles=Domain.Admin)]
         public ActionResult Index()
         {
-            return View(MemberDetailService.GetBioSumarries());
+            var model = MemberDetailService.GetBioSumarries();
+            return View(model);
         }
         // GET: Bios
         public ActionResult CreateEditBio(int id=0)
@@ -51,7 +52,7 @@ namespace Hearts4Kids.Controllers
                 {
                     if (!isAdmin)
                     {
-                        await EmailService.SendEmailsToRoleAsync(Domain.Admin, new IdentityMessage
+                        await SendEmailsToRoleAsync(Domain.Admin, new IdentityMessage
                         {
                             Subject = "New H4K bio awaiting approval",
                             Body = string.Format("<p>A biography has been created or updated for <strong>{0}</strong> "
@@ -62,7 +63,7 @@ namespace Hearts4Kids.Controllers
                         });
                     }
                     return IsAdmin? RedirectToAction("Index")
-                        : RedirectToAction("Index", "Manage", ManageController.ManageMessageId.UpdateBioSuccess);
+                        : RedirectToAction("Index", "Manage", new { message = ManageController.ManageMessageId.UpdateBioSuccess });
                 }
 
             }
@@ -81,7 +82,7 @@ namespace Hearts4Kids.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            var returnView = MemberDetailService.GetMemberDetails(usr.Id) ?? new BioDetailsViewModel();
+            var returnView = MemberDetailService.GetMemberDetails(usr.Id) ?? new BioDetailsViewModel { UserId = usr.Id };
             returnView.PhoneNumber = usr.PhoneNumber;
             returnView.Email = usr.Email;
             returnView.UserName = usr.UserName;
@@ -102,7 +103,7 @@ namespace Hearts4Kids.Controllers
                 if (ModelState.IsValid)
                 {
                     return IsAdmin ? RedirectToAction("Index")
-                        : RedirectToAction("Index", "Manage", ManageController.ManageMessageId.UpdateUserDetailsSuccess);
+                        : RedirectToAction("Index", "Manage", new { message = ManageController.ManageMessageId.UpdateUserDetailsSuccess });
                 }
                 
             }

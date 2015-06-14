@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System;
+using System.Data.Entity;
 
 namespace Hearts4Kids.Controllers
 {
@@ -31,7 +31,13 @@ namespace Hearts4Kids.Controllers
                     msg = "Your biography was updated" + (IsAdmin ? string.Empty : " (pending admin approval)");
                     break;
                 case ManageMessageId.UpdateUserDetailsSuccess:
-                    msg = "Your details were succesfully udated";
+                    msg = "Your details were successfully udated";
+                    break;
+                case ManageMessageId.UsersAdded:
+                    msg = "New users successfully added";
+                    break;
+                case ManageMessageId.UsersModified:
+                    msg = "Users successfully modified";
                     break;
                 default: //includes null
                     msg = string.Empty;
@@ -74,7 +80,35 @@ namespace Hearts4Kids.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
+        [Authorize(Roles = Domain.Admin), HttpPost]
+        public ActionResult ViewAllUsers(int id, bool newVal)
+        {
+            if (newVal)
+            {
+                UserManager.AddToRole(id, Domain.Admin);
+            }
+            else
+            {
+                UserManager.RemoveFromRole(id, Domain.Admin);
+            }
+            return new JsonResult { Data = new { Success = true } };
+        }
+        [Authorize(Roles = Domain.Admin)]
+        public async Task<ActionResult> ViewAllUsers()
+        {
 
+            var model = await (from u in UserManager.Users
+                               select new AllUserModel
+                               {
+                                   UserId = u.Id,
+                                   Email = u.Email,
+                                   UserName = u.UserName,
+                                   IsAdministrator = u.Roles.Any(r => r.UserId == u.Id),
+                                   IsSelf = u.UserName == User.Identity.Name,
+                                   HasRegistered = u.PasswordHash!=null
+                               }).ToListAsync();
+            return View(model);
+        }
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
@@ -219,38 +253,6 @@ namespace Hearts4Kids.Controllers
         }
 
         //
-        // GET: /Manage/SetPassword
-        public ActionResult SetPassword()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Manage/SetPassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await UserManager.AddPasswordAsync(int.Parse(User.Identity.GetUserId()), model.NewPassword);
-                if (result.Succeeded)
-                {
-                    var user = await UserManager.FindByIdAsync(int.Parse(User.Identity.GetUserId()));
-                    if (user != null)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    }
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
@@ -347,6 +349,8 @@ namespace Hearts4Kids.Controllers
             RemovePhoneSuccess,
             UpdateBioSuccess,
             UpdateUserDetailsSuccess,
+            UsersAdded,
+            UsersModified,
             Error
         }
 

@@ -19,7 +19,7 @@
             }
             else
             {
-                @Html.ActionLink("Create", "SetPassword")
+                @Html.ActionLink("Register","Register", "Account")
             }
             ]
         </dd>
@@ -43,6 +43,8 @@
                 <dd>@Html.ActionLink("See list", "Index", "Bios") of all available biographies for edit and authorisation</dd>
                 <dt>Invite</dt>
                 <dd>@Html.ActionLink("Invite team members", "CreateUsers", "Account") to be enable them to login and upload photos or write a biography</dd>
+                <dt>All Users</dt>
+                <dd>@Html.ActionLink("View", "ViewAllUsers") including altering administrator privileges</dd>
             </dl>
         }
 

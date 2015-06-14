@@ -14,7 +14,7 @@ using Hearts4Kids.Services;
 
 namespace Hearts4Kids.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseUserController
     {
         public ActionResult Index()
         {
@@ -68,7 +68,7 @@ namespace Hearts4Kids.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ContactSubmit(
             [Bind(Include = "FromName, FromEmail, FromPhone, Message")]
-        ContactViewModel model)
+            ContactViewModel model)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Hearts4Kids.Controllers
                         Body = string.Format(body, model.FromName, model.FromEmail, model.FromPhone, model.Message),
                         Subject = "H4K Web form Message"
                     };
-                    await EmailService.SendEmailsToRoleAsync(Domain.Admin, msg);
+                    await SendEmailsToRoleAsync(Domain.Admin, msg);
                     return RedirectToAction("Success");
                 }
             }

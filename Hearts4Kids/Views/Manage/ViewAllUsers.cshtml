@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Hearts4Kids.Models.AllUserModel>
+
+@{
+    ViewBag.Title = "ViewAllUsers";
+}
+
+<h2>ViewAllUsers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@Html.AntiForgeryToken()
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAdministrator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasRegistered)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <span class="userName">@Html.DisplayFor(modelItem => item.UserName)</span>
+</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            <input type="checkbox" class="changeAdmin" value="@item.UserId" checked="@item.IsAdministrator" disabled="@item.IsSelf" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasRegistered)
+        </td>
+        <td>
+            @Html.ActionLink("Edit Details", "UpdateDetails", "Bios", new { id=item.UserId }, null)
+            @if(!item.IsSelf) {
+                @:|
+                @Html.ActionLink("Delete", "DeleteUser", "Account",new { id=item.UserId }, new { @class = "delete" }) 
+            }
+        </td>
+    </tr>
+}
+
+</table>
+@section Scripts{
+    <script>    
+        ; (function ($) {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $('.changeAdmin').on('change', function () {
+                $.ajax({
+                    method:'POST',
+                    data: { id: this.value, newVal: this.checked, __RequestVerificationToken: token}
+                });
+            });
+            $('.delete').on('click', function (e) {
+                var $row = $(this).closest('tr'),
+                    userName = $('.userName', $row).text();
+                e.preventDefault();
+
+                if (confirm("Delete user: " + userName+ "?")) {
+                    $.ajax({
+                        url: this.href,
+                        method: 'POST',
+                        data: { id: this.value, __RequestVerificationToken: token }
+                    }).success(function () { $row.remove(); });
+                }
+            })
+        })(jQuery);
+    </script>
+}

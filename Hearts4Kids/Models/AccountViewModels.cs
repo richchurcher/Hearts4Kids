@@ -67,7 +67,7 @@ namespace Hearts4Kids.Models
         [Display(Name = "List of Emails", Description = "Separated by semicolon(;) or comma(,)")]
         public string EmailList { get; set; }
         [Display(Name = "Make Administrators", Description = "Will apply to all emails provided")]
-        public bool IsAdministrator { get; }
+        public bool MakeAdministrator { get; set; }
     }
 
     public class CreateUserViewModel
@@ -98,11 +98,11 @@ namespace Hearts4Kids.Models
 
         [Required]
         [Display(Name = "Profesional Role")]
-        public Domain.Professions Profession { get; set; }
+        public Domain.Professions? Profession { get; set; }
 
         [Required]
         [Display(Name = "Team")]
-        public Domain.Teams Team { get; set; }
+        public Domain.Teams? Team { get; set; }
 
         [Required]
         [Display(Name = "Trustee", Description = "Check if you are you a nominated trustee for Hearts4Kids")]

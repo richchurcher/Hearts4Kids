@@ -274,7 +274,7 @@ namespace Hearts4Kids.Services
 
                 return finalImage;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (finalImage != null)
                     finalImage.Dispose();

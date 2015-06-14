@@ -4,6 +4,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Hearts4Kids.Models;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data.Entity;
 
 namespace Hearts4Kids.Controllers
 {
@@ -104,6 +108,42 @@ namespace Hearts4Kids.Controllers
                     : (_isAdmin = UserManager.IsInRole(CurrentUser.Id, Domain.Admin)).Value;
             }
         }
+        #region email
+        public async Task SendToUserAsync(ApplicationUser usr , string subject, string body)
+        {
+            var client = new SmtpClient();
+            client.SendCompleted += (s, e) => {
+                client.Dispose();
+            };
+            var mail = new MailMessage { Subject = subject, Body = body, IsBodyHtml = true };
+            mail.To.Add(usr.Email);
+            await client.SendMailAsync(mail);
+        }
+        public async Task SendEmailsToRoleAsync(string roleName, IdentityMessage message)
+        {
+            var client = new SmtpClient();
+            client.SendCompleted += (s, e) => {
+                client.Dispose();
+            };
+            var mail = new MailMessage { Subject = message.Subject, Body = message.Body, IsBodyHtml = true };
+            var admins = await GetEmailsInRole(roleName);
+            foreach (var to in admins)
+            {
+                mail.To.Add(to);
+            }
+            await client.SendMailAsync(mail); //not awaiting, as calling code can do that
+        }
+        public async Task<List<string>> GetEmailsInRole(string roleName)
+        {
+            return await (from u in await GetUsersInRole(roleName)
+                            select u.Email).ToListAsync();
+        }
+        public async Task<IQueryable<ApplicationUser>> GetUsersInRole(string roleName)
+        {
+            var roleId = (await RoleManager.FindByNameAsync(roleName)).Id;
+            return UserManager.Users.Where(u => u.Roles.Any(r=>r.RoleId == roleId));
+        }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

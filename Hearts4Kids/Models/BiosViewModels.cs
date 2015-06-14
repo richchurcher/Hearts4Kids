@@ -31,6 +31,19 @@ namespace Hearts4Kids.Models
         [Display(Name = "Team Leader Page")]
         public bool MainTeamPage { get; set; }
         public bool Approved { get; set; }
+
+    }
+
+    public class AllUserModel
+    {
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        [Display(Name = "Admin")]
+        public bool IsAdministrator { get; set; }
+        public bool IsSelf { get; set; }
+        [Display(Name = "Registered")]
+        public bool HasRegistered { get; set; }
     }
 
     public class BioDisplay
