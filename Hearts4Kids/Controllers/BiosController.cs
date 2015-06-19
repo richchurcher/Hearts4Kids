@@ -115,7 +115,7 @@ namespace Hearts4Kids.Controllers
             return View(model);
         }
         [AllowAnonymous]
-        public async Task<ActionResult> UserBios()
+        public async Task<ActionResult> UserBios(string name=null)
         {
             var model = await MemberDetailService.GetBiosForDisplay(isMainPage: false);
             return View(model);

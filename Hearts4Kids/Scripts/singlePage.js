@@ -82,7 +82,7 @@
 //links for the bios page - truncate to a few words and smaller photo - show details in bootstrap dialog
 ; (function ($) {
     "use strict";
-    var detailLink = $("<a>see more…</a>"),
+    var detailLink = $("<a class='seeMoreLink'>see more…</a>"),
         $bioDlg = $("#bioModal"),
         wordCount = 14,
         selectFirst = new RegExp("(\\S+\\s+){" + wordCount + "}"),
@@ -110,7 +110,7 @@
                 }
             }
         };
-    $("dd",$(".userBios")).each(function (index, el) {
+    if ($("dd",$(".userBios")).each(function (index, el) {
         var $el = $(el),
             inner = el.innerHTML,
             title = $el.prev().text(),
@@ -126,8 +126,22 @@
             $bioPhoto.attr('class', $bioPhoto.attr('class').replace(/(col-\w\w)-\d+/g, "$1-4"));
             $bioDlg.modal('show');
         });
-    });
-
+    }).length){
+        var name = getParameterByName('name');
+        if (name) {
+            var $foundItem;
+            $("dt", $(".userBios")).each(function (indx, el) {
+                var $t = $(el);
+                if ($t.text().indexOf(name)>-1) {
+                    $foundItem = $t;
+                    return false;
+                }
+            });
+            if ($foundItem) {
+                $(".seeMoreLink", $foundItem.next()).trigger('click');
+            }
+        }
+    }
 })(jQuery);
 
 (function ($) {
@@ -147,3 +161,10 @@
     });
     
 })(jQuery);
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
