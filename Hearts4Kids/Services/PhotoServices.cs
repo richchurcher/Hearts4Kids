@@ -9,6 +9,7 @@ using Hearts4Kids.Models;
 using System.IO;
 using System.Web;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace Hearts4Kids.Services
 {
@@ -67,7 +68,7 @@ namespace Hearts4Kids.Services
         }
         internal static SiteImageSize[] ImageSizes = new SiteImageSize[]
         {
-            new SiteImageSize ( "lg", maxHeight) { ImgFmt=ImageFormat.Png }, //936
+            new SiteImageSize ( "lg", maxHeight) { ImgFmt=ImageFormat.Jpeg }, //936
             new SiteImageSize ( "pv", bannerHeight) { ImgFmt=ImageFormat.Png }, //312
             new SiteImageSize ( "th", thumbHeight) { ImgFmt=ImageFormat.Png } //104
         };
@@ -82,9 +83,10 @@ namespace Hearts4Kids.Services
             var returnSize = ImageSizes[1];
             return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetFileNameWithExt(file.FileName));
         }
+        const string bioPrefix = "bio_";
         static string GetBioFileName(string fileName)
         {
-            return "bio_" + fileName;
+            return  bioPrefix + fileName;
         }
         static void processBioImg(object fileBase)
         {
@@ -120,19 +122,41 @@ namespace Hearts4Kids.Services
         }
         public static IEnumerable<GalleryModel> GetImages()
         {
-            string[] imgExt = new string[] { ".jpg", ".jpeg", ".png", ".bmp" };
+            string[] imgExt = GetImgExt();
             string baseUr = defaultDir.Substring(1) + '/';//hack
             string fullUr = baseUr + ImageSizes[0].FolderName +'/';
             SiteImageSize thumb = ImageSizes[ImageSizes.Length - 1];
             string thumbUr = baseUr + thumb.FolderName +'/';
             
-            return (from p in Directory.EnumerateFiles(Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName),"*.*",SearchOption.TopDirectoryOnly)
-                    where imgExt.Any(e=>p.EndsWith(e, StringComparison.InvariantCultureIgnoreCase))
+            return (from p in Directory.EnumerateFiles(Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName),"*",SearchOption.TopDirectoryOnly)
                     let fn = Path.GetFileName(p)
+                    where !fn.StartsWith(bioPrefix) && imgExt.Any(e=>p.EndsWith(e, StringComparison.InvariantCultureIgnoreCase))
                     select new GalleryModel
                     {
-                        FullsizeUri = fullUr + fn,
-                        ThumbUrl = thumbUr + thumb.GetFileNameWithExt(fn)
+                        url = fullUr + fn,
+                        thumbnailUrl = thumbUr + thumb.GetFileNameWithExt(fn)
+                    });
+        }
+        static string[] GetImgExt() { return new string[] { ".jpg", ".jpeg", ".png", ".bmp" }; }
+
+        public static IEnumerable<AdminGalleryModel> GetAdminImages()
+        {
+            string[] imgExt = GetImgExt();
+            string baseUr = defaultDir.Substring(1) + '/';//hack
+            string fullUr = baseUr + ImageSizes[0].FolderName + '/';
+            SiteImageSize thumb = ImageSizes[ImageSizes.Length - 1];
+            string thumbUr = baseUr + thumb.FolderName + '/';
+            DirectoryInfo di = new DirectoryInfo(Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName));
+            return (from p in di.EnumerateFiles("*", SearchOption.TopDirectoryOnly)
+                    where !p.Name.StartsWith(bioPrefix) && imgExt.Any(e => string.Equals(p.Extension, e, StringComparison.InvariantCultureIgnoreCase))
+                    select new AdminGalleryModel
+                    {
+                        url = fullUr + p.Name,
+                        thumbnailUrl = thumbUr + thumb.GetFileNameWithExt(p.Name),
+                        size = p.Length,
+                        name = p.Name,
+                        //type = p.Extension == ".jpg" ? "image/jpeg" : ("image/" + p.Extension.Substring(1))
+                        
                     });
         }
         public static void Resize(string imageFile, string outputFile, int newHeight, ImageFormat fmt = null, long quality = defaultQuality)
@@ -196,16 +220,22 @@ namespace Hearts4Kids.Services
         }
         public static void DeleteImages(string fileName, string baseDir = defaultDir)
         {
-            string dir = HostingEnvironment.MapPath(baseDir);
-            fileName = fileName.Substring(fileName.LastIndexOf('/')+1);
+            string dirPath = HostingEnvironment.MapPath(baseDir);
+            int start = fileName.LastIndexOf('/') + 1;
+            int finish = fileName.LastIndexOf('.');
+            fileName = fileName.Substring(start,finish-start) + ".*";
             foreach(var c in ImageSizes)
             {
-                string pathName = Path.Combine(dir, c.FolderName, fileName);
+                var dir = new DirectoryInfo(Path.Combine(dirPath, c.FolderName));
+                foreach (var file in dir.EnumerateFiles(fileName))
                 try
                 {
-                    File.Delete(pathName);
+                    file.Delete();
                 }
-                catch (IOException) { }
+                catch (IOException ex)
+                {
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                }
             }
         }
         public static void makeBanner(IEnumerable<string> imageNames)
@@ -219,11 +249,29 @@ namespace Hearts4Kids.Services
             }
                 
         }
-        public static System.Drawing.Bitmap CombineBitmap(IEnumerable<string> files)
+        public static Bitmap CombineBitmap(IList<string> files)
         {
+            for(int i=0;i<files.Count;i++)
+            {
+                if (!File.Exists(files[i]))
+                {
+                    if (Path.GetExtension(files[i]).Equals(".png", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        files[i] = Path.ChangeExtension(files[i], ".jpg");
+                    }else
+                    {
+                        files[i] = Path.ChangeExtension(files[i], ".png");
+                    }
+                    if (!File.Exists(files[i]))
+                    {
+                        throw new ArgumentException("File " + files[i] + "does not exist");
+                    }
+                        
+                }
+            }
             //read all images into memory
-            List<System.Drawing.Bitmap> images = new List<System.Drawing.Bitmap>();
-            System.Drawing.Bitmap finalImage = null;
+            List<Bitmap> images = new List<Bitmap>();
+            Bitmap finalImage = null;
 
             try
             {
@@ -233,7 +281,7 @@ namespace Hearts4Kids.Services
                 foreach (string image in files)
                 {
                     //create a Bitmap from the file and add it to the list
-                    System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(image);
+                    Bitmap bitmap = new Bitmap(image);
 
                     //update the size of the final bitmap
                     width += bitmap.Width;
@@ -243,6 +291,7 @@ namespace Hearts4Kids.Services
                 }
                 int imagesSupplied = images.Count;
                 if (imagesSupplied == 0) { return null; }
+                int pullLeft = width;
                 int minFinalWidth = width + maxBannerWidth;
                 int i = 0;
 
@@ -254,23 +303,25 @@ namespace Hearts4Kids.Services
                 } while (width < minFinalWidth);
 
                 //create a bitmap to hold the combined image
-                finalImage = new System.Drawing.Bitmap(width, height);
+                finalImage = new Bitmap(width, height);
 
                 //get a graphics object from the image so we can draw on it
-                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(finalImage))
+                using (Graphics g = Graphics.FromImage(finalImage))
                 {
                     //set background color
-                    g.Clear(System.Drawing.Color.Black);
+                    g.Clear(Color.Black);
 
                     //go through each image and draw it on the final image
                     int offset = 0;
-                    foreach (System.Drawing.Bitmap image in images)
+                    foreach (Bitmap image in images)
                     {
                         g.DrawImage(image,
                           new System.Drawing.Rectangle(offset, 0, image.Width, image.Height));
                         offset += image.Width;
                     }
                 }
+
+                AlterCss(pullLeft, width);
 
                 return finalImage;
             }
@@ -284,11 +335,53 @@ namespace Hearts4Kids.Services
             finally
             {
                 //clean up memory
-                foreach (System.Drawing.Bitmap image in images)
+                foreach (Bitmap image in images)
                 {
                     image.Dispose();
                 }
             }
+        }
+        private static void AlterCss(int pullLeft, int width)
+        {
+            var cssFile = HostingEnvironment.MapPath("~/Content/LandingPage.css");
+            bool isDiv=false;
+            string widthStr = string.Format("width:{0}px;", width);
+            string translateStr = string.Format("translateX(-{0}px)", pullLeft);
+            ApplyConversionToFile(cssFile, str => {
+                    if (isDiv)
+                    {
+                        if (str.Contains('}'))
+                        {
+                            isDiv = false;
+                        }
+                        return Regex.Replace(str, @"width:\s*.*;",widthStr);
+                    }
+                    else
+                    {
+                        isDiv = Regex.IsMatch(str, @"\.photoContainer\s+div.photobanner\s*{");
+                        if (isDiv) { return str; }
+                        return Regex.Replace(str, @"translateX\s*\(-.*\)",translateStr);
+                    }
+                    
+                });
+        }
+        private static void ApplyConversionToFile(string filename, Func<string,string> convert)
+        {
+            string temp = Path.GetTempFileName();
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
+            {
+                using (StreamWriter sw = new StreamWriter(File.Open(temp, FileMode.Append)))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        sw.WriteLine(convert(line));
+                    }
+                }
+            }
+
+            File.Delete(filename);
+            File.Move(temp, filename);
         }
     }
 }

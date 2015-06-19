@@ -21,38 +21,40 @@
                 currentGroup.$items.eq(currentGroup.indx).fadeIn(fadeInterval);
             });
         };
-    $.each(fadeItems, function (indx, el) {
-        var maxHeight = 0,
-            $parent;
-        el.$items.each(function (indx, el) {
-            var $t = $(el), 
-                ht = $t.outerHeight();
-            if (ht > maxHeight) {
-                maxHeight = ht;
-            }
-            if (indx > 0) {
-                $t.hide();
-            } else {
-                $parent = $t.parent();
+    $(document).ready(function(){
+        $.each(fadeItems, function (indx, el) {
+            var maxHeight = 0,
+                $parent;
+            el.$items.each(function (indx, el) {
+                var $t = $(el),
+                    ht = $t.outerHeight();
+                if (ht > maxHeight) {
+                    maxHeight = ht;
+                }
+                if (indx > 0) {
+                    $t.hide();
+                } else {
+                    $parent = $t.parent();
+                }
+            });
+            if (maxHeight >= $parent.height()) {
+                $parent.css('height', maxHeight);
             }
         });
-        if (maxHeight >= $parent.height()) {
-            $parent.css('height', maxHeight);
-        }
     });
     if (fadesCount) { window.setInterval(changeList, offsetInterval); }
 })(jQuery);
 
 //manage width of photoBanner so it scrolls flawlessly
 (function ($) {
+    if (Modernizr.csstransforms) { return; }
     var $banner = $('.photobanner');
-    if (!$banner.length) { return; }
+    if (!($banner || $banner.length)) { return; }
     var image_url = $banner.css('background-image'),
         image;
 
     // Remove url() or in case of Chrome url("")
     image_url = image_url.match(/^url\("?(.+?)"?\)$/);
-
     if (image_url[1]) {
         image_url = image_url[1];
         image = new Image();
@@ -61,10 +63,18 @@
         $(image).load(function () {
             var width = image.width,
                 containerWidth = $banner.parent().width(),
-                nonRepeatWidth = width - 933;//1600 *7/12 - adjust if changed in photoServices const
-            $banner.css('width', nonRepeatWidth+containerWidth + 'px'); 
+                nonRepeatWidth = width - 933,//1600 *7/12 - adjust if changed in photoServices const
+                repeatAt = nonRepeatWidth + containerWidth + 'px',
+                anim = function () {
+                    $banner.css('left', 0)
+                        .animate({
+                            left: '-' + repeatAt
+                        }, 120000, 'linear',function () {
+                            anim();
+                        });
+                };
+            anim();
         });
-
         image.src = image_url;
     }
 })(jQuery);

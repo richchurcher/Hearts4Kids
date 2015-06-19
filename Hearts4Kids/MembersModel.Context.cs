@@ -28,5 +28,7 @@ namespace Hearts4Kids
         public virtual DbSet<NewsletterSubscriber> NewsletterSubscribers { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
         public virtual DbSet<UserBio> UserBios { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
     }
 }

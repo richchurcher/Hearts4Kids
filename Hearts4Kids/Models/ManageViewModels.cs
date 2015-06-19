@@ -5,6 +5,7 @@ using Microsoft.Owin.Security;
 
 namespace Hearts4Kids.Models
 {
+    /*
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
@@ -13,7 +14,7 @@ namespace Hearts4Kids.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
     }
-
+    */
     public class ManageLoginsViewModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }

@@ -100,9 +100,7 @@
     <footer class="footer panel-footer navbar-fixed-bottom">
         <div class="container">
             <div class="col-md-4">
-                <a href="#" class="btn btn-success btn-block" role="button">
-                    Find out More
-                </a>
+                @Html.ActionLink("Find out More","About","Home",null,new { @class = "btn btn-success btn-block", role = "button" })
             </div>
             <div class="col-md-4">
                 <div class="btn-group btn-block dropup">
@@ -126,9 +124,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-warning btn-block" role="button">
-                    Donate
-                </a>
+                @Html.ActionLink("Donate","Donate","Home",null, new {@class="btn btn-warning btn-block", role="button"})
             </div>
         </div>
     </footer>

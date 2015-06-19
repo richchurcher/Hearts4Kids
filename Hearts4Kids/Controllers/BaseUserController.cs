@@ -34,10 +34,7 @@ namespace Hearts4Kids.Controllers
         {
             return System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
         }
-        internal static ApplicationRoleManager GetApplicationRoleManager()
-        {
-            return System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-        }
+
 
         protected ApplicationSignInManager SignInManager
         {
@@ -61,7 +58,10 @@ namespace Hearts4Kids.Controllers
                 _userManager = value;
             }
         }
-
+        internal static ApplicationRoleManager GetApplicationRoleManager()
+        {
+            return System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+        }
         protected ApplicationRoleManager RoleManager
         {
             get

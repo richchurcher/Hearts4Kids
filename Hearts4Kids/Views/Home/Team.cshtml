@@ -27,7 +27,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                @foreach (var prof in Model[Domain.Teams.Theatres].OrderByDescending(m => m.Key))
+                @foreach (var prof in Model[Domain.Teams.Theatres].OrderBy(m => m.Key))
                 {
                     foreach (var p in prof)
                     {
@@ -51,7 +51,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                @foreach (var prof in Model[Domain.Teams.Wards].OrderByDescending(m => m.Key))
+                @foreach (var prof in Model[Domain.Teams.Wards].OrderBy(m => m.Key))
                 {
                     foreach (var p in prof)
                     {
@@ -77,7 +77,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                        @foreach (var prof in Model[Domain.Teams.ICU].OrderByDescending(m => m.Key))
+                        @foreach (var prof in Model[Domain.Teams.ICU].OrderBy(m => m.Key))
                         {
                             foreach (var p in prof)
                             {

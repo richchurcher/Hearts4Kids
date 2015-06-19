@@ -24,6 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.HasRegistered)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BioLength)
+        </th>
         <th></th>
     </tr>
 
@@ -40,6 +43,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HasRegistered)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BioLength)
         </td>
         <td>
             @Html.ActionLink("Edit Details", "UpdateDetails", "Bios", new { id=item.UserId }, null)

@@ -34,7 +34,7 @@ namespace Hearts4Kids
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser,int>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
-                        getUserIdCallback: claimsId=>int.Parse(claimsId.GetUserId()))
+                        getUserIdCallback: claimsId=> claimsId.GetUserId<int>())
                 }
             });            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);

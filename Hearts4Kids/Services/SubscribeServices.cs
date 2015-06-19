@@ -76,7 +76,7 @@ namespace Hearts4Kids.Services
                             BioPicUrl = u.BioPicUrl,
                             CitationDescription = u.CitationDescription,
                             UserId = userId
-                        }).First();
+                        }).FirstOrDefault();
             }
         }
         public static BioDetailsViewModel GetMemberDetails(int userId)
@@ -135,6 +135,41 @@ namespace Hearts4Kids.Services
             if (!string.IsNullOrWhiteSpace(appUrl)) { appUrl += "/"; }
             var request = HttpContext.Current.Request;
             return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+        }
+        public static async Task<List<AllUserModel>> UserBioLength(string currentUser)
+        {
+            if (string.IsNullOrEmpty(currentUser)) { throw new ArgumentNullException("currentUser"); }
+            using (var db = new Hearts4KidsEntities())
+            {
+                return await (from u in db.AspNetUsers
+                               select new AllUserModel
+                               {
+                                   UserId = u.Id,
+                                   Email = u.Email,
+                                   UserName = u.UserName,
+                                   IsAdministrator = u.Roles.Any(r => r.Name==Domain.Admin),
+                                   IsSelf = u.UserName == currentUser,
+                                   HasRegistered = u.PasswordHash != null,
+                                   BioLength = (u.UserBio==null || u.UserBio.Bio==null )?0:u.UserBio.Bio.Length
+                               }).ToListAsync();
+            }
+        }
+        public static async Task<List<UserContacts>> GetAllUserContacts(string currentUser)
+        {
+            if (string.IsNullOrEmpty(currentUser)) { throw new ArgumentNullException("currentUser"); }
+            using (var db = new Hearts4KidsEntities())
+            {
+                return await (from u in db.AspNetUsers
+                              where u.UserName != currentUser
+                              let b = u.UserBio
+
+                              select new UserContacts
+                              {
+                                  Name = (b.FirstName==null)?u.UserName:(b.FirstName + " " + b.Surname),
+                                  Email = u.Email,
+                                  Phone = u.PhoneNumber
+                              }).ToListAsync();
+            }
         }
         public static async Task UpdateBios(BiosViewModel model, ModelStateDictionary modelState, bool isAdmin)
         {

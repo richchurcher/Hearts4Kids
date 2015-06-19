@@ -12,28 +12,29 @@ namespace Hearts4Kids
     using System;
     using System.Collections.Generic;
     
-    public partial class UserBio
+    public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserBio()
+        public AspNetUser()
         {
-            this.Quotes = new HashSet<Quote>();
+            this.Roles = new HashSet<AspNetRole>();
         }
     
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string Surname { get; set; }
-        public int Team { get; set; }
-        public int Profession { get; set; }
-        public string BioPicUrl { get; set; }
-        public bool MainTeamPage { get; set; }
-        public string Bio { get; set; }
-        public bool Trustee { get; set; }
-        public string CitationDescription { get; set; }
-        public bool Approved { get; set; }
+        public string Email { get; set; }
+        public bool EmailConfirmed { get; set; }
+        public string PasswordHash { get; set; }
+        public string SecurityStamp { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
+        public bool TwoFactorEnabled { get; set; }
+        public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
+        public bool LockoutEnabled { get; set; }
+        public int AccessFailedCount { get; set; }
+        public string UserName { get; set; }
     
+        public virtual UserBio UserBio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quote> Quotes { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual ICollection<AspNetRole> Roles { get; set; }
     }
 }

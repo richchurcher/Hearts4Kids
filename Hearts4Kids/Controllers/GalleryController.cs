@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace Hearts4Kids.Controllers
 {
     [Authorize]
-    public class GalleryController : Controller
+    public class GalleryController : BaseUserController
     {
         // GET: Gallery
         [AllowAnonymous]
@@ -31,6 +31,7 @@ namespace Hearts4Kids.Controllers
         }
         public ActionResult Upload()
         {
+            ViewBag.IsAdmin = IsAdmin;
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken]
@@ -75,10 +76,24 @@ namespace Hearts4Kids.Controllers
             return viewresult;
         }
 
+        [Authorize(Roles=Domain.Admin)]
+        public ActionResult GalleryWithDelete()
+        {
+            var returnData = PhotoServices.GetAdminImages();
+            /*
+            string ur = Url.Action("DeleteFile") + '/';
+            foreach(var d in returnData)
+            {
+                d.deleteUrl = ur + d.name;
+            }
+            return new JsonResult() {  Data= returnData, JsonRequestBehavior=JsonRequestBehavior.AllowGet };
+            */
+            return View(returnData);
+        }
 
 
-
-
+        //there is a degree of security risk here - logged in users who are not admins could delete photos which are not theirs. A calculated attack by someone who had login
+        //credentials and enough knowledge of javascritp to achieve this would be so rare as to not be worth accounting for
         //here i am receving the extra info injected
         [HttpPost, ValidateAntiForgeryToken] // should accept only post
         public ActionResult DeleteFile(int? entityId, string fileUrl)

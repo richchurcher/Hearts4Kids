@@ -197,6 +197,12 @@
     <Compile Include="App_Start\RoleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>MembersModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>MembersModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\BiosController.cs" />
@@ -299,6 +305,7 @@
     <Content Include="Content\Logos\FOF-body.png" />
     <Content Include="Content\Logos\FOF-large-tranparent.png" />
     <Content Include="Content\Logos\FOF.png" />
+    <Content Include="Content\Logos\givealittle.png" />
     <Content Include="Content\Logos\menu-hover.png" />
     <Content Include="Content\Logos\Romac.png" />
     <Content Include="Content\Logos\share-icons.png" />
@@ -616,6 +623,8 @@
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Documents\FIJI TRIP 2013_compressed.pdf" />
+    <Content Include="Content\Documents\Friends Of Fiji Paediatric Mission 2014 Report.pdf" />
     <None Include="Properties\PublishProfiles\openhost.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.3.js" />
@@ -699,6 +708,8 @@
     <Content Include="Views\Bios\UserBios.cshtml" />
     <Content Include="Scripts\jquery-1.11.3.min.map" />
     <Content Include="Views\Manage\ViewAllUsers.cshtml" />
+    <Content Include="Views\Gallery\GalleryWithDelete.cshtml" />
+    <Content Include="Views\Bios\AllUserContacts.cshtml" />
     <None Include="Web.openhost.config" />
   </ItemGroup>
   <ItemGroup>

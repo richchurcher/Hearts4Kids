@@ -63,7 +63,7 @@ namespace Hearts4Kids.Models
     }
     public class CreateUsersViewModel
     {
-        [DataType(DataType.MultilineText)]
+        [DataType(DataType.MultilineText), System.Web.Mvc.AllowHtml]
         [Display(Name = "List of Emails", Description = "Separated by semicolon(;) or comma(,)")]
         public string EmailList { get; set; }
         [Display(Name = "Make Administrators", Description = "Will apply to all emails provided")]

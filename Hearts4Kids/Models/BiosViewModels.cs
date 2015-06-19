@@ -44,6 +44,7 @@ namespace Hearts4Kids.Models
         public bool IsSelf { get; set; }
         [Display(Name = "Registered")]
         public bool HasRegistered { get; set; }
+        public int BioLength { get; set; }
     }
 
     public class BioDisplay

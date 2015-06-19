@@ -51,29 +51,24 @@ namespace Hearts4Kids.Controllers
 #if DEBUG
             await RegisterAdmin();
 #endif
-            var userid = UserManager.FindByName(model.UserName).Id;
+            var usr = UserManager.FindByName(model.UserName);
             SignInStatus result;
-            if (!UserManager.IsEmailConfirmed(userid))
-            {
-                result = SignInStatus.Failure;
-            }
-            else
-            {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, change to shouldLockout: true
-                result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: true);
+
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.RequiresVerification:
+                case SignInStatus.RequiresVerification: //this is fr verification on every login
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt. <small>If you have been sent an email to join, please click the email link to join.</small>");
+                    ModelState.AddModelError("", "Invalid login attempt. If you have been sent an email to join, please click the email link to join.");
                     return View(model);
             }
         }
@@ -137,6 +132,17 @@ namespace Hearts4Kids.Controllers
         {
             return View();
         }
+        public const string bioInstructions = "<blockquote>"
+                                + " <p>We would love you to create a bio for the team page of a paragraph or few sentences.</p>"
+                                + "<p>Please write it in the third person.<p>"
+                                + "<p>You may want to include.</p>"
+                                + "<ul><li>your role</li>"
+                                + "<li>past experience</li>"
+                                + "<li>comment on last year / what you hope to get from this year. (a quote)</li>"
+                                + "<li>something else about you.</li>"
+                                + "<li>Hope that this is not too prescriptive, but then they all match.</li></ul>"
+                                + "<p>Thank you,</p><p> <em>Kate Farmer</em> (on behalf of all the H4K team)</p>"
+                                + "</blockquote>";
         [Authorize(Roles = Domain.Admin), HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUsers(CreateUsersViewModel model)
         {
@@ -144,18 +150,18 @@ namespace Hearts4Kids.Controllers
             {
                 var emailVal = new RegexUtilities();
                 var errorMails = new List<string>();
-                foreach (var em in (model.EmailList ?? string.Empty).Split(new char[] { ';', ',','\r','\n',' ' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var em in (model.EmailList ?? string.Empty).Split(new char[] { ';', ',','\r','\n',' ','<','>' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     if (emailVal.IsValidEmail(em))
                     {
-                        var user = new ApplicationUser { UserName = em, Email = em };
+                        var user = new ApplicationUser { UserName = em, Email = em, EmailConfirmed=false };
                         var result = await UserManager.CreateAsync(user);
-                        if (result.Succeeded && model.MakeAdministrator)
-                        {
-                            result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
-                        }
                         if (result.Succeeded)
                         {
+                            if (model.MakeAdministrator)
+                            {
+                                result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
+                            }
                             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                             // Send an email with this link
                             string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -166,16 +172,22 @@ namespace Hearts4Kids.Controllers
                                 + "we would appreciate some info from you to finalise setting up your account.</p>"
                                 + "<p>After clicking the link, you will be asked to provide some details "
                                 + "(which like this email address will only be available to team members), after which you will be taken to a page "
-                                + "where you will be asked to provide a short biography and picture to go up on our website for public viewing.</p>");
-                        }else
+                                + "where you will be asked to provide a short biography and picture to go up on our website for public viewing, as described below:</p>"
+                                + "<hr/>"
+                                + bioInstructions);
+
+                        }
+                        else
                         {
                             errorMails.Add(em);
+                            AddErrors(result);
                         }
-                        AddErrors(result);
+                        
                     }
                     else
                     {
-                        ModelState.AddModelError("EmailList", "Invalid email:" + em);
+                        ModelState.AddModelError("", "Invalid email:" + em);
+                        errorMails.Add(em);
                     }
                 }
                 if (ModelState.IsValid)
@@ -255,15 +267,26 @@ namespace Hearts4Kids.Controllers
             {
                 return View("Error");
             }
-            if (User.Identity.IsAuthenticated) {
-                return RedirectToAction("Index", "Home");
-            }
             int id;
             int.TryParse(userId, out id);
+            if (User.Identity.IsAuthenticated) {
+                var currentUsr = await UserManager.FindByNameAsync(User.Identity.Name);
+                if (currentUsr.Id != id) {
+                    AuthenticationManager.SignOut();
+                }
+                else if (currentUsr.PasswordHash==null)
+                {
+                    return RedirectToAction("Register");
+                }else
+                {
+                    return RedirectToAction("UpdateDetails","Bios");
+                }
+            }
+
             var usr = await UserManager.FindByIdAsync(id);
             if (usr != null) {
                 if (usr.EmailConfirmed) {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login");
                 }
                 var result = await UserManager.ConfirmEmailAsync(id, code);
                 if (result.Succeeded) {

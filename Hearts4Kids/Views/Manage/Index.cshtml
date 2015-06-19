@@ -1,4 +1,4 @@
-﻿@model Hearts4Kids.Models.IndexViewModel
+﻿
 @{
     ViewBag.Title = "Manage";
 }
@@ -12,16 +12,7 @@
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Register","Register", "Account")
-            }
-            ]
+            @Html.ActionLink("Change your password", "ChangePassword")
         </dd>
         <dt>Biography &amp; Picture</dt>
         <dd>@Html.ActionLink("Edit", "CreateEditBio", "Bios")</dd>
@@ -29,6 +20,8 @@
         <dd>@Html.ActionLink("Update", "UpdateDetails", "Bios")</dd>
         <dt>Upload Photos</dt>
         <dd>@Html.ActionLink("Upload", "Upload", "Gallery")</dd>
+        <dt>Team Members</dt>
+        <dd>@Html.ActionLink("Contact", "AllUserContacts", "Bios")</dd>
     </dl>
         @if (ViewBag.IsAdmin)
         {
@@ -43,10 +36,13 @@
                 <dd>@Html.ActionLink("See list", "Index", "Bios") of all available biographies for edit and authorisation</dd>
                 <dt>Invite</dt>
                 <dd>@Html.ActionLink("Invite team members", "CreateUsers", "Account") to be enable them to login and upload photos or write a biography</dd>
-                <dt>All Users</dt>
+                <dt>View Users</dt>
                 <dd>@Html.ActionLink("View", "ViewAllUsers") including altering administrator privileges</dd>
+                <dt>Delete Photos</dt>
+                <dd>@Html.ActionLink("Delete Photos","GalleryWithDelete","Gallery")</dd>
             </dl>
         }
+</div>
 
             @*
                 <dt>External Logins:</dt>

@@ -1,4 +1,88 @@
-﻿/* Hacked by PM - the following are necessary to stabilize postitioning of surrounds during fadeThrough */
+@-webkit-keyframes moveSlideshow {
+    0%   { 
+        -webkit-transform: translateX(0);  
+    }     
+    100% { 
+        -webkit-transform: translateX(-2885px); 
+    }
+}
+@-moz-keyframes moveSlideshow {
+    0%   { 
+        -moz-transform:    translateX(0); 
+    }    
+    100% { 
+        -moz-transform:    translateX(-2885px); 
+    }
+}
+@-o-keyframes moveSlideshow {
+    0%   { 
+        -o-transform: translateX(0);  
+    }    
+    100% { 
+        -o-transform: translateX(-2885px);  
+    }
+}
+@-ms-keyframes moveSlideShow {
+    0%   { 
+        -ms-transform: translateX(0);  
+    }    
+    100% { 
+        -ms-transform: translateX(-2885px);  
+    }
+}
+@keyframes moveSlideshow {
+    0%   { 
+        transform: translateX(0);  
+    }    
+    100% { 
+        transform: translateX(-2885px);  
+    }
+}
+.photoContainer div.photobanner  {
+    /*split into individual propertties as IE 8 didn't support all properties */
+    position: absolute;
+    background-image: url("/Content/Photos/Banner.jpg");
+    background-repeat: repeat;
+    background-color: #000000; /* rgba(0, 0, 0, 0) */
+    background-attachment: scroll;
+    background-position: 0 0;
+    height: 100%;
+    width:4122px;
+    /*safari needs either a width or translateX in px, or it doesn't commence animation until after 1st cycle*/
+    left: 0;
+    top: 0;
+
+            /* Hey browser, use your GPU */
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform:translate3d(0, 0, 0);
+    -o-transform:translate3d(0, 0, 0);
+    -ms-transform:translate3d(0, 0, 0);
+        transform:translate3d(0, 0, 0);
+
+    /* Keyframes */
+    -moz-animation:    120s linear 0s normal none infinite running moveSlideshow;
+    -o-animation:    120s linear 0s normal none infinite running moveSlideshow;
+
+    -webkit-animation-name: moveSlideshow;
+    -webkit-animation-duration: 120s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-direction: normal;
+    -webkit-animation-fill-mode: none;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+
+        animation-name: moveSlideshow;
+    animation-duration: 120s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+} 
+
+/* Hacked by PM - the following are necessary to stabilize postitioning of surrounds during fadeThrough */
 #action-row {
     min-height:340px;
 }
@@ -12,66 +96,6 @@
     height: 232px;
     overflow: hidden;
     background-color:#ffffff;
-}
-.photoContainer div.photobanner  {
-    position: absolute;
-    background: rgba(0, 0, 0, 0) url("/Content/Photos/Banner.jpg") repeat scroll 0 0;
-    height: 100%;
-    left: 0;
-    top: 0;
-
-    /* Keyframes */
-    animation:    180s linear 0s normal none infinite running moveSlideshow;
-    -moz-animation:    180s linear 0s normal none infinite running moveSlideshow;
-    -webkit-animation:    180s linear 0s normal none infinite running moveSlideshow;
-    -o-animation:    180s linear 0s normal none infinite running moveSlideshow;
-    /* -ms-animation:    slideshow 10s linear infinite; - doesn't seem to exist*/
-    /* Hey browser, use your GPU */
-    transform:translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform:translate3d(0, 0, 0);
-    -o-transform:translate3d(0, 0, 0);
-    -ms-transform:translate3d(0, 0, 0);
-} 
-@keyframes moveSlideshow {
-    0%   { 
-        transform: translateX(0);  
-    }    
-    100% { 
-        transform: translateX(-100%);  
-    }
-}
-@-webkit-keyframes moveSlideshow {
-    0%   { 
-        -webkit-transform: translateX(0);  
-    }    
-    100% { 
-        -webkit-transform: translateX(-100%);  
-    }
-}
-@-moz-keyframes moveSlideshow {
-    0%   { 
-        -moz-transform:    translateX(0); 
-    }    
-    100% { 
-        -moz-transform:    translateX(-100%); 
-    }
-}
-@-o-keyframes moveSlideshow {
-    0%   { 
-        -o-transform: translateX(0);  
-    }    
-    100% { 
-        -o-transform: translateX(-100%);  
-    }
-}
-@-ms-keyframes moveSlideShow {
-    0%   { 
-        -ms-transform: translateX(0);  
-    }    
-    100% { 
-        -ms-transform: translateX(-100%);  
-    }
 }
 
 /* sizes hacked by PM */

@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Hearts4Kids.Models.GalleryModel>
+﻿@model IEnumerable<Hearts4Kids.Models.AdminGalleryModel>
 @{
-    ViewBag.Title = "Landing Images";
+    ViewBag.Title = "Delete Images";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -25,12 +25,13 @@
         <div id="links" class="gallery form group">
             @foreach (var m in Model)
             {
-                <label class="label">
-                    <a href="@m.url">
+                <div class="col-md-2 photoUnit">
+                    <a href="@m.url" class="pull-left">
                         <img src="@m.thumbnailUrl">
                     </a>
-                    <input type="checkbox" value="@m.url" name="forBanner" />
-                </label>
+                    <label class="label label-default">size:<span>@m.fileSize</span></label>
+                    <button class="btn btn-danger deleteImg" type="button" value="@m.name" >Delete</button>
+                </div>
             }
         </div>
     </div>
@@ -45,4 +46,20 @@
 @section Scripts{
     @Scripts.Render("~/Content/blueimp-gallery2/js/blueimp-gallery.js")
     @Scripts.Render("~/Content/blueimp-gallery2/ans-blueimp-gallery2-set.js")
+    <script>
+
+        ; (function ($) {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $('#links').on('click', '.deleteImg',function () {
+                var $self = $(this);
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Action("DeleteFile")',
+                    data: { fileUrl: this.value, __RequestVerificationToken: token}
+                }).success(function(){
+                    $self.closest('.photoUnit').remove();
+                });
+            });
+        })(jQuery);
+    </script>
 }

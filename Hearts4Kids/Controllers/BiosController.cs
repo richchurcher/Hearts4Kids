@@ -27,10 +27,15 @@ namespace Hearts4Kids.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            var model = MemberDetailService.GetBioDetails(id);
+            var model = MemberDetailService.GetBioDetails(id) ?? new BiosViewModel() { UserId=id  };
             model.IsAdmin = IsAdmin;
             return View(model);
         }
+        public async Task<ActionResult> AllUserContacts()
+        {
+            return View(await MemberDetailService.GetAllUserContacts(User.Identity.Name));
+        }
+
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model, HttpPostedFileBase bioImg)
         {

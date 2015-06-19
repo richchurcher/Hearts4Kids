@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Hearts4Kids.Models.UserContacts>
+
+@{
+    ViewBag.Title = "All H4K Members";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a class="btn btn-default" role="button" id="emailBtn" href="mailto:">Email Selected</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                <input id="selectAll" type="button" class="btn btn-default" value="Select All" />
+            </th>
+        </tr>
+    </thead>
+    <tbody id="contactsBody">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@item.Email">@item.Name</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <input type="checkbox" class="emailUser" value="@item.Email"/>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script>
+    ;(function($){
+        $("#selectAll").on('click', function () {
+            var check, selected = 'Unselect All', unselected = 'Select All';
+            if (this.value === unselected) {
+                check = true;
+                this.value = selected;
+            } else {
+                check = false;
+                this.value = unselected;
+            }
+            $(".emailUser").prop('checked', check).trigger('change');
+        });
+        $("#contactsBody").on('change','.emailUser',function(){
+            var emailBtn = document.getElementById('emailBtn'),
+                val = this.value.trim() + ';';
+            if (this.checked) {
+                emailBtn.href += val;
+            } else {
+                emailBtn.href = emailBtn.href.replace(':' + val, ":"); // mailto:
+                emailBtn.href = emailBtn.href.replace(';' + val, ";");             
+            }
+        });
+        $('.emailUser').trigger('change');
+    })(jQuery);
+    </script>
+}

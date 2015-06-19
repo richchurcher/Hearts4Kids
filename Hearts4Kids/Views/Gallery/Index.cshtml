@@ -22,8 +22,8 @@
 <div id="links" class="gallery">
     @foreach (var m in Model)
     {
-        <a href="@m.FullsizeUri" >
-            <img src="@m.ThumbUrl" >
+        <a href="@m.url" >
+            <img src="@m.thumbnailUrl" >
         </a>
     }
 </div>
