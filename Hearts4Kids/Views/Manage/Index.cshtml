@@ -22,6 +22,9 @@
         <dd>@Html.ActionLink("Upload", "Upload", "Gallery")</dd>
         <dt>Team Members</dt>
         <dd>@Html.ActionLink("Contact", "AllUserContacts", "Bios")</dd>
+        <dt>Approach Letter</dt>
+        <dd>Download 2015 campaign letter for edit as @Html.ActionLink("Word doc (.docx)", "DownloadFile", new { filename = "H4K 2015 Campaign Letter.docx" })
+            or as @Html.ActionLink("Rich Text (.rtf)", "DownloadFile", new { filename = "H4K 2015 Campaign Letter.rtf" }) (larger file)</dd>
     </dl>
         @if (ViewBag.IsAdmin)
         {

@@ -623,8 +623,11 @@
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Documents\FIJI TRIP 2013_compressed.pdf" />
-    <Content Include="Content\Documents\Friends Of Fiji Paediatric Mission 2014 Report.pdf" />
+    <Content Include="Content\PublicPdfs\FIJI TRIP 2014 Slides.pdf" />
+    <Content Include="Content\PublicPdfs\2014 Paediatric Report.pdf" />
+    <Content Include="Content\PublicPdfs\H4K 2015 Campaign Letter.pdf" />
+    <Content Include="App_Data\Documents\H4K 2015 Campaign Letter.docx" />
+    <Content Include="App_Data\Documents\H4K 2015 Campaign Letter.rtf" />
     <None Include="Properties\PublishProfiles\openhost.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.3.js" />
@@ -710,10 +713,10 @@
     <Content Include="Views\Manage\ViewAllUsers.cshtml" />
     <Content Include="Views\Gallery\GalleryWithDelete.cshtml" />
     <Content Include="Views\Bios\AllUserContacts.cshtml" />
+    <Content Include="Views\Home\DisplayPdf.cshtml" />
     <None Include="Web.openhost.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\Photos\Slides\lg\" />
     <Folder Include="Content\Photos\Slides\pv\" />
     <Folder Include="Content\Photos\Slides\th\" />

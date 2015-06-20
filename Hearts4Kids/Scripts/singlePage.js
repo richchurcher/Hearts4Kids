@@ -125,9 +125,22 @@
             $bioPhoto = $(".bioPhoto", $bioDlg);
             $bioPhoto.attr('class', $bioPhoto.attr('class').replace(/(col-\w\w)-\d+/g, "$1-4"));
             $bioDlg.modal('show');
+            if (Modernizr.history) {
+                var addrBar = location.href.split("?"),
+                    name = $(this).closest("dd").prev().text().split("(")[0].trim();
+                if (addrBar[1]) {//because dialog is modal and removes querystring on close (via back), must be direct referal here
+                    history.replaceState(null,name,addrBar[0]);
+                } 
+                history.pushState(null, name, addrBar[0] + "?name=" + encodeURIComponent(name));
+            }
         });
     }).length){
         var name = getParameterByName('name');
+        if (Modernizr.history) {
+            $bioDlg.on('hidden.bs.modal', function () {
+                history.back();
+            })
+        }
         if (name) {
             var $foundItem;
             $("dt", $(".userBios")).each(function (indx, el) {

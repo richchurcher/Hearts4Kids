@@ -6,7 +6,8 @@
     <div class="col-md-12">
         <h2>@ViewBag.Title</h2>
         <p>The Hearts4Kids Trust is a volunteer medical team from New Zealand that travels to Fiji to perform life-saving congenital heart surgery on babies and children. With help these children have the opportunity to lead an active and fulfilling life.</p>
-        <p>Repairing simple congenital heart defects is one of the most lifesaving and cost-effective operations to be done in the field of medicine today. Unfortunately there are 350 children born each year in the Pacific Islands that do not have immediate access to this life saving surgery without travelling to New Zealand or receiving medical missions from other countries.</p>
+        <p>Repairing simple congenital heart defects is one of the most lifesaving operations to be done in the field of medicine today. 
+            Unfortunately there are 350 children born each year in the Pacific Islands that do not have immediate access to this life saving surgery without travelling to New Zealand or receiving medical missions from other countries.</p>
         <p>The Hearts4Kids Trust needs $85,000 to travel to Fiji in September to operate on 15 children over a 5 day period. Just 15% of the equivalent cost if the same children were brought to New Zealand for surgery. All of the funds donated will be used specifically to operate and care for the children in Fiji. Priority will be given to purchase equipment, disposables and drugs and the balance of funds will be used to pay for economy travel and house the medical team. The support and administration of Hearts4Kids Trust is fully pro-bono.</p>
         <p>Hearts4Kids also hopes to empower the local medical and nursing staff to detect and care for babies from birth or time of diagnosis. As the organisation further develops its relationships with the local community Hearts4Kids will develop the local facilities and educate the local staff. This would create sustainability for future visits as the more medical and nursing staff become up skilled in this field, the less team members we need to take with us. Skills learnt in this area of medicine will also undoubtedly result in improved outcomes for other children requiring complex care in the hospital.</p>
         <p>Hearts4Kids is a dedicated team that has the privilege to use our specialist expertise and time to reach some of the poorest children in the world and give them the opportunity to lead active and fulfilling lives. But, we need help to make it happen.</p>
@@ -15,7 +16,7 @@
 <div class="row">
     <h3>Find Out More</h3>
     <ul>
-        <li>Download our <a href="~/Content/Documents/Friends Of Fiji Paediatric Mission 2014 Report.pdf">Formal 2014 Mission Report</a> (pdf)</li>
-        <li><a href="~/Content/Documents/FIJI TRIP 2013_compressed.pdf">See a slide pesentation</a> (pdf) made by @Html.ActionLink("Jackie Oliver","UserBios","Bios",new { name= "Jackie Oliver" },null)<small>(Cardiac Surgery Clinical Charge Nurse)</small> for her operating theatre colleagues</li>
+        <li>Download our @Html.ActionLink("Formal 2014 Mission Report","DisplayPdf", new { id="2014 Paediatric Report" }) (pdf)</li>
+        <li>@Html.ActionLink("See a slide pesentation", "DisplayPdf", new { id = "FIJI TRIP 2014 Slides" }) (pdf) made by @Html.ActionLink("Jackie Oliver","UserBios","Bios",new { name= "Jackie Oliver" },null)<small>(Cardiac Surgery Clinical Charge Nurse)</small> for her operating theatre colleagues</li>
     </ul>
 </div>

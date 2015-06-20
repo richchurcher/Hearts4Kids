@@ -159,16 +159,25 @@ namespace Hearts4Kids.Services
             if (string.IsNullOrEmpty(currentUser)) { throw new ArgumentNullException("currentUser"); }
             using (var db = new Hearts4KidsEntities())
             {
-                return await (from u in db.AspNetUsers
-                              where u.UserName != currentUser
-                              let b = u.UserBio
+                var returnVar = await (from u in db.AspNetUsers
+                                      where u.UserName != currentUser
+                                      let b = u.UserBio
 
-                              select new UserContacts
-                              {
-                                  Name = (b.FirstName==null)?u.UserName:(b.FirstName + " " + b.Surname),
-                                  Email = u.Email,
-                                  Phone = u.PhoneNumber
-                              }).ToListAsync();
+                                      select new UserContacts
+                                      {
+                                          Name = (b.FirstName==null)?u.UserName:(b.FirstName + " " + b.Surname),
+                                          Email = u.Email,
+                                          Phone = u.PhoneNumber
+                                      }).ToListAsync();
+                /*
+                returnVar.AddRange(await (from s in db.NewsletterSubscribers
+                                          select new UserContacts
+                                          {
+                                              Name = s.Email + " (subscriber)",
+                                              Email = s.Email
+                                          }).ToListAsync());
+                */
+                return returnVar;
             }
         }
         public static async Task UpdateBios(BiosViewModel model, ModelStateDictionary modelState, bool isAdmin)

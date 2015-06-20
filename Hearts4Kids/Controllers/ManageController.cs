@@ -5,8 +5,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
-using System;
-using System.Data.Entity;
 
 namespace Hearts4Kids.Controllers
 {
@@ -60,7 +58,25 @@ namespace Hearts4Kids.Controllers
             */
             return View();
         }
-
+        public FileResult DownloadFile(string filename)
+        {
+            string filePath = Server.MapPath("~/App_Data/Documents/" + filename);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            string mimeType;
+                switch (System.IO.Path.GetExtension(filename))
+            {
+                case ".rtf":
+                    mimeType = System.Net.Mime.MediaTypeNames.Application.Rtf;
+                    break;
+                case ".docx":
+                    mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    break;
+                default:
+                    mimeType = System.Net.Mime.MediaTypeNames.Application.Octet;
+                    break;
+            }
+            return File(fileBytes, mimeType, filename);
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

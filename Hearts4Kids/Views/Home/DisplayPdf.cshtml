@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.Source;
+}
+@section Styles{
+    <style>
+        #pdf{
+            min-height:500px;
+        }
+    </style>
+
+}
+
+<div class="row">
+    <embed src="@ViewBag.Source" type="application/pdf" class="col-md-12" id="pdf" />
+</div>

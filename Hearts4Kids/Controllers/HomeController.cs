@@ -64,6 +64,12 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
+        public ActionResult DisplayPdf(string id)
+        {
+            ViewBag.Source = "/Content/PublicPdfs/" + id + ".pdf";
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ContactSubmit(
