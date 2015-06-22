@@ -5,6 +5,12 @@
 <div class="row">
     <div class="col-md-12">
         <h2>@ViewBag.Title</h2>
+        <div class="col-md-4 pull-right" id="images">
+            <ul class="list-unstyled fadeThrough photoContainer">
+                <li><img src="~/Content/Photos/Slides/pv/IMG_3186.png" alt="H4K team with patient" class="img-responsive"/></li>
+                <li><img src="~/Content/Photos/Slides/pv/IMG_3196.png" alt="2014 patient and grandmother" class="img-responsive"/></li>
+            </ul>
+        </div>
         <p>The Hearts4Kids Trust is a volunteer medical team from New Zealand that travels to Fiji to perform life-saving congenital heart surgery on babies and children. With help these children have the opportunity to lead an active and fulfilling life.</p>
         <p>Repairing simple congenital heart defects is one of the most lifesaving operations to be done in the field of medicine today. 
             Unfortunately there are 350 children born each year in the Pacific Islands that do not have immediate access to this life saving surgery without travelling to New Zealand or receiving medical missions from other countries.</p>
@@ -16,7 +22,9 @@
 <div class="row">
     <h3>Find Out More</h3>
     <ul>
+        <li>See our full @Html.ActionLink("Background Document","Background")</li>
         <li>Download our @Html.ActionLink("Formal 2014 Mission Report","DisplayPdf", new { id="2014 Paediatric Report" }) (pdf)</li>
         <li>@Html.ActionLink("See a slide pesentation", "DisplayPdf", new { id = "FIJI TRIP 2014 Slides" }) (pdf) made by @Html.ActionLink("Jackie Oliver","UserBios","Bios",new { name= "Jackie Oliver" },null)<small>(Cardiac Surgery Clinical Charge Nurse)</small> for her operating theatre colleagues</li>
+        <li>See the @Html.ActionLink("report from Shamini","YouthVolunteers"), one of two university students who accompanied us (self funded) last year</li>
     </ul>
 </div>

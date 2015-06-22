@@ -293,6 +293,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ContactPage.css" />
+    <Content Include="Content\DisplayPdf.css" />
     <Content Include="Content\LandingPage.css" />
     <Content Include="Content\Logos\8515783.jpg" />
     <Content Include="Content\Logos\favicon.ico" />
@@ -323,6 +324,19 @@
     <Content Include="Content\Logos\Full2.png" />
     <Content Include="Content\Logos\Heart2.png" />
     <Content Include="Content\Photos\Bios\Surgical.png" />
+    <Content Include="Content\Photos\Kirsten signature.jpg" />
+    <Content Include="Content\Photos\Slides\lg\Carol And Ann.jpg" />
+    <Content Include="Content\Photos\Closed door.jpg" />
+    <Content Include="Content\Photos\Slides\lg\Fijian ECG.jpg" />
+    <Content Include="Content\Photos\Slides\lg\Nicky and 3 patients.jpg" />
+    <Content Include="Content\Photos\Slides\lg\post-op ward.jpg" />
+    <Content Include="Content\Photos\Slides\pv\2014-09-07 12.41.33.png" />
+    <Content Include="Content\Photos\Slides\th\Carol And Ann.png" />
+    <Content Include="Content\Photos\Slides\th\Fijian ECG.png" />
+    <Content Include="Content\Photos\Slides\th\IV.png" />
+    <Content Include="Content\Photos\Slides\th\Nicky and 3 patients.png" />
+    <Content Include="Content\Photos\Slides\th\post-op ward.png" />
+    <Content Include="Content\Photos\Slides\th\Sutures.png" />
     <Content Include="Content\TeamPage.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -653,6 +667,7 @@
     <Content Include="Scripts\mvcfileupload\blueimp\tmpl.min.js" />
     <Content Include="Scripts\mvcfileupload\vendor\bootstrap.min.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\pdfHeightPolyfill.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -714,12 +729,12 @@
     <Content Include="Views\Gallery\GalleryWithDelete.cshtml" />
     <Content Include="Views\Bios\AllUserContacts.cshtml" />
     <Content Include="Views\Home\DisplayPdf.cshtml" />
+    <Content Include="Views\Home\Sponsors.cshtml" />
+    <Content Include="Views\Home\YouthVolunteers.cshtml" />
+    <Content Include="Views\Home\Background.cshtml" />
     <None Include="Web.openhost.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Photos\Slides\lg\" />
-    <Folder Include="Content\Photos\Slides\pv\" />
-    <Folder Include="Content\Photos\Slides\th\" />
     <Folder Include="Domain\Tables\" />
     <Folder Include="Views\BaseUser\" />
   </ItemGroup>

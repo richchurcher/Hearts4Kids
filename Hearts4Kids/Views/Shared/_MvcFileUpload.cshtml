@@ -311,7 +311,8 @@ else //inline
             resizeMaxWidth: 1920,
             resizeMaxHeight: 1200,
             disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator && navigator.userAgent),
-
+            //not helping with delete
+            //formData: { __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()},
             imageMaxHeight: @Hearts4Kids.Services.PhotoServices.maxHeight,
             imageCrop:false,
             acceptFileTypes: @Model.FileTypes

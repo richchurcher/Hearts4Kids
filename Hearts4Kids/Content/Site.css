@@ -163,4 +163,13 @@ div#copyright {
     padding-right:15px;
 }
 
-  .form-group { margin-bottom: 0; padding: 10px; } /*G-- Subscribe --*/
+.form-group { margin-bottom: 0; padding: 10px; } /*G-- Subscribe --*/
+
+img.pull-left {
+    margin-right:10px;
+}
+
+img.pull-right {
+    margin-left:10px;
+}
+

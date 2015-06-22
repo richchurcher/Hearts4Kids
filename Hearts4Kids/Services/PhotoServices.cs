@@ -19,7 +19,7 @@ namespace Hearts4Kids.Services
         public const int maxHeight = 696;
         public const int thumbHeight = 76;
         public const int bannerHeight = 232;
-        public const long defaultQuality = 95;
+        public const long defaultQuality = 98;
         //screen * md-7 = 7/12
         public const int maxBannerWidth = 1600 * 7 / 12;
         public const string defaultDir = "~/Content/Photos/Slides";

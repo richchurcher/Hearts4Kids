@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Data;
-using System.Net;
-using System.Net.Mail;
-
 using Hearts4Kids.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -53,9 +46,23 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
+        public ActionResult Sponsors()
+        {
+            return View();
+        }
+
+        public ActionResult YouthVolunteers()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
+            return View();
+        }
 
+        public ActionResult Background()
+        {
             return View();
         }
 

@@ -49,13 +49,12 @@
     <script>
 
         ; (function ($) {
-            var token = $('input[name="__RequestVerificationToken"]').val();
             $('#links').on('click', '.deleteImg',function () {
                 var $self = $(this);
                 $.ajax({
                     method: 'POST',
                     url: '@Url.Action("DeleteFile")',
-                    data: { fileUrl: this.value, __RequestVerificationToken: token}
+                    data: { fileUrl: this.value }
                 }).success(function(){
                     $self.closest('.photoUnit').remove();
                 });

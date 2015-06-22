@@ -2,32 +2,108 @@
     ViewBag.Title = "Donate";
 }
 
+@section Styles {
+    @Styles.Render("~/Content/LandingPage.css")
+}
+
 <div class="row">
     <div class="col-md-12">
         <h2>DONATE</h2>
         <p class="lead">As a Hearts4Kids supporter, your donation will help raise $85,000 to send a medical team this year to Fiji to save the lives of 15 babies and children. </p>
-        <p class="list-group-item-heading">There are a number of ways to donate:</p>
-        <ul class="list-group">
-            <li class="list-group-item">
-                By direct credit transfer to the Hearts4Kids Trust bank account:
-                <div class="bank">
-                    <dl id="bankDetails">
-                        <dt>Account number:</dt>
-                        <dd>
-                            <small>(Kiwibank)</small> 38-9016-0867144-01
-                        </dd>
+        <div class="row">
+            <p class="list-group-item-heading">There are a number of ways to donate:</p>
+            <ul class="list-group col-md-8">
+                <li class="list-group-item">By credit card through our Hearts4Kids page on <a href="http://givealittle.co.nz/cause/hearts4kids"><img alt="give a little" src="~/Content/Logos/givealittle.png" /></a></li>
+                <li class="list-group-item">
+                    By direct credit transfer to the Hearts4Kids Trust bank account:
+                    <div class="bank">
+                        <dl id="bankDetails">
+                            <dt>Account number:</dt>
+                            <dd>
+                                <small>(Kiwibank)</small> 38-9016-0867144-01
+                            </dd>
 
-                        <dt>Account name:</dt>
-                        <dd>HEARTS4KIDS TRUST</dd>
-                    </dl>
-                    <div class="help-block" >
-                        If donating by bank transfer, please reference your name, and email us on <a href="mailto:info@hearts4kids.org.nz">info@hearts4kids.org.nz</a> with your contact details. We’d like to thank you and send you a receipt for your donation.
+                            <dt>Account name:</dt>
+                            <dd>HEARTS4KIDS TRUST</dd>
+                        </dl>
+                        <div class="help-block">
+                            If donating by bank transfer, please reference your name, and email us on <a href="mailto:info@hearts4kids.org.nz">info@hearts4kids.org.nz</a> with your contact details. We’d like to thank you and send you a receipt for your donation.
+                        </div>
                     </div>
+                </li>
+                <li class="list-group-item">By cheque to Hearts4Kids Trust. Send to us at: <address>PO Box 5522, Wellesley Street, Auckland 1010</address></li>
+            </ul>
+            <div class="col-md-4 photoContainer">
+                <div class="photobanner">
                 </div>
-            </li>
-            <li class="list-group-item">By credit card through our Hearts4Kids page on <a href="http://givealittle.co.nz/cause/hearts4kids"><img alt="give a little" src="~/Content/Logos/givealittle.png" /></a></li>
-            <li class="list-group-item">By cheque to Hearts4Kids Trust. Send to us at: <address>PO Box 5522, Wellesley Street, Auckland 1010</address></li>
-        </ul>
-        <p>Thank you for your donation. Your support is vital. We are not funded by the Government and simply can't do this without your help. All of the funds donated will be used specifically to operate and care for the children in Fiji. Priority will be given to purchase equipment, disposables and drugs </p>
+            </div>
+            <p class="help-block col-md-4">Thank you for your donation. Your support is vital. We are not funded by the Government and simply can't do this without your help. All of the funds donated will be used specifically to operate and care for the children in Fiji. Priority will be given to purchase equipment, disposables and drugs </p>
+        </div>
+        <div class="row">
+            <h3>What your donation buys <small>in NZ dollars</small>:</h3>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        $6000
+                    </div>
+                    <div class="panel-body">
+                        <img src="~/Content/Photos/Slides/pv/2014-09-07 12.41.33.png" class="pull-left col-md-5 img-responsive" alt="one of our success stories" />
+                        Buys everything needed for one child's heart operation - from the disinfectant bath before surgery 
+                        (to minimise the chance of infection), through to the disposables to keep him/her alive on the heart lung
+                        machine. This includes shipping the special equipment to Fiji and the flights/accomodation/food for the specialist nurses 
+                        volunteering to look after him/her 24/7 during the critical days after surgery.
+                    </div> <!--panel-body-->
+                </div><!--panel-->
+            </div> <!--col-->
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                $500
+                            </div>
+                            <div class="panel-body">
+                                <img class="pull-left" src="~/Content/Photos/Slides/th/Sutures.png" alt="sutures"/>Thanks to 
+                                @Html.ActionLink("Obex", "Sponsors","Home",null,null,"Obex",null,null) providing sutures at half the retail price, $500 buys enough sutures to close the holes
+                                in 4 different children's hearts.
+                            </div> <!--panel-body-->
+                        </div><!--panel-->
+                    </div> <!--col-->
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                $100
+                            </div>
+                            <div class="panel-body">
+                                Buys the patch required to fix a hole between the 2 main chambers of the heart (VSD).
+                            </div> <!--panel-body-->
+                        </div><!--panel-->
+                    </div> <!--col-->
+                </div><!--row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                $55
+                            </div>
+                            <div class="panel-body">
+                                <img class="pull-left" src="~/Content/Photos/Slides/th/IV.png" alt="IV line"/>
+                                Buys the IV lines and drip sets required for 1 child to safely make it through their hospital stay.
+                            </div> <!--panel-body-->
+                        </div><!--panel-->
+                    </div> <!--col-->
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                $25
+                            </div>
+                            <div class="panel-body">
+                                Pays for all the pain relief required for 1 child during and after their procedure.
+                            </div> <!--panel-body-->
+                        </div><!--panel-->
+                    </div> <!--col-->
+                </div><!--row-->
+            </div>
+        </div> <!--row-->
     </div>
 </div>

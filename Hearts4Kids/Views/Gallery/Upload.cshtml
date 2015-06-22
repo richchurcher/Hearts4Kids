@@ -9,7 +9,7 @@
     @Styles.Render("/Content/mvcfileupload/blueimp/jquery.fileupload-ui.css")
 }
 
-<h2>Upload Photos to Gallery</h2>
+    <h2>Upload Photos to Gallery</h2>
     <div class="well">
         
         <p class="help-block">jpg/png size max 5 MB</p>
@@ -24,9 +24,10 @@
         
     </div>
 @section Scripts{
-        <!-- Blueimp Jquery File Upload-->
-
+    <!-- Blueimp Jquery File Upload-->
     @Scripts.Render("~/bundles/mvcFileUploader")
+
+    @*
     @if (ViewBag.IsAdmin)
     {
         <script>
@@ -39,8 +40,9 @@
                         getFn();
                     })
             })(jQuery)
-            
+
         </script>
     }
+    *@
 }
 <!--template and scripts end-->

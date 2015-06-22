@@ -138,7 +138,7 @@ namespace Hearts4Kids.Controllers
                                 + "<p>You may want to include.</p>"
                                 + "<ul><li>your role</li>"
                                 + "<li>past experience</li>"
-                                + "<li>comment on last year / what you hope to get from this year. (a quote)</li>"
+                                + "<li><strong>comment on last year / what you hope to get from this year. (<q>a quote</q>)</strong></li>"
                                 + "<li>something else about you.</li>"
                                 + "<li>Hope that this is not too prescriptive, but then they all match.</li></ul>"
                                 + "<p>Thank you,</p><p> <em>Kate Farmer</em> (on behalf of all the H4K team)</p>"
@@ -164,17 +164,7 @@ namespace Hearts4Kids.Controllers
                             }
                             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                             // Send an email with this link
-                            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                            await UserManager.SendEmailAsync(user.Id, "Finalise your Hearts4Kids account", "<h2>Welcome to Hearts4Kids.</h2>"
-                                + "<p>Please set up your account by clicking <a href=\"" + callbackUrl + "\">here</a></p>"
-                                + "<p>Because we believe the professionals (like you) volunteering their time are the selling point for our charity, "
-                                + "we would appreciate some info from you to finalise setting up your account.</p>"
-                                + "<p>After clicking the link, you will be asked to provide some details "
-                                + "(which like this email address will only be available to team members), after which you will be taken to a page "
-                                + "where you will be asked to provide a short biography and picture to go up on our website for public viewing, as described below:</p>"
-                                + "<hr/>"
-                                + bioInstructions);
+                            await SendInviteAsync(user.Id);
 
                         }
                         else
@@ -199,6 +189,21 @@ namespace Hearts4Kids.Controllers
             
             return View(model);
 
+        }
+
+        private async Task SendInviteAsync(int userId)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userId, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userId, "Finalise your Hearts4Kids account", "<h2>Welcome to Hearts4Kids.</h2>"
+                + "<p>Please set up your account by clicking <a href=\"" + callbackUrl + "\">here</a></p>"
+                + "<p>Because we believe the professionals (like you) volunteering their time are the selling point for our charity, "
+                + "we would appreciate some info from you to finalise setting up your account.</p>"
+                + "<p>After clicking the link, you will be asked to provide some details "
+                + "(which like this email address will only be available to team members), after which you will be taken to a page "
+                + "where you will be asked to provide a short biography and picture to go up on our website for public viewing, as described below:</p>"
+                + "<hr/>"
+                + bioInstructions);
         }
         //optional param in case they come back later
         //
@@ -277,9 +282,14 @@ namespace Hearts4Kids.Controllers
                 else if (currentUsr.PasswordHash==null)
                 {
                     return RedirectToAction("Register");
-                }else
+                }
+                else if (MemberDetailService.BioRequired(currentUsr.Id))
                 {
-                    return RedirectToAction("UpdateDetails","Bios");
+                    return RedirectToAction("CreateEditBio","Bios");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
                 }
             }
 
@@ -315,9 +325,14 @@ namespace Hearts4Kids.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+                if (!user.EmailConfirmed || string.IsNullOrEmpty(user.PasswordHash))
+                {
+                    await SendInviteAsync(user.Id);
                     return View("ForgotPasswordConfirmation");
                 }
 

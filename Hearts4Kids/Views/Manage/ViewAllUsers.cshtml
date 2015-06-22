@@ -61,11 +61,10 @@
 @section Scripts{
     <script>    
         ; (function ($) {
-            var token = $('input[name="__RequestVerificationToken"]').val();
             $('.changeAdmin').on('change', function () {
                 $.ajax({
                     method:'POST',
-                    data: { id: this.value, newVal: this.checked, __RequestVerificationToken: token}
+                    data: { id: this.value, newVal: this.checked}
                 });
             });
             $('.delete').on('click', function (e) {
@@ -77,7 +76,7 @@
                     $.ajax({
                         url: this.href,
                         method: 'POST',
-                        data: { id: this.value, __RequestVerificationToken: token }
+                        data: { id: this.value }
                     }).success(function () { $row.remove(); });
                 }
             })

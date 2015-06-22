@@ -49,34 +49,21 @@
 (function ($) {
     if (Modernizr.csstransforms) { return; }
     var $banner = $('.photobanner');
-    if (!($banner || $banner.length)) { return; }
-    var image_url = $banner.css('background-image'),
-        image;
-
-    // Remove url() or in case of Chrome url("")
-    image_url = image_url.match(/^url\("?(.+?)"?\)$/);
-    if (image_url[1]) {
-        image_url = image_url[1];
-        image = new Image();
-
-        // just in case it is not already loaded
-        $(image).load(function () {
-            var width = image.width,
-                containerWidth = $banner.parent().width(),
-                nonRepeatWidth = width - 933,//1600 *7/12 - adjust if changed in photoServices const
-                repeatAt = nonRepeatWidth + containerWidth + 'px',
-                anim = function () {
-                    $banner.css('left', 0)
-                        .animate({
-                            left: '-' + repeatAt
-                        }, 120000, 'linear',function () {
-                            anim();
-                        });
-                };
-            anim();
-        });
-        image.src = image_url;
-    }
+    if (!$banner.length) { return; }
+    parseCss('LandingPage', function (cssStr) {
+        var move = /100%\s*{\s*transform:\s*translateX\(([-\d]+)px\)/.exec(cssStr)[1] + "px",
+            rpt = /\banimation-duration:\s*(\d+)\s*s/.exec(cssStr)[1] * 1000;
+        anim = function () {
+            $banner.css('left', 0)
+                .animate({
+                    left: move
+                }, rpt, 'linear', function () {
+                    anim();
+                });
+        };
+        anim();
+    });
+    
 })(jQuery);
 
 //links for the bios page - truncate to a few words and smaller photo - show details in bootstrap dialog
@@ -175,9 +162,26 @@
     
 })(jQuery);
 
+(function ($) {
+    var token;
+    $.ajaxSetup({
+        data: { __RequestVerificationToken: (token || (token = $('input[name="__RequestVerificationToken"]').val())) }
+    });
+})(jQuery);
+
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function parseCss(href, useStringFn) {
+    var sheets = $('link[rel="stylesheet"][href*="' + href + '"]')
+    $.ajax({
+        url: sheets[sheets.length - 1].href,
+        dataType: "text"
+    }).success(function (cssText) {
+        useStringFn(cssText);
+    });
 }

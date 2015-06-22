@@ -35,7 +35,7 @@ namespace Hearts4Kids.Controllers
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
+        public ActionResult UploadFile(int? entityId=null) // optionally receive values specified with Html helper
         {
             // here we can send in some extra info to be included with the delete url 
             var statuses = new List<ViewDataUploadFileResult>();

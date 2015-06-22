@@ -1,0 +1,402 @@
+﻿
+@{
+    ViewBag.Title = "Background";
+}
+
+
+@section Styles{
+    <style type="text/css">
+        #signature {
+            width:33%;
+        }
+        .affix-top {
+            position: relative;
+        }
+
+        .affix {
+            top: 20px;
+        }
+
+        .affix-bottom {
+            position: absolute;
+        }
+
+        .rightoffsetpic{
+            top:40px;
+        }
+
+    </style>
+}
+
+<div class="row">
+    <div class="text-center">
+        <h1 id="Background">Background to Hearts4Kids</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-push-3">
+        <img class="img-responsive" src="~/Content/Photos/Slides/lg/Nicky and 3 patients.jpg" />
+        <p>
+            <q>The Hearts4Kids Trust has been set up specifically to fund the cost of providing a surgical mission to Fiji to operate on Pacific Island children with cardiac disease.
+                The repair of simple congenital heart defects is one of the most lifesaving and cost-effective operations to be done in the field of medicine today.</q>
+        </p>
+        
+        <p class="text-right">
+            <img src="~/Content/Photos/Kirsten signature.jpg" id="signature"/><br/>Kirsten Finucane,<br/>Head of Paediatric &amp; Congenital Cardiac Surgery,<br/>Starship And Auckland Hospitals</p>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-md-2 hidden-sm hidden-xs" id="indexContainer">
+        <ul class="nav nav-stacked nav-pills" id="navDoc" data-spy="affix">
+            <li><a href="#Need">The Need</a></li>
+            <li><a href="#FirstTrip">First Trip</a></li>
+            <li><a href="#Current">Current Positon</a></li>
+            <li><a href="#Vision">Our Vision</a></li>
+            <li><a href="#WhyGive">Why Donate?</a></li>
+            <li><a href="#Summary">Summary</a></li>
+        </ul>
+    </div> <!--col-->
+    <div class="col-md-10" id="mainText">
+        <div id="Need">
+            <h2>The Need</h2>
+
+            <p>
+                The Starship Paediatric Cardiac Unit
+                has a long history of service to Pacific Island children with either congenital
+                defects or acquired rheumatic valve disease. In the last decade the number of
+                regular outreach clinics has markedly increased creating productive links
+                between the specialists in Starship and local paediatricians in Samoa, Tonga, Vanuatu,
+                the Solomons, Tuvalu and Fiji. Echocardiograms can now be performed overseas
+                and transmitted electronically to Auckland to help diagnosis and allow our
+                cardiologists to advise on management.
+            </p>
+
+            <p>
+                As a unit we have been open to
+                accepting patients for operation with simple defects or valve problems, but 
+                <strong>
+                    in reality many
+                    of these babies and children do not make it safely to Auckland for surgery
+                </strong>. The
+                reasons for this include:
+            </p>
+                <ul>
+                    <li>
+                        limited funding from charity and government sources ($NZ 45 000
+                        for each open heart repair)
+                    </li>
+                    <li>
+                        Limited ability of a family member to accompany the child and get a visa, or
+                    </li>
+                    <li>
+                        Processing delays, which are often accompanied by a significant
+                        deterioration in the child’s condition - thus preventing travel or increasing
+                        the operating costs to a prohibitive level.
+                    </li>
+
+                </ul>
+            <p>
+                On average about 30 operations per
+                year are performed in Auckland on Pacific Island children.
+            </p>
+            <figure class="col-md-12">
+                <img src="~/Content/Photos/Slides/lg/Fiji_Mary%20Sleeping%20Upright%20Against%20Grandmother.jpg" class="col-md-9 img-responsive">
+                <figcaption class="col-md-3">
+                    Mary learned to sleep up against her grandmother because her heart was so sick she could
+                    not breathe if she lay flat
+                </figcaption>
+            </figure>
+            <p>
+                The population of Fiji, Solomon
+                Islands, Samoa, Tonga, Vanuatu, Tuvalu and Kiribati is collectively 2.2 million
+                and the average birth rate is 23 births per 1000 per year. This equates to
+                50,000 births, and thus about 350 infants born with congenital heart defects
+                each year.There are also many more who develop rheumatic heart disease  (which
+                forms at least a third of the current cases referred). Some children make it to
+                India and Australia, but there are many children who do not access surgery, yet
+                have heart defects which are completely curable with a single operation.
+            </p>
+        </div>
+        <div id="FirstTrip">
+            <h2>Our Inaugural Trip (2014)</h2>
+            <p>
+
+                Heart operations range from
+                simple to complex, curable to palliative. In the congenital heart field there
+                are a number of operations that are reasonably simple and yet provide a
+                life-saving cure with little or no specialist follow-up. With careful attention
+                to case selection, planning and surgical repair, quality of life afterwards is usually
+                excellent. Knowing the huge need, an expatriate Fijian and adult cardiac surgeon,
+                Dr Parma Nand  established the <a href="http://friends-of-fiji-heart-foundation.org.nz/">
+                    Friends of Fiji Heart Foundation
+                    (FOFHF)
+                </a>. This team has been tirelessly providing care for adults in Fiji
+                with heart disease for the past 10 years.
+            </p>
+
+            <p>
+                In April 2013 paediatric cardiologist
+                @Html.ActionLink("John Wright", "Team", new { name = "John Wright" }) and paediatric cardiac surgeon
+                @Html.ActionLink("Kirsten Finucane", "Team", new { name = "Kirsten Finucane" }) visited
+                paediatricians and health officials at Suva and Lautoka to discuss how to
+                improve care for children in Fiji with heart conditions. The Fijian paediatricians
+                explained there was a real need for:
+            </p>
+                <ul>
+                    <li>More clinics, provided by an experienced heart specialist.</li>
+                    <li>
+                        A visiting cardiac surgical program for children. <a href="http://www.ohi.org.au/">Open Heart International</a> had been, and
+                        continues to provide one vital cardiac surgical program annually; unfortunately,
+                        this program was unable to single-handedly meet the need for cardiac surgery in
+                        children. Furthermore, by spacing the two programs, some children could be
+                        given a curative operation that would have died while waiting 12 months for the
+                        team to return.
+                    </li>
+                </ul>
+
+
+            <p>
+                In September
+                2013 John Wright and Kirsten Finucane revisited Lautoka Hospital, whilst the
+                FOFHF adult mission was in progress. They determined that the environment would
+                allow paediatric cardiac surgery to take place safely, when accompanied by
+                careful planning and case selection.
+            </p>
+            <div class="row">
+                <div class="col-md-10 col-md-push-1">
+                    <figure>
+                        <img src="~/Content/Photos/Slides/lg/Fijian ECG.jpg" class="img-responsive">
+                        <figcaption>
+                            Recovery is closely monitored by the team, and anxious family members. <small>
+                                The electrocardiogram is being taken using
+                                reusable suction caps - equipment not used in New Zealand for decades.
+                            </small>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <p>
+                FOFHF generously agreed to provide
+                funding and logistic support - allowing our paediatric team to join the 2014 adult
+                FOFHF program. With careful planning and funding estimated at NZ$50 000, a team
+                of 24 professionals who were willing to donate their holidays (and many pay for
+                their own flights and accommodation) were identified.
+            </p>
+
+            <div class="row">
+                <figure>
+                    <img src="~/Content/Photos/Slides/lg/Jackie%20Mark%20&%20Baby.JPG" class="col-md-7 col-md-push-1 img-responsive">
+                    <figcaption class="col-md-3 col-md-push-1">
+                        Beautiful Sainimaere is now all checked out and ready for surgery thanks
+                        to Jackie and Mark
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="row">
+                <figure>
+                    <img src="~/Content/Photos/Slides/lg/Surgical%20Team.jpg" class="col-md-7 col-md-push-1 img-responsive">
+                    <figcaption class="col-md-3 col-md-push-1">
+                        The team carefully checking the surgical repair with an echocardiogram to make sure
+                        it is a perfect result
+                    </figcaption>
+                </figure>
+            </div>
+
+            <p>
+                In September of 2014, we undertook
+                our inaugural program. Using the equipment shipped to Lautoka by FOFHF and financed
+                by FOFHF, we performed heart surgery on 12 patients over 4 days. The youngest
+                was 5 weeks of age and all patients survived and were discharged home safe and
+                well. Follow up by our team members and communication with Fijian medical staff
+                has confirmed that all 12 have been ‘cured’ and should now have a normal life
+                expectancy and function. Of course, we look forward to reviewing them on our
+                yearly visits to confirm the great outcomes. The 12 operations were performed
+                at a cost of NZ$60,000 which is around 15% of the equivalent cost if brought to
+                NZ for surgery (See stories).
+            </p>
+        </div>
+        <div class="row">
+            <figure class="col-md-10 col-md-push-1">
+                <img src="~/Content/Photos/Slides/lg/Baby%20Post%20Op.jpg" class="img-responsive">
+                <figcaption>
+                    Almost none of the specialist medical equipment seen in this photo is available in
+                    Fiji. It all has to be shipped.
+                </figcaption>
+            </figure>
+        </div>
+
+        <div id="Current">
+            <h2>Our current situation</h2>
+
+            <p>
+                After the success of 2014 we are
+                keen to repeat the surgical outreach visit, but funding for 2015 has become a
+                problem and FOFHF are not in a financial position to be able to fund our program on their own.
+                They continue to support us logistically and we will continue to use the equipment
+                shipped for adult surgery but we need to fund many other costs, examples of
+                which can be seen on our <a href="http://hearts4kids.org.nz/Home/Donate">donations page</a>.
+            </p>
+
+            <p>
+                One of our future aims is to
+                transport children from other Pacific Islands to Fiji for this much lower cost
+                surgery - an aim shared by the Fijian paediatricians, who already accept
+                transfer of children for other subspecialty care, from the Pacific Islands.
+            </p>
+
+            <p>
+                The Hearts 4 Kids Pasifika trust has
+                been established in order to fund the costs associated with providing an annual
+                cardiac surgical program to Fiji, to operate on Pacific Island children with heart
+                disease. The repair of simple congenital heart defects is one of the most lifesaving
+                and cost-effective operations to be done in the field of medicine today.
+            </p>
+
+        </div>
+
+        <div id="Vision">
+            <h2>Our Vision</h2>
+            <p>
+                <strong>
+                    Our vision is to extend life-saving
+                    cardiac care to children born in our neighbouring countries of the Pacific.
+                </strong>
+            </p>
+            <p> We also
+                plan to continue the education work we began with our inaugural 2014 program. Many of H4K team have a passion for ongoing medical and nursing education.
+                We plan on rolling out even more structured and informal teaching programs for the Fijian staff over the coming years. This increasing skill set will
+                undoubtedly improve care for Fijians requiring hospitalisation after the team has left. This includes general principles not just applicable to children with heart disease, but to all critically unwell patients.
+            </p>
+            <div class="row">
+                <figure class="col-md-10 col-md-push-1">
+                    <img src="~/Content/Photos/Slides/lg/post-op ward.jpg" class="img-responsive">
+                    <figcaption>
+                        The busy makeshift cardiac ward one week after the team
+                        arrived. Two weeks later it was empty; all the patients had gone home.
+                    </figcaption>
+                </figure>
+            </div>
+
+            <p>
+                We are looking for community
+                supporters that will enable us to be committed to this project for several
+                years, which then allows us to develop the local facilities and educate the local
+                staff. This would create sustainability for future visits as the more medical
+                and nursing staff become up skilled in this field, the less team members we
+                need to take with us. Skills learnt in this area of medicine will also
+                undoubtedly result in improved outcomes for other children requiring complex
+                care in the hospital.
+            </p>
+            <div class="row">
+                <figure class="col-md-10 col-md-push-1">
+                    <img src="~/Content/Photos/Slides/lg/IMG_1543.JPG" class="col-md-8 img-responsive">
+                    <figcaption class="col-md-4">
+                        Dr John Wright performs an echocardiogram on Mary after her operation. Prior to her
+                        operation, she had been unable to take more than one step at a time due to
+                        breathlessness. Just days after this photo was taken, she was running!
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div id="WhyGive">
+            <h2>Why give to H4K</h2>
+
+            <p>
+                There are lots of good causes around. The H4K team believe
+                we are a worthwhile charity because of:
+            </p>
+            <dl>
+                <dt>
+                    Efficiency
+                </dt>
+                <dd>
+                    All time required to establish and administer our
+                    trust (and of course time spent by the clinical team caring for the children) has
+                    been provided free. Running costs such as website design and hosting are donated
+                    for by team members. Your money goes exclusively to the care of children
+                    requiring heart surgery, and none to administration or marketing costs.
+                </dd>
+                <dt>
+                    Commitment, enthusiasm and hard work
+                </dt>
+                <dd>
+                    The trustees, team members and support
+                    crew are committed to running this trust as efficiently as possible, with the
+                    best outcomes possible for the children on the most frugal budget we can.
+                </dd>
+                <dt>
+                    Great outcomes
+                </dt>
+                <dd>
+                    We'll keep you updated on how our cildren are doing, and hope you are a little touched by the 
+                    incredible difference your contribution has made to these children's quality of life.
+                </dd>
+            </dl>
+        </div>
+
+        <div id="Summary">
+            <h2>Summary</h2>
+
+            <p>
+                Our team consists of some of the
+                most experienced nurses and doctors in Starship heart unit, and we enjoy the
+                privilege of using our skills and giving up our time to reach some of the
+                poorest children in the world and change their lives. These are people who know
+                that without our help, the future was dire - the smiles on the faces of the
+                children and family as the children recover and the tearful hugs of thanks as we
+                leave make the team want to continue helping.
+            </p>
+            <div class="row">
+                <div class="col-md-10 col-md-push-1">
+                    <figure>
+                        <img src="~/Content/Photos/Slides/lg/Carol And Ann.jpg" class="col-md-6 img-responsive">
+                        <figcaption class="col-md-6">
+                            Carol &amp; Ann surrounded by familiar equipment in their Fiji PICU (Paediatric Intensive
+                            Care Unit)
+                        </figcaption>
+                    </figure>
+
+
+                    <figure>
+                        <img src="~/Content/Photos/Slides/lg/IMG_1580.JPG" class="col-md-6 img-responsive rightoffsetpic">
+                        <figcaption class="col-md-6">
+                            Gunesh
+                            being very brave and healing nicely only days after his operation
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron text-center">
+                        <p class="lead">
+                            Please
+                            help us open the door to a new life for these children.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-md-push-3">
+                        <img src="~/Content/Photos/Closed door.jpg" id="door" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        ; (function ($) {
+            var $nav = $('#navDoc');
+            $nav.affix({
+                offset: {
+                    top: $nav.offset().top,
+                    bottom: ($('footer').outerHeight(true) + 40)
+                }
+            });
+            $('body').scrollspy({ target: "#indexContainer" })
+        })(jQuery);
+    </script>
+}

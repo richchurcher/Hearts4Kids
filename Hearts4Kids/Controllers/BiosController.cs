@@ -107,6 +107,10 @@ namespace Hearts4Kids.Controllers
                 //to do allow phone number update
                 if (ModelState.IsValid)
                 {
+                    if (model.UserId == CurrentUser.Id && MemberDetailService.BioRequired(model.UserId))
+                    {
+                        return RedirectToAction("CreateEditBio", model.UserId);
+                    }
                     return IsAdmin ? RedirectToAction("Index")
                         : RedirectToAction("Index", "Manage", new { message = ManageController.ManageMessageId.UpdateUserDetailsSuccess });
                 }

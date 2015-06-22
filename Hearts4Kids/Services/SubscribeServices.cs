@@ -97,6 +97,16 @@ namespace Hearts4Kids.Services
                         }).FirstOrDefault();
             }
         }
+        public static bool BioRequired(int userId)
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                return (from u in db.UserBios
+                        where u.Id == userId
+                        select u.Bio).Any(b => b == null || b == string.Empty);
+                       
+            }
+        }
         public static void UpdateMemberDetails(BioDetailsViewModel model, ModelStateDictionary modelState)
         {
             using (var db = new Hearts4KidsEntities())

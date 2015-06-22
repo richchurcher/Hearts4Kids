@@ -20,7 +20,10 @@
                         @foreach (var person in prof)
                         {
                             <dt>
-                                @person.Name <small>(@person.CitationDescription)</small>
+                                @person.Name @if (!string.IsNullOrEmpty(person.CitationDescription))
+                                {
+                                    <small>(@person.CitationDescription)</small>
+                                }
                             </dt>
                             <dd class="clearfix">
                                 <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-1 col-lg-1 img-responsive pull-left" />
