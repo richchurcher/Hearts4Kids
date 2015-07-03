@@ -41,7 +41,7 @@
                                            data-content="@Hearts4Kids.Controllers.AccountController.bioInstructions">Instructions</a></div>
             </div>
             <div id="bioContent" class="col-md-10">
-                @Html.EditorFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control input-block-level" } })
+                @Html.EditorFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control input-block-level ckeditor" } })
                 @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -103,7 +103,7 @@
     @section Scripts{
         @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
         <script>
-            CKEDITOR.replace('@Html.IdFor(model=>model.Biography)');
+            @*CKEDITOR.replace('@Html.IdFor(model=>model.Biography)');*@
             $('#bioDetails').popover();
         </script>
     }

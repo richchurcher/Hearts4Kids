@@ -81,7 +81,7 @@ namespace Hearts4Kids.Controllers
             var usr = UserManager.FindById(id);
             if (string.IsNullOrEmpty(usr.PasswordHash))
             {
-                RedirectToAction("Register","Account");
+               return RedirectToAction("Register","Account");
             }
             if (!IsAuthorised(usr.Id))
             {

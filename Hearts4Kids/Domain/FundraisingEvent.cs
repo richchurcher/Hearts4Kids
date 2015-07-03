@@ -20,6 +20,7 @@ namespace Hearts4Kids.Domain
         public string Location { get; set; }
         public string FlyerUrl { get; set; }
         public int PrincipalOrganiserId { get; set; }
+        public string Description { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

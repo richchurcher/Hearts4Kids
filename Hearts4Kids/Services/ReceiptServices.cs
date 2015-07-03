@@ -72,11 +72,11 @@ namespace Hearts4Kids.Services
                                       where u.UserName == HttpContext.Current.User.Identity.Name
                                       select u.UserBio==null?u.UserName:(u.UserBio.FirstName + " " + u.UserBio.Surname)).FirstAsync();
                 string baseUr = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-                Thread emailThread = new Thread(() => SendReceipt(rcpt, baseUr,author, getLink));
+                Thread emailThread = new Thread(() => SendReceipt(rcpt, baseUr,author));
                 emailThread.Start();
             }
         }
-        public static void SendReceipt(Receipt receipt, string author, string baseUr, Func<int, Guid, SubscriptionTypes, string> getLink)
+        public static void SendReceipt(Receipt receipt, string author, string baseUr)
         {
             var m = new MailMessage
             {
@@ -87,7 +87,7 @@ namespace Hearts4Kids.Services
                 + "some of the poorest children in the world and give them the opportunity to lead active and full lives. "
                 + "Thank you once again for helping us make it happen.</p><p>Please see attached receipt.</p>"
                 + "<p>Regards</p><p>The Hearts4Kids Team.</p>"
-                + "<hr/>" + SubscriberServices.getUnsubscribeDetails(receipt.NewletterSubscriberId, receipt.NewsletterSubscriber.UnsubscribeToken, receipt.NewsletterSubscriber.Subscription, getLink),
+                + "<hr/>" + SubscriberServices.getUnsubscribeDetails(receipt.NewletterSubscriberId, receipt.NewsletterSubscriber.UnsubscribeToken, receipt.NewsletterSubscriber.Subscription, baseUr),
                 IsBodyHtml = true
             };
             m.To.Add(receipt.NewsletterSubscriber.Email);

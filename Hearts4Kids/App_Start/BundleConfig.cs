@@ -12,7 +12,8 @@ namespace Hearts4Kids
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
-                "~/Scripts/jquery-ui-{version}.js"));
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Scripts/UIAttachment.js"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                 "~/Content/themes/base/base.css",
@@ -25,7 +26,8 @@ namespace Hearts4Kids
                 "~/Content/userForms.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/ValidationCustomisation.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

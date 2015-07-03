@@ -105,13 +105,6 @@ namespace Hearts4Kids.Services
                 db.SaveChanges();
             }
         }
-        public static string GetBaseUrl()
-        {
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            if (!string.IsNullOrWhiteSpace(appUrl)) { appUrl += "/"; }
-            var request = HttpContext.Current.Request;
-            return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-        }
         public static async Task<List<AllUserModel>> UserBioLength(string currentUser)
         {
             if (string.IsNullOrEmpty(currentUser)) { throw new ArgumentNullException("currentUser"); }
@@ -159,7 +152,7 @@ namespace Hearts4Kids.Services
         public static async Task UpdateBios(BiosViewModel model, ModelStateDictionary modelState, bool isAdmin)
         {
             var san = new Ganss.XSS.HtmlSanitizer();
-            model.Biography = san.Sanitize(model.Biography, GetBaseUrl()); //heavy op - do this before opening db connection
+            model.Biography = san.Sanitize(model.Biography, HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)); //heavy op - do this before opening db connection
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(model.UserId);

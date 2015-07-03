@@ -32,4 +32,11 @@ namespace Hearts4Kids.Models
         public bool Success { get; set; }
         public SubscriptionTypes CurrentSubscription { get; set; }
     }
+    public class SubscriberEmailDetails
+    {
+        public string Email { get; set; }
+        public int Id { get; set; }
+        public Guid UnsubscribeGuid { get; set; }
+        public SubscriptionTypes Subscription { get; set; }
+    }
 }

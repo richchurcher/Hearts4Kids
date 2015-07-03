@@ -18,6 +18,7 @@
 }
 .urlField {
     background-color: white !important;
+    z-index:1 !important; /*stop sitting on top of datepicker*/
 }
 .urlField.disabled {
     background-color: #eee !important;

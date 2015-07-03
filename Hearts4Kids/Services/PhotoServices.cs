@@ -91,10 +91,7 @@ namespace Hearts4Kids.Services
             string basePath = HostingEnvironment.MapPath(defaultDir);
             var newSize = ImageSizes[0];
             string newFileName = GetBioFileName(newSize.GetFileNameWithExt(file.FileName));
-            Thread reduceFurtherSizes = new Thread(() => {
-                    resizeImg(file, newSize, Path.Combine(basePath, newSize.FolderName, newFileName));
-                    multiResizeImage(newFileName);
-            });
+            Thread reduceFurtherSizes = new Thread(() => multiResizeImage(file, newSize, basePath, newFileName));
             reduceFurtherSizes.Start();
             var returnSize = ImageSizes[1];
             return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetFileNameWithExt(file.FileName));
@@ -111,6 +108,12 @@ namespace Hearts4Kids.Services
                 Resize(srcImage, serverPath, newSize.Height, newSize.ImgFmt, newSize.Quality);
             }
         }
+        internal static string multiResizeImage(HttpPostedFileBase file, SiteImageSize newSize, string basePath, string newFileName)
+        {
+            resizeImg(file, newSize, Path.Combine(basePath, newSize.FolderName, newFileName));
+            return multiResizeImage(newFileName);
+        }
+
         /// <summary>
         /// makes various sizes, added to appropriate folders, and returns the full path to the thumbnail
         /// </summary>

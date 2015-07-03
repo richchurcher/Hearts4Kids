@@ -730,6 +730,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\singlePage.js" />
+    <Content Include="Scripts\UIAttachment.js" />
+    <Content Include="Scripts\ValidationCustomisation.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -793,11 +795,13 @@
     <Content Include="Views\Subscription\CreateReceipt.cshtml" />
     <Content Include="Views\Shared\_SubscribePartial.cshtml" />
     <Content Include="Views\Fundraisers\Create.cshtml" />
+    <Content Include="Views\Fundraisers\Index.cshtml" />
     <None Include="Web.openhost.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Flyers\" />
     <Folder Include="Domain\Tables\" />
     <Folder Include="Views\BaseUser\" />
   </ItemGroup>

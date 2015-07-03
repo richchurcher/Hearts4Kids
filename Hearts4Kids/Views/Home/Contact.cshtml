@@ -41,9 +41,10 @@
 </div>
 <hr>
 <div>
-    @using (Html.BeginForm("ContactSubmit", "Home", FormMethod.Post, new { id = "contact-form" }))
+    @using (Html.BeginForm("ContactSubmit", "Home",FormMethod.Post, new { id = "contact-form" }))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model=>model.ContactId)
         <div class="row-message">
             @Html.LabelFor(m => m.FromName)
             <div class="row-message">

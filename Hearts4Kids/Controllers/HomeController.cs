@@ -33,8 +33,7 @@ namespace Hearts4Kids.Controllers
         [HttpPost]
         public async Task<ActionResult> Subscribe(SubscribeModel subscriberMail)
         {
-            var res = await SubscriberServices.AddEmail(subscriberMail, (subscriberId, code, subscribeType)=> 
-                Url.Action("Unsubscribe", "Subscription", new { subscriberId = subscriberId, code = code, subscribeType= subscribeType}, protocol: Request.Url.Scheme));
+            var res = await SubscriberServices.AddEmail(subscriberMail, true);
             return new JsonResult{ Data = res.ToString().SplitCamelCase() };
         }
 
@@ -55,9 +54,9 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(int? id)
         {
-            return View();
+            return View(new ContactViewModel { ContactId = id });
         }
 
         public ActionResult Background()
@@ -79,7 +78,7 @@ namespace Hearts4Kids.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ContactSubmit(
-            [Bind(Include = "FromName, FromEmail, FromPhone, Message")]
+            [Bind(Include = "FromName, FromEmail, FromPhone, Message, ContactId")]
             ContactViewModel model)
         {
             try
@@ -92,13 +91,32 @@ namespace Hearts4Kids.Controllers
                         Body = string.Format(body, model.FromName, model.FromEmail, model.FromPhone, model.Message),
                         Subject = "H4K Web form Message"
                     };
-                    await SendEmailsToRoleAsync(Domain.DomainConstants.Admin, msg);
+                    if (model.ContactId.HasValue)
+                    {
+                        var usr = await UserManager.FindByIdAsync(model.ContactId.Value);
+                        if (usr == null) { throw new System.Exception("Unknown User Id"); }
+                        var client = new System.Net.Mail.SmtpClient();
+                        client.SendCompleted += (s, e) => {
+                            client.Dispose();
+                        };
+                        var mail = new System.Net.Mail.MailMessage
+                        {
+                            Subject = msg.Subject, Body = msg.Body, IsBodyHtml = true
+                        };
+                        mail.To.Add(usr.Email);
+                        await client.SendMailAsync(mail); 
+                    }
+                    else
+                    {
+                        await SendEmailsToRoleAsync(Domain.DomainConstants.Admin, msg);
+                    }
                     return RedirectToAction("Success");
                 }
             }
-            catch (DataException /* dex */)
+            catch (DataException ex/* dex */)
             {
                 ModelState.AddModelError("", "Unable to send message. Please try again later.");
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
                 model.Success = false;
                 return View("Contact", model);
             }

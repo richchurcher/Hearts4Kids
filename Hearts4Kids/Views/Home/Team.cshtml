@@ -1,4 +1,5 @@
-﻿@model Dictionary<Domain.DomainConstants.Teams, ILookup<Domain.DomainConstants.Professions, Hearts4Kids.Models.BioDisplay>>
+﻿@using Hearts4Kids.Domain
+@model Dictionary<DomainConstants.Teams, ILookup<DomainConstants.Professions, Hearts4Kids.Models.BioDisplay>>
 @{
     ViewBag.Title = "Team";
 }
@@ -27,7 +28,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                @foreach (var prof in Model[Domain.DomainConstants.Teams.Theatres].OrderBy(m => m.Key))
+                @foreach (var prof in Model[DomainConstants.Teams.Theatres].OrderBy(m => m.Key))
                 {
                     foreach (var p in prof)
                     {
@@ -51,7 +52,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                @foreach (var prof in Model[Domain.DomainConstants.Teams.Wards].OrderBy(m => m.Key))
+                @foreach (var prof in Model[DomainConstants.Teams.Wards].OrderBy(m => m.Key))
                 {
                     foreach (var p in prof)
                     {
@@ -77,7 +78,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                        @foreach (var prof in Model[Domain.DomainConstants.Teams.ICU].OrderBy(m => m.Key))
+                        @foreach (var prof in Model[DomainConstants.Teams.ICU].OrderBy(m => m.Key))
                         {
                             foreach (var p in prof)
                             {
@@ -100,10 +101,10 @@
                     The (pro-bono) support Crew
                 </div>
                 <div class="panel-body">
-                    @if (Model.ContainsKey(Domain.DomainConstants.Teams.NewZealand))
+                    @if (Model.ContainsKey(DomainConstants.Teams.NewZealand))
                     {
                     <dl>
-                        @foreach (var prof in Model[Domain.DomainConstants.Teams.NewZealand])
+                        @foreach (var prof in Model[DomainConstants.Teams.NewZealand])
                         {
                             foreach (var p in prof)
                             {
