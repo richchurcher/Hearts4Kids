@@ -34,7 +34,10 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => m.FlyerUrl)
+                    @if (!string.IsNullOrEmpty(m.FlyerUrl))
+                    {
+                    <a href="@Url.Content(m.FlyerUrl)">@(Context.Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content(m.FlyerUrl))</a>
+                    }
                 </dd>
 
                 <dt>
