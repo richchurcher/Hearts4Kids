@@ -150,14 +150,9 @@
             e.stopPropagation();
         }
     })).on("submit", function (e) {
-        var returnVar = {};
         e.preventDefault();
-        $.each(e.target, function(indx, el){
-            if (el.type !== "submit" && el.value) {
-                returnVar[el.name || el.id] = el.value;
-            }
-        });
-        $.ajax({ url: e.target.action, method: 'post', data: returnVar });
+
+        $.ajax({ url: e.target.action, method: 'post', data: $(e.target).serialize() });
     });
     
 })(jQuery);
@@ -168,6 +163,23 @@
         data: { __RequestVerificationToken: (token || (token = $('input[name="__RequestVerificationToken"]').val())) }
     });
 })(jQuery);
+
+(function ($) {
+    var rgx = /([a-z0-9])([A-Z])/g;
+    $('option').each(function (indx, el) {
+        var $el = $(el);
+        $el.text($el.text().replace(rgx,'$1 $2'));
+    });
+})(jQuery);
+
+
+(function ($) {
+    $('.btn-file>input[type="file"]').on('change', function () {
+        $('.urlField',$(this).closest('.input-group'))[0].value = this.value.replace(/\\/g, '/').replace(/.*\//, '');
+    });
+})(jQuery);
+
+
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

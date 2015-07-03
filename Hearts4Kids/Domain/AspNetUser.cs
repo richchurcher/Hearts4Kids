@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hearts4Kids
+namespace Hearts4Kids.Domain
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace Hearts4Kids
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUser()
         {
+            this.FundraisingEvents = new HashSet<FundraisingEvent>();
             this.Roles = new HashSet<AspNetRole>();
         }
     
@@ -33,6 +34,8 @@ namespace Hearts4Kids
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FundraisingEvent> FundraisingEvents { get; set; }
         public virtual UserBio UserBio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> Roles { get; set; }

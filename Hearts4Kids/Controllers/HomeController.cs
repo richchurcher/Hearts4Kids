@@ -4,6 +4,7 @@ using Hearts4Kids.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Hearts4Kids.Services;
+using Hearts4Kids.Extensions;
 
 namespace Hearts4Kids.Controllers
 {
@@ -16,7 +17,7 @@ namespace Hearts4Kids.Controllers
 
         public async Task<ActionResult> Team()
         {
-            var model = await MemberDetailService.GetBiosForDisplay(true);
+            var model = await MemberDetailServices.GetBiosForDisplay(true);
             return View(model);
         }
 
@@ -30,13 +31,11 @@ namespace Hearts4Kids.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Subscribe(string subscriberMail)
+        public async Task<ActionResult> Subscribe(SubscribeModel subscriberMail)
         {
-            if (!Services.SubscribeServices.AddEmail(subscriberMail))
-            {
-                //to do return error
-            }
-            return Content(string.Empty);
+            var res = await SubscriberServices.AddEmail(subscriberMail, (subscriberId, code, subscribeType)=> 
+                Url.Action("Unsubscribe", "Subscription", new { subscriberId = subscriberId, code = code, subscribeType= subscribeType}, protocol: Request.Url.Scheme));
+            return new JsonResult{ Data = res.ToString().SplitCamelCase() };
         }
 
         public ActionResult FAQ()
@@ -93,7 +92,7 @@ namespace Hearts4Kids.Controllers
                         Body = string.Format(body, model.FromName, model.FromEmail, model.FromPhone, model.Message),
                         Subject = "H4K Web form Message"
                     };
-                    await SendEmailsToRoleAsync(Domain.Admin, msg);
+                    await SendEmailsToRoleAsync(Domain.DomainConstants.Admin, msg);
                     return RedirectToAction("Success");
                 }
             }

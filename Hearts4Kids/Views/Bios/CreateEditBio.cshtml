@@ -5,33 +5,7 @@
 }
 
 @section Styles{
-    <style>
-        .btn-file {
-          position: relative;
-          overflow: hidden;
-        }
-        .btn-file input[type=file] {
-          position: absolute;
-          top: 0;
-          right: 0;
-          min-width: 100%;
-          min-height: 100%;
-          font-size: 100px;
-          text-align: right;
-          filter: alpha(opacity=0);
-          opacity: 0;
-          background: red;
-          cursor: inherit;
-          display: block;
-        }
-        .bioUrl {
-          background-color: white !important;
-          cursor: text !important;
-        }
-        #bioContent .popover {
-            max-width:600px;
-        }
-    </style>
+    @Styles.Render("~/Content/userForms")
 }
 
 <h2>@ViewBag.Title</h2>
@@ -81,10 +55,10 @@
                             Browse&hellip; <input type="file" accept="image/*" name="bioImg" id="bioImg"/>
                         </span>
                     </span>
-                    @Html.TextBoxFor(model=>model.BioPicUrl, new{ @class="form-control bioUrl", @readonly="readonly"})
+                    @Html.TextBoxFor(model=>model.BioPicUrl, new{ @class="form-control urlField", @readonly="readonly"})
                 </div>
   
-                </div>
+            </div>
             @if (Model.BioPicUrl != null)
             {
                 <div class="col-md-1 pull-right">
@@ -92,7 +66,7 @@
                 </div>
             }
                 <p class='help-block col-md-9 col-md-push-2'>@Html.DescriptionFor(model => model.BioPicUrl)</p>
-            </div>
+        </div>
         @if (Model.IsAdmin)
         {
             <div class="form-group">
@@ -130,9 +104,6 @@
         @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
         <script>
             CKEDITOR.replace('@Html.IdFor(model=>model.Biography)');
-            $('#bioImg').on('change', function () {
-                $('.bioUrl')[0].value = this.value.replace(/\\/g, '/').replace(/.*\//, '');
-            });
             $('#bioDetails').popover();
         </script>
     }

@@ -7,23 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hearts4Kids
+namespace Hearts4Kids.Domain
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class Quote
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRole()
-        {
-            this.Users = new HashSet<AspNetUser>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Text { get; set; }
+        public bool Approved { get; set; }
+        public int UserId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> Users { get; set; }
+        public virtual UserBio UserBio { get; set; }
     }
 }

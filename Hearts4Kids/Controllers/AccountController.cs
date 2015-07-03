@@ -127,7 +127,7 @@ namespace Hearts4Kids.Controllers
                 +"with you. If this is a mistake, please let Brent know.");
             return new JsonResult { Data = new { success = true } };
         }
-        [Authorize(Roles = Domain.Admin)]
+        [Authorize(Roles = Domain.DomainConstants.Admin)]
         public ActionResult CreateUsers()
         {
             return View();
@@ -143,16 +143,16 @@ namespace Hearts4Kids.Controllers
                                 + "<li>Hope that this is not too prescriptive, but then they all match.</li></ul>"
                                 + "<p>Thank you,</p><p> <em>Kate Farmer</em> (on behalf of all the H4K team)</p>"
                                 + "</blockquote>";
-        [Authorize(Roles = Domain.Admin), HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = Domain.DomainConstants.Admin), HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUsers(CreateUsersViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var emailVal = new RegexUtilities();
+                var emailVal = new System.ComponentModel.DataAnnotations.EmailAddressAttribute();
                 var errorMails = new List<string>();
                 foreach (var em in (model.EmailList ?? string.Empty).Split(new char[] { ';', ',','\r','\n',' ','<','>' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (emailVal.IsValidEmail(em))
+                    if (emailVal.IsValid(em))
                     {
                         var user = new ApplicationUser { UserName = em, Email = em, EmailConfirmed=false };
                         var result = await UserManager.CreateAsync(user);
@@ -160,7 +160,7 @@ namespace Hearts4Kids.Controllers
                         {
                             if (model.MakeAdministrator)
                             {
-                                result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
+                                result = await UserManager.AddToRoleAsync(user.Id, Domain.DomainConstants.Admin);
                             }
                             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                             // Send an email with this link
@@ -249,7 +249,7 @@ namespace Hearts4Kids.Controllers
                     result = await UserManager.AddPasswordAsync(CurrentUser.Id, model.Password);
                     if (result.Succeeded)
                     {
-                        MemberDetailService.UpdateMemberDetails(model, ModelState);
+                        MemberDetailServices.UpdateMemberDetails(model, ModelState);
                         if (ModelState.IsValid)
                         {
                             return RedirectToAction("CreateEditBio", "Bios");
@@ -283,7 +283,7 @@ namespace Hearts4Kids.Controllers
                 {
                     return RedirectToAction("Register");
                 }
-                else if (MemberDetailService.BioRequired(currentUsr.Id))
+                else if (MemberDetailServices.BioRequired(currentUsr.Id))
                 {
                     return RedirectToAction("CreateEditBio","Bios");
                 }
@@ -547,15 +547,15 @@ namespace Hearts4Kids.Controllers
                 CheckResult(result, "Register User");
             }
 
-            if (!RoleManager.RoleExists(Domain.Admin))
+            if (!RoleManager.RoleExists(Domain.DomainConstants.Admin))
             {
                 if (user == null) { user = UserManager.FindByName("brentm"); }
                 System.Diagnostics.Debug.Assert(user.Id != 0, "userId not assigned");
 
-                ApplicationRole role = new ApplicationRole { Name = Domain.Admin };
+                ApplicationRole role = new ApplicationRole { Name = Domain.DomainConstants.Admin };
                 var result = await RoleManager.CreateAsync(role);
                 CheckResult(result, "Create Role");
-                result = await UserManager.AddToRoleAsync(user.Id, Domain.Admin);
+                result = await UserManager.AddToRoleAsync(user.Id, Domain.DomainConstants.Admin);
                 CheckResult(result, "Assign Role To User");
             }
         }

@@ -1,4 +1,4 @@
-﻿@model Dictionary<Domain.Teams, ILookup<Domain.Professions, Hearts4Kids.Models.BioDisplay>>
+﻿@model Dictionary<Domain.DomainConstants.Teams, ILookup<Domain.DomainConstants.Professions, Hearts4Kids.Models.BioDisplay>>
 @{
     ViewBag.Title = "Team";
 }
@@ -27,7 +27,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                @foreach (var prof in Model[Domain.Teams.Theatres].OrderBy(m => m.Key))
+                @foreach (var prof in Model[Domain.DomainConstants.Teams.Theatres].OrderBy(m => m.Key))
                 {
                     foreach (var p in prof)
                     {
@@ -51,7 +51,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                @foreach (var prof in Model[Domain.Teams.Wards].OrderBy(m => m.Key))
+                @foreach (var prof in Model[Domain.DomainConstants.Teams.Wards].OrderBy(m => m.Key))
                 {
                     foreach (var p in prof)
                     {
@@ -77,7 +77,7 @@
                 </div>
                 <div class="panel-body">
                     <dl>
-                        @foreach (var prof in Model[Domain.Teams.ICU].OrderBy(m => m.Key))
+                        @foreach (var prof in Model[Domain.DomainConstants.Teams.ICU].OrderBy(m => m.Key))
                         {
                             foreach (var p in prof)
                             {
@@ -100,10 +100,10 @@
                     The (pro-bono) support Crew
                 </div>
                 <div class="panel-body">
-                    @if (Model.ContainsKey(Domain.Teams.NewZealand))
+                    @if (Model.ContainsKey(Domain.DomainConstants.Teams.NewZealand))
                     {
                     <dl>
-                        @foreach (var prof in Model[Domain.Teams.NewZealand])
+                        @foreach (var prof in Model[Domain.DomainConstants.Teams.NewZealand])
                         {
                             foreach (var p in prof)
                             {

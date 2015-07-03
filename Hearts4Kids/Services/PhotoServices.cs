@@ -16,6 +16,7 @@ namespace Hearts4Kids.Services
     public static class PhotoServices
     {
         public const string bioDir = "~/Content/Photos/Bios";
+        public const string logoDir = "~/Content/Logos";
         public const int maxHeight = 696;
         public const int thumbHeight = 76;
         public const int bannerHeight = 232;
@@ -76,10 +77,25 @@ namespace Hearts4Kids.Services
         {
             return Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName);
         }
+        public static string processLogo(HttpPostedFileBase file)
+        {
+            string basePath = HostingEnvironment.MapPath(logoDir);
+            var newSize = ImageSizes[1];
+            string newFileName = newSize.GetFileNameWithExt(file.FileName);
+            Thread reduceFurtherSizes = new Thread(() => resizeImg(file, newSize, Path.Combine(basePath, newFileName)));
+            reduceFurtherSizes.Start();
+            return logoDir + '/' + newFileName;
+        }
         public static string processBioImage(HttpPostedFileBase file)
         {
-            Thread reduceFurtherSizes = new Thread(processBioImg);
-            reduceFurtherSizes.Start(file);
+            string basePath = HostingEnvironment.MapPath(defaultDir);
+            var newSize = ImageSizes[0];
+            string newFileName = GetBioFileName(newSize.GetFileNameWithExt(file.FileName));
+            Thread reduceFurtherSizes = new Thread(() => {
+                    resizeImg(file, newSize, Path.Combine(basePath, newSize.FolderName, newFileName));
+                    multiResizeImage(newFileName);
+            });
+            reduceFurtherSizes.Start();
             var returnSize = ImageSizes[1];
             return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetFileNameWithExt(file.FileName));
         }
@@ -88,27 +104,21 @@ namespace Hearts4Kids.Services
         {
             return  bioPrefix + fileName;
         }
-        static void processBioImg(object fileBase)
+        static void resizeImg(HttpPostedFileBase file, SiteImageSize newSize, string serverPath)
         {
-            var file = (HttpPostedFileBase)fileBase;
-            var newSize = ImageSizes[0];
-            string basePath = HostingEnvironment.MapPath(defaultDir);
-            string newFileName = GetBioFileName(newSize.GetFileNameWithExt(file.FileName));
-            string path = Path.Combine(basePath, newSize.FolderName, newFileName);
             using (var srcImage = Image.FromStream(file.InputStream))
             {
-                Resize(srcImage, path, newSize.Height, newSize.ImgFmt, newSize.Quality);
+                Resize(srcImage, serverPath, newSize.Height, newSize.ImgFmt, newSize.Quality);
             }
-            processImage(newFileName);
         }
         /// <summary>
         /// makes various sizes, added to appropriate folders, and returns the full path to the thumbnail
         /// </summary>
         /// <param name="imageName"></param>
-        /// <param name="dir"></param>
-        public static string processImage(string imageName, string dir= defaultDir)
+        /// <param name="virtualPath"></param>
+        public static string multiResizeImage(string imageName, string virtualPath= defaultDir)
         {
-            string basePath = HostingEnvironment.MapPath(dir);
+            string basePath = HostingEnvironment.MapPath(virtualPath);
             string path = Path.Combine(basePath, ImageSizes[0].FolderName,imageName);
             SiteImageSize s=null;
             string newFileName = null;

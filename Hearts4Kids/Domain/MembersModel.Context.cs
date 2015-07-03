@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hearts4Kids
+namespace Hearts4Kids.Domain
 {
     using System;
     using System.Data.Entity;
@@ -25,10 +25,14 @@ namespace Hearts4Kids
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<CorporateSponsor> CorporateSponsors { get; set; }
+        public virtual DbSet<FundraisingEvent> FundraisingEvents { get; set; }
         public virtual DbSet<NewsletterSubscriber> NewsletterSubscribers { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<UserBio> UserBios { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<QA> QAs { get; set; }
     }
 }

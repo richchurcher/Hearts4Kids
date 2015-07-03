@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Web;
+﻿using Hearts4Kids.Domain;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using static Hearts4Kids.Domain;
+
 
 namespace Hearts4Kids.Models
 { 
@@ -50,8 +50,8 @@ namespace Hearts4Kids.Models
     public class BioDisplay
     {
         public string Name { get; set; }
-        public Teams Team { get; set; }
-        public Professions Profession { get; set; }
+        public DomainConstants.Teams Team { get; set; }
+        public DomainConstants.Professions Profession { get; set; }
         public string BioPicUrl { get; set; }
         public string Bio { get; set; }
         public bool Trustee { get; set; }

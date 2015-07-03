@@ -13,10 +13,10 @@ namespace Hearts4Kids.Controllers
     [Authorize]
     public class BiosController : BaseUserController
     {
-        [Authorize(Roles=Domain.Admin)]
+        [Authorize(Roles=Domain.DomainConstants.Admin)]
         public ActionResult Index()
         {
-            var model = MemberDetailService.GetBioSumarries();
+            var model = MemberDetailServices.GetBioSumarries();
             return View(model);
         }
         // GET: Bios
@@ -27,13 +27,13 @@ namespace Hearts4Kids.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            var model = MemberDetailService.GetBioDetails(id) ?? new BiosViewModel() { UserId=id  };
+            var model = MemberDetailServices.GetBioDetails(id) ?? new BiosViewModel() { UserId=id  };
             model.IsAdmin = IsAdmin;
             return View(model);
         }
         public async Task<ActionResult> AllUserContacts()
         {
-            return View(await MemberDetailService.GetAllUserContacts(User.Identity.Name));
+            return View(await MemberDetailServices.GetAllUserContacts(User.Identity.Name));
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -52,12 +52,12 @@ namespace Hearts4Kids.Controllers
                     model.BioPicUrl = PhotoServices.processBioImage(bioImg);
                 }
                 
-                await MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
+                await MemberDetailServices.UpdateBios(model, ModelState, IsAdmin);
                 if (ModelState.IsValid)
                 {
                     if (!isAdmin)
                     {
-                        await SendEmailsToRoleAsync(Domain.Admin, new IdentityMessage
+                        await SendEmailsToRoleAsync(Domain.DomainConstants.Admin, new IdentityMessage
                         {
                             Subject = "New H4K bio awaiting approval",
                             Body = string.Format("<p>A biography has been created or updated for <strong>{0}</strong> "
@@ -87,7 +87,7 @@ namespace Hearts4Kids.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            var returnView = MemberDetailService.GetMemberDetails(usr.Id) ?? new BioDetailsViewModel { UserId = usr.Id };
+            var returnView = MemberDetailServices.GetMemberDetails(usr.Id) ?? new BioDetailsViewModel { UserId = usr.Id };
             returnView.PhoneNumber = usr.PhoneNumber;
             returnView.Email = usr.Email;
             returnView.UserName = usr.UserName;
@@ -103,11 +103,11 @@ namespace Hearts4Kids.Controllers
             }
             if (ModelState.IsValid)
             {
-                MemberDetailService.UpdateMemberDetails(model, ModelState);
+                MemberDetailServices.UpdateMemberDetails(model, ModelState);
                 //to do allow phone number update
                 if (ModelState.IsValid)
                 {
-                    if (model.UserId == CurrentUser.Id && MemberDetailService.BioRequired(model.UserId))
+                    if (model.UserId == CurrentUser.Id && MemberDetailServices.BioRequired(model.UserId))
                     {
                         return RedirectToAction("CreateEditBio", model.UserId);
                     }
@@ -121,7 +121,7 @@ namespace Hearts4Kids.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> UserBios(string name=null)
         {
-            var model = await MemberDetailService.GetBiosForDisplay(isMainPage: false);
+            var model = await MemberDetailServices.GetBiosForDisplay(isMainPage: false);
             return View(model);
         }
         bool IsAuthorised(int id)

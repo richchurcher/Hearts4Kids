@@ -18,12 +18,12 @@ namespace Hearts4Kids.Controllers
         {
             return View(PhotoServices.GetImages());
         }
-        [Authorize(Roles =Domain.Admin)]
+        [Authorize(Roles =Domain.DomainConstants.Admin)]
         public ActionResult MakeBanner()
         {
             return View(PhotoServices.GetImages());
         }
-        [Authorize(Roles =Domain.Admin), HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles =Domain.DomainConstants.Admin), HttpPost, ValidateAntiForgeryToken]
         public ActionResult MakeBanner(string[] forBanner)
         {
             PhotoServices.makeBanner(forBanner);
@@ -49,13 +49,13 @@ namespace Hearts4Kids.Controllers
                     //and giving it the same value posted with upload
                     x.DeleteUrl = Url.Action("DeleteFile", new { entityId = entityId });
                     x.StorageDirectory = initialDir;
-                    //x.UrlPrefix = "/Content/uploads";// this is used to generate the relative url of the file
+                    x.UrlPrefix = PhotoServices.defaultDir.Substring(1) + '/' + PhotoServices.ImageSizes.First().FolderName;// this is used to generate the relative url of the file
 
                     //overriding defaults
                     x.FileName = Request.Files[i].FileName;// default is filename suffixed with filetimestamp
                     //x.ThrowExceptions = true;//default is false, if false exception message is set in error property
                 });
-                st.thumbnailUrl = PhotoServices.processImage(st.SavedFileName).Substring(1); //hack
+                st.thumbnailUrl = PhotoServices.multiResizeImage(st.SavedFileName).Substring(1); //hack
                 statuses.Add(st);
             }
 
@@ -76,7 +76,7 @@ namespace Hearts4Kids.Controllers
             return viewresult;
         }
 
-        [Authorize(Roles=Domain.Admin)]
+        [Authorize(Roles=Domain.DomainConstants.Admin)]
         public ActionResult GalleryWithDelete()
         {
             var returnData = PhotoServices.GetAdminImages();

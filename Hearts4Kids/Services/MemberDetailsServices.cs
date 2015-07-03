@@ -1,52 +1,16 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using System.Web.Mvc;
+﻿using Hearts4Kids.Domain;
 using Hearts4Kids.Models;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Hearts4Kids.Services
 {
-    public class SubscribeServices
-    {
-        public static bool AddEmail(string email)
-        {
-            if (!new RegexUtilities().IsValidEmail(email))
-            {
-                return false;
-            }
-            if (!HttpContext.Current.User.Identity.IsAuthenticated) //otherwise we already have the email!
-            {
-                using (ApplicationUserManager userManager = Controllers.AccountController.GetApplicationUserManager())
-                {
-                    if (userManager.FindByEmail(email) == null)
-                    {
-                        try
-                        {
-                            using (var db = new Hearts4KidsEntities())
-                            {
-                                db.NewsletterSubscribers.Add(new NewsletterSubscriber { Email = email });
-                                db.SaveChanges();
-                            }
-                        }
-                        catch (System.Data.SqlClient.SqlException)
-                        {
-
-                        }
-                    }
-                }
-
-            }
-            return true;
-        }
-    }
-
-    public class MemberDetailService
+    public class MemberDetailServices
     {
         public static IEnumerable<BioSumaryModel> GetBioSumarries()
         {
@@ -75,7 +39,9 @@ namespace Hearts4Kids.Services
                             Biography = u.Bio,
                             BioPicUrl = u.BioPicUrl,
                             CitationDescription = u.CitationDescription,
-                            UserId = userId
+                            UserId = userId,
+                            MainTeamPage = u.MainTeamPage,
+                            Approved = u.Approved
                         }).FirstOrDefault();
             }
         }
@@ -90,8 +56,8 @@ namespace Hearts4Kids.Services
                             Firstname = b.FirstName,
                             Surname = b.Surname,
                             CitationDescription = b.CitationDescription,
-                            Profession = (Domain.Professions)b.Profession,
-                            Team = (Domain.Teams)b.Team,
+                            Profession = (DomainConstants.Professions)b.Profession,
+                            Team = (DomainConstants.Teams)b.Team,
                             Trustee = b.Trustee,
                             UserId = userId
                         }).FirstOrDefault();
@@ -104,7 +70,7 @@ namespace Hearts4Kids.Services
                 return (from u in db.UserBios
                         where u.Id == userId
                         select u.Bio).Any(b => b == null || b == string.Empty);
-                       
+
             }
         }
         public static void UpdateMemberDetails(BioDetailsViewModel model, ModelStateDictionary modelState)
@@ -112,7 +78,7 @@ namespace Hearts4Kids.Services
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(model.UserId);
-                if (details==null)
+                if (details == null)
                 {
                     // user being created - make sure they haven't subscribed
                     /* Not sure why this isn't working, but the final savechanges (outside this block) 
@@ -125,7 +91,7 @@ namespace Hearts4Kids.Services
                     }
                     catch (DbUpdateConcurrencyException) { }
                     */
-                    db.Database.ExecuteSqlCommand("DELETE FROM [dbo].[NewsletterSubscribers] WHERE Email=@p0",model.Email);
+                    db.Database.ExecuteSqlCommand("DELETE FROM [dbo].[NewsletterSubscribers] WHERE Email=@p0", model.Email);
                     details = new UserBio();
                     db.UserBios.Add(details);
                 }
@@ -133,8 +99,8 @@ namespace Hearts4Kids.Services
                 details.FirstName = model.Firstname;
                 details.Surname = model.Surname;
                 details.CitationDescription = model.CitationDescription;
-                details.Profession = (int)model.Profession;
-                details.Team = (int)model.Team;
+                details.Profession = model.Profession.Value;
+                details.Team = model.Team.Value;
                 details.Trustee = model.Trustee;
                 db.SaveChanges();
             }
@@ -152,16 +118,16 @@ namespace Hearts4Kids.Services
             using (var db = new Hearts4KidsEntities())
             {
                 return await (from u in db.AspNetUsers
-                               select new AllUserModel
-                               {
-                                   UserId = u.Id,
-                                   Email = u.Email,
-                                   UserName = u.UserName,
-                                   IsAdministrator = u.Roles.Any(r => r.Name==Domain.Admin),
-                                   IsSelf = u.UserName == currentUser,
-                                   HasRegistered = u.PasswordHash != null,
-                                   BioLength = (u.UserBio==null || u.UserBio.Bio==null )?0:u.UserBio.Bio.Length
-                               }).ToListAsync();
+                                select new AllUserModel
+                                {
+                                    UserId = u.Id,
+                                    Email = u.Email,
+                                    UserName = u.UserName,
+                                    IsAdministrator = u.Roles.Any(r => r.Name == Domain.DomainConstants.Admin),
+                                    IsSelf = u.UserName == currentUser,
+                                    HasRegistered = u.PasswordHash != null,
+                                    BioLength = (u.UserBio == null || u.UserBio.Bio == null) ? 0 : u.UserBio.Bio.Length
+                                }).ToListAsync();
             }
         }
         public static async Task<List<UserContacts>> GetAllUserContacts(string currentUser)
@@ -170,22 +136,22 @@ namespace Hearts4Kids.Services
             using (var db = new Hearts4KidsEntities())
             {
                 var returnVar = await (from u in db.AspNetUsers
-                                      where u.UserName != currentUser
-                                      let b = u.UserBio
+                                        where u.UserName != currentUser
+                                        let b = u.UserBio
 
-                                      select new UserContacts
-                                      {
-                                          Name = (b.FirstName==null)?u.UserName:(b.FirstName + " " + b.Surname),
-                                          Email = u.Email,
-                                          Phone = u.PhoneNumber
-                                      }).ToListAsync();
+                                        select new UserContacts
+                                        {
+                                            Name = (b.FirstName == null) ? u.UserName : (b.FirstName + " " + b.Surname),
+                                            Email = u.Email,
+                                            Phone = u.PhoneNumber
+                                        }).ToListAsync();
                 /*
                 returnVar.AddRange(await (from s in db.NewsletterSubscribers
-                                          select new UserContacts
-                                          {
-                                              Name = s.Email + " (subscriber)",
-                                              Email = s.Email
-                                          }).ToListAsync());
+                                            select new UserContacts
+                                            {
+                                                Name = s.Email + " (subscriber)",
+                                                Email = s.Email
+                                            }).ToListAsync());
                 */
                 return returnVar;
             }
@@ -197,40 +163,40 @@ namespace Hearts4Kids.Services
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(model.UserId);
-                details.BioPicUrl = model.BioPicUrl; 
+                details.BioPicUrl = model.BioPicUrl;
                 details.Bio = model.Biography;
                 details.MainTeamPage = model.MainTeamPage;
-                details.Approved = isAdmin?model.Approved: 
+                details.Approved = isAdmin ? model.Approved :
                     (details.Approved
                         && !db.ChangeTracker.Entries().Any(e => e.State == System.Data.Entity.EntityState.Modified));
                 await db.SaveChangesAsync();
             }
         }
         public static string defaultBioPic = "~/Content/Photos/Bios/Surgical.png";
-        public static async Task<Dictionary<Domain.Teams,ILookup<Domain.Professions,BioDisplay>>> GetBiosForDisplay(bool isMainPage)
+        public static async Task<Dictionary<Domain.DomainConstants.Teams, ILookup<Domain.DomainConstants.Professions, BioDisplay>>> GetBiosForDisplay(bool isMainPage)
         {
             var bios = new List<BioDisplay>();
             using (var db = new Hearts4KidsEntities())
             {
                 bios = await (from b in db.UserBios
-                            where b.MainTeamPage == isMainPage
-                                && b.Approved
-                            select new BioDisplay
-                            {
-                                Bio = b.Bio,
-                                BioPicUrl = b.BioPicUrl ?? defaultBioPic,
-                                CitationDescription = b.CitationDescription,
-                                Name = b.FirstName + " " + b.Surname,
-                                Profession = (Domain.Professions)b.Profession,
-                                Team = (Domain.Teams)b.Team,
-                                Trustee = b.Trustee
-                            }).ToListAsync();
+                                where b.MainTeamPage == isMainPage
+                                    && b.Approved
+                                select new BioDisplay
+                                {
+                                    Bio = b.Bio,
+                                    BioPicUrl = b.BioPicUrl ?? defaultBioPic,
+                                    CitationDescription = b.CitationDescription,
+                                    Name = b.FirstName + " " + b.Surname,
+                                    Profession = (Domain.DomainConstants.Professions)b.Profession,
+                                    Team = (Domain.DomainConstants.Teams)b.Team,
+                                    Trustee = b.Trustee
+                                }).ToListAsync();
             }
             //
 
             return bios.GroupBy(b => b.Team)
                 .ToDictionary(teamGroup => teamGroup.Key,
-                              teamGroup => teamGroup.ToLookup(thing => thing.Profession));
+                                teamGroup => teamGroup.ToLookup(thing => thing.Profession));
             /*
             return (from person in bios
                     group person by person.Team into teams
@@ -241,7 +207,8 @@ namespace Hearts4Kids.Services
                     */
         }
     }
-
+    /*
+    Use the existing validator
     public class RegexUtilities
     {
         bool invalid = false;
@@ -256,7 +223,7 @@ namespace Hearts4Kids.Services
             try
             {
                 strIn = Regex.Replace(strIn, @"(@)(.+)$", DomainMapper,
-                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+                                        RegexOptions.None, TimeSpan.FromMilliseconds(200));
             }
             catch (RegexMatchTimeoutException)
             {
@@ -270,9 +237,9 @@ namespace Hearts4Kids.Services
             try
             {
                 return Regex.IsMatch(strIn,
-                      @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                      @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
-                      RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+                        @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                        @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                        RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
             }
             catch (RegexMatchTimeoutException)
             {
@@ -297,4 +264,5 @@ namespace Hearts4Kids.Services
             return match.Groups[1].Value + domainName;
         }
     }
+    */
 }

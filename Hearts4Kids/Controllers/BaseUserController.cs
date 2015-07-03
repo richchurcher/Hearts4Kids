@@ -97,7 +97,7 @@ namespace Hearts4Kids.Controllers
                 string name = User.Identity.Name;
                 _currentUser = await UserManager.FindByNameAsync(name);
             }
-            _isAdmin = await UserManager.IsInRoleAsync(_currentUser.Id, Domain.Admin);
+            _isAdmin = await UserManager.IsInRoleAsync(_currentUser.Id, Domain.DomainConstants.Admin);
             return _isAdmin.Value;
         }
         protected bool IsAdmin
@@ -105,7 +105,7 @@ namespace Hearts4Kids.Controllers
             get
             {
                 return _isAdmin.HasValue ? _isAdmin.Value
-                    : (_isAdmin = UserManager.IsInRole(CurrentUser.Id, Domain.Admin)).Value;
+                    : (_isAdmin = UserManager.IsInRole(CurrentUser.Id, Domain.DomainConstants.Admin)).Value;
             }
         }
         #region email

@@ -7,13 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hearts4Kids
+namespace Hearts4Kids.Domain
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class NewsletterSubscriber
+    public partial class CorporateSponsor
     {
-        public string Email { get; set; }
+        public int Id { get; set; }
+        public string WebUrl { get; set; }
+        public string LogoUrl { get; set; }
+    
+        public virtual NewsletterSubscriber NewsletterSubscriber { get; set; }
     }
 }

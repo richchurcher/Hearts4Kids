@@ -93,16 +93,16 @@ namespace Hearts4Kids.Models
         public string Firstname { get; set; }
 
         [Required, StringLength(128)]
-        [Display(Name = "Surame")]
+        [Display(Name = "Surname")]
         public string Surname { get; set; }
 
         [Required]
         [Display(Name = "Profesional Role")]
-        public Domain.Professions? Profession { get; set; }
+        public Domain.DomainConstants.Professions? Profession { get; set; }
 
         [Required]
         [Display(Name = "Team")]
-        public Domain.Teams? Team { get; set; }
+        public Domain.DomainConstants.Teams? Team { get; set; }
 
         [Required]
         [Display(Name = "Trustee", Description = "Check if you are you a nominated trustee for Hearts4Kids")]

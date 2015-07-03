@@ -7,18 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hearts4Kids
+namespace Hearts4Kids.Domain
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Quote
+    public partial class Receipt
     {
         public int Id { get; set; }
-        public string Text { get; set; }
-        public bool Approved { get; set; }
-        public int UserId { get; set; }
+        public int NewletterSubscriberId { get; set; }
+        public System.DateTime DateReceived { get; set; }
+        public System.DateTime DateSent { get; set; }
+        public decimal Amount { get; set; }
+        public DomainConstants.DonationTypes TransferMethod { get; set; }
+        public string Description { get; set; }
     
-        public virtual UserBio UserBio { get; set; }
+        public virtual NewsletterSubscriber NewsletterSubscriber { get; set; }
     }
 }

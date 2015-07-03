@@ -100,24 +100,24 @@ namespace Hearts4Kids.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
-        [Authorize(Roles = Domain.Admin), HttpPost]
+        [Authorize(Roles = Domain.DomainConstants.Admin), HttpPost]
         public ActionResult ViewAllUsers(int id, bool newVal)
         {
             if (newVal)
             {
-                UserManager.AddToRole(id, Domain.Admin);
+                UserManager.AddToRole(id, Domain.DomainConstants.Admin);
             }
             else
             {
-                UserManager.RemoveFromRole(id, Domain.Admin);
+                UserManager.RemoveFromRole(id, Domain.DomainConstants.Admin);
             }
             return new JsonResult { Data = new { Success = true } };
         }
-        [Authorize(Roles = Domain.Admin)]
+        [Authorize(Roles = Domain.DomainConstants.Admin)]
         public async Task<ActionResult> ViewAllUsers()
         {
 
-            var model = await Services.MemberDetailService.UserBioLength(User.Identity.Name);
+            var model = await Services.MemberDetailServices.UserBioLength(User.Identity.Name);
 
             return View(model);
         }

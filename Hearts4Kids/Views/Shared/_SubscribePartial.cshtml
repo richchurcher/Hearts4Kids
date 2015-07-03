@@ -1,0 +1,28 @@
+﻿@model Hearts4Kids.Models.SubscribeModel
+@using (Html.BeginForm("Subscribe", "Home", FormMethod.Post, new { id="subscribeForm" }))
+{
+    <div class="container-fluid col-md-12">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "form-control", placeholder = "Your Email" })
+        </div>
+        <div class="form-group" >
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(model => model.Newsletter)
+                    @Html.DisplayNameFor(model => model.Newsletter)
+                </label>
+            </div>
+            <span class="help-block">About twice a year we will send you updates on how your money is being spent, and stories from the children and families.</span>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(model => model.Fundraisers)
+                    @Html.DisplayNameFor(model => model.Fundraisers)
+                </label>
+            </div>
+            <span class="help-block">We will let you know dates, times and locations for fundraising events.</span>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Subscribe" />
+    </div>
+}
