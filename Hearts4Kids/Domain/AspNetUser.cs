@@ -19,6 +19,7 @@ namespace Hearts4Kids.Domain
         {
             this.FundraisingEvents = new HashSet<FundraisingEvent>();
             this.Roles = new HashSet<AspNetRole>();
+            this.Receipts = new HashSet<Receipt>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,7 @@ namespace Hearts4Kids.Domain
         public virtual UserBio UserBio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receipt> Receipts { get; set; }
     }
 }

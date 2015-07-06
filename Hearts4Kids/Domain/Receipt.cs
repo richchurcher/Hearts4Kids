@@ -15,13 +15,15 @@ namespace Hearts4Kids.Domain
     public partial class Receipt
     {
         public int Id { get; set; }
-        public int NewletterSubscriberId { get; set; }
+        public Nullable<int> NewletterSubscriberId { get; set; }
         public System.DateTime DateReceived { get; set; }
         public System.DateTime DateSent { get; set; }
         public decimal Amount { get; set; }
         public DomainConstants.DonationTypes TransferMethod { get; set; }
         public string Description { get; set; }
+        public Nullable<int> UserId { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual NewsletterSubscriber NewsletterSubscriber { get; set; }
     }
 }

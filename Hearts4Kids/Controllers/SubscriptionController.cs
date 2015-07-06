@@ -44,6 +44,7 @@ namespace Hearts4Kids.Controllers
                 if (ModelState.IsValid)
                 {
                     ModelState.Clear();
+                    ViewBag.SuccessMsg = "Successfuly created and emailed receipt for " + model.Email;
                     return View(GetNewReceiptModel());
                 }
             }
@@ -60,6 +61,29 @@ namespace Hearts4Kids.Controllers
         {
             return new JsonResult { Data = await SubscriberServices.GetDonorInfo(email) };
         }
+
+        public ActionResult UploadGiveALittleDonors()
+        {
+            return View();
+        }
+        [Authorize(Roles = Admin), HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> UploadGiveALittleDonors(HttpPostedFileBase spreadsheet)
+        {
+            if (spreadsheet == null)
+            {
+                ModelState.AddModelError("","A file must be attached");
+            }
+            else if (!spreadsheet.FileName.EndsWith(".xlsx"))
+            {
+                ModelState.AddModelError("", "must be an Excel (.xlsx) file");
+            }
+            if (ModelState.IsValid)
+            {
+                ViewBag.Updated = await GiveALittleCommunication.AddReceipts(spreadsheet.InputStream);
+            }
+            return View();
+        }
+
         static ReceiptModel GetNewReceiptModel()
         {
             var returnVar = new ReceiptModel();

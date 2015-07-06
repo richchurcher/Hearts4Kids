@@ -30,47 +30,73 @@ namespace Hearts4Kids.Services
                     modelState.AddModelError("",string.Format("A receipt already exists for {0} on {1:dd/MM/yy}",receipt.Email, receipt.DateReceived));
                     return;
                 }
-                var s = await db.NewsletterSubscribers.FirstOrDefaultAsync(n => n.Email == receipt.Email);
-                if (s == null)
+                int? newId = await db.Receipts.MaxAsync(r => (int?)r.Id);
+                if (!newId.HasValue || newId.Value < DomainConstants.ReceiptIdentitySeed)
                 {
-                    s = new NewsletterSubscriber { Email = receipt.Email, UnsubscribeToken = Guid.NewGuid(), Subscription=SubscriptionTypes.FullSubscription };
-                    db.NewsletterSubscribers.Add(s);
+                    newId = ReceiptIdentitySeed;
                 }
-                if (receipt.Name != null) { s.Name = receipt.Name; }
-                if (receipt.Address != null)
+                else
                 {
-                    s.Address = receipt.Address;
+                    newId++;
                 }
                 Receipt rcpt = new Receipt
                 {
+                    Id =  newId.Value,
                     DateReceived = receipt.DateReceived.Value,
                     Amount = receipt.Amount,
                     DateSent = DateTime.Now,
                     TransferMethod = receipt.TransferMethodId.Value,
-                    NewsletterSubscriber = s,
                     Description = receipt.Description
                 };
                 db.Receipts.Add(rcpt);
-                if (receipt.IsOrganisation)
+                var u = await db.AspNetUsers.FirstOrDefaultAsync(usr => usr.Email == receipt.Email);
+                if (u == null)
                 {
-                    CorporateSponsor c=null;
-                    if (s.Id != 0)
+                    var s = await db.NewsletterSubscribers.FirstOrDefaultAsync(n => n.Email == receipt.Email);
+                    if (s == null)
                     {
-                        c = await db.CorporateSponsors.FindAsync(s.Id);
+                        s = new NewsletterSubscriber { Email = receipt.Email, UnsubscribeToken = Guid.NewGuid(), Subscription = SubscriptionTypes.FullSubscription };
+                        db.NewsletterSubscribers.Add(s);
+                        rcpt.NewsletterSubscriber = s;
                     }
-                    if (c == null)
+                    else
                     {
-                        c = new CorporateSponsor();
-                        c.NewsletterSubscriber = s;
-                        db.CorporateSponsors.Add(c);
+                        rcpt.NewsletterSubscriber = s;
                     }
-                    c.WebUrl = receipt.WebUrl;
-                    c.LogoUrl = receipt.LogoSrc;
+
+                    if (receipt.Name != null) { s.Name = receipt.Name; }
+                    if (receipt.Address != null)
+                    {
+                        s.Address = receipt.Address;
+                    }
+
+                    if (receipt.IsOrganisation)
+                    {
+                        CorporateSponsor c = null;
+                        if (s.Id != 0)
+                        {
+                            c = await db.CorporateSponsors.FindAsync(s.Id);
+                        }
+                        if (c == null)
+                        {
+                            c = new CorporateSponsor();
+                            c.NewsletterSubscriber = s;
+                            db.CorporateSponsors.Add(c);
+                        }
+                        c.WebUrl = receipt.WebUrl;
+                        c.LogoUrl = receipt.LogoSrc;
+                    }
                 }
+                else
+                {
+                    rcpt.AspNetUser = u;
+                }
+                
                 await db.SaveChangesAsync();
-                string author = await (from u in db.AspNetUsers
-                                      where u.UserName == HttpContext.Current.User.Identity.Name
-                                      select u.UserBio==null?u.UserName:(u.UserBio.FirstName + " " + u.UserBio.Surname)).FirstAsync();
+                string author = await (from ur in db.AspNetUsers
+                                       where ur.UserName == HttpContext.Current.User.Identity.Name
+                                       let b = ur.UserBio
+                                       select b==null?ur.UserName:(b.FirstName + " " + b.Surname)).FirstAsync();
                 string baseUr = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
                 Thread emailThread = new Thread(() => SendReceipt(rcpt, baseUr,author));
                 emailThread.Start();
@@ -87,9 +113,10 @@ namespace Hearts4Kids.Services
                 + "some of the poorest children in the world and give them the opportunity to lead active and full lives. "
                 + "Thank you once again for helping us make it happen.</p><p>Please see attached receipt.</p>"
                 + "<p>Regards</p><p>The Hearts4Kids Team.</p>"
-                + "<hr/>" + SubscriberServices.getUnsubscribeDetails(receipt.NewletterSubscriberId, receipt.NewsletterSubscriber.UnsubscribeToken, receipt.NewsletterSubscriber.Subscription, baseUr),
+                + "<hr/>",
                 IsBodyHtml = true
             };
+            if (receipt.NewletterSubscriberId.HasValue) { m.Body += SubscriberServices.getUnsubscribeDetails(receipt.NewletterSubscriberId.Value, receipt.NewsletterSubscriber.UnsubscribeToken, receipt.NewsletterSubscriber.Subscription, baseUr); }
             m.To.Add(receipt.NewsletterSubscriber.Email);
             using (var stream = new MemoryStream())
             {

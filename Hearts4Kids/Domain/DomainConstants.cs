@@ -7,6 +7,7 @@ namespace Hearts4Kids.Domain
 {
     public static class DomainConstants
     {
+        public const int ReceiptIdentitySeed = 100000000;
         public const string Admin = "Admin";
         public enum Teams
         {

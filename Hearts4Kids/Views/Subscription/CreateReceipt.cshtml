@@ -8,7 +8,10 @@
     @Styles.Render("~/Content/userForms")
 }
 <h2>@ViewBag.Title</h2>
-
+@if (ViewBag.SuccessMsg != null)
+{
+    <p>@ViewBag.SuccessMsg</p>
+}
 @using (Html.BeginForm("CreateReceipt","Subscription",FormMethod.Post,new { id="createReceiptForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -165,7 +168,7 @@
             var lastEmail;
             $('#Email', mainForm).autocomplete(
                 {
-                    delay: 500,
+                    delay: 200,
                     minLength: 1,
                     source: function (request, response) {
                         $.ajax({

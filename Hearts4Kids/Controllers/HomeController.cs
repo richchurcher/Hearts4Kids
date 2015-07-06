@@ -54,7 +54,7 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
-        public ActionResult Contact(int? id)
+        public ActionResult Contact(int? id=null)
         {
             return View(new ContactViewModel { ContactId = id });
         }

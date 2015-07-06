@@ -31,8 +31,8 @@ namespace Hearts4Kids.Domain
         public virtual DbSet<FundraisingEvent> FundraisingEvents { get; set; }
         public virtual DbSet<NewsletterSubscriber> NewsletterSubscribers { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
-        public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<UserBio> UserBios { get; set; }
         public virtual DbSet<QA> QAs { get; set; }
+        public virtual DbSet<Receipt> Receipts { get; set; }
     }
 }
