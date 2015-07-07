@@ -35,16 +35,29 @@
         .followon{
             margin-top:20px;
         }
-
-        .jumbotron{
-             background-image:url('/Content/Photos/Closed door.png');
-             background-repeat: no-repeat;
-             background-size:115px auto;
-             height:150px;
-             text-align:center;
-             padding-top:57px;
+        #door {
+          height: 150px;
+          left: -59px;
+          margin: 0;
+          padding: 0;
+          position: relative;
+          top: -57px;
+          float:left;
         }
+        .jumbotron{
+             height:150px;
+             padding-top:57px;
+             text-align:center;
+             overflow:hidden;
+        }
+
         @@media print{
+            #masthead{
+                width:80%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
             figure{
                 width:85%
             }
@@ -59,17 +72,17 @@
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
-                width:55%;
+                width:52%;
             }
-             div.section{
-                page-break-before: always; 
-            }
-            #Need
-            {
-                page-break-before:avoid; /* limits the scope of the previous rule */
-            }
+
             figure{
                 page-break-inside:avoid !important;
+            }
+            .jumbotron{
+                border:double 5px #000;
+            }
+            #door{
+                left: -30px;
             }
         }
     </style>
@@ -82,14 +95,14 @@
 </div>
 <div class="row">
     <div class="col-md-6 col-md-push-3">
-        <img id="firstImage" class="img-responsive" src="~/Content/Photos/Slides/lg/Nicky and 3 patients.jpg" />
+        <img id="firstImage" class="img-responsive" src="~/Content/Photos/Slides/lg/Nicky%20and%203%20patients.jpg" alt="One of our volunteer doctors (Nicky) with 3patients"/>
         <p>
             <q>The Hearts4Kids Trust has been set up specifically to fund the cost of providing a surgical mission to Fiji to operate on Pacific Island children with cardiac disease.
                 The repair of simple congenital heart defects is one of the most lifesaving and cost-effective operations to be done in the field of medicine today.</q>
         </p>
         
         <p class="text-right">
-            <img src="~/Content/Photos/Kirsten signature.jpg" id="signature"/><br/>Kirsten Finucane,<br/>Head of Paediatric &amp; Congenital Cardiac Surgery,<br/>Starship And Auckland Hospitals
+            <img src="~/Content/Photos/Kirsten%20signature.jpg" id="signature" alt="Kirsten Finucane signature"/><br/>Kirsten Finucane,<br/>Head of Paediatric &amp; Congenital Cardiac Surgery,<br/>Starship And Auckland Hospitals
         </p>
     </div>
 </div>
@@ -214,7 +227,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-push-1">
                     <figure>
-                        <img src="~/Content/Photos/Slides/lg/Fijian ECG.jpg" class="img-responsive">
+                        <img src="~/Content/Photos/Slides/lg/Fijian%20ECG.jpg" class="img-responsive">
                         <figcaption>
                             Recovery is closely monitored by the team, and anxious family members. <small>
                                 The electrocardiogram is being taken using
@@ -320,7 +333,7 @@
             </p>
             <div class="row">
                 <figure class="col-md-10 col-md-push-1">
-                    <img src="~/Content/Photos/Slides/lg/post-op ward.jpg" class="img-responsive">
+                    <img src="~/Content/Photos/Slides/lg/post-op%20ward.jpg" class="img-responsive">
                     <figcaption>
                         The busy makeshift cardiac ward one week after the team
                         arrived. Two weeks later it was empty; all the patients had gone home.
@@ -400,7 +413,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-push-1">
                     <figure class="lastfigures">
-                        <img src="~/Content/Photos/Slides/lg/Carol And Ann.jpg" class="col-md-6 img-responsive">
+                        <img src="~/Content/Photos/Slides/lg/Carol%20And%20Ann.jpg" class="col-md-6 img-responsive">
                         <figcaption class="col-md-6">
                             Carol &amp; Ann surrounded by familiar equipment in their Fiji PICU (Paediatric Intensive
                             Care Unit)
@@ -419,7 +432,8 @@
             </div>
             <div class="row">
                 <div class="jumbotron" title="Photo of a door within Laotoka Hospital, repaired with medical tape.">
-                    <p>
+                    <img class="col-md-2 col-sm-2" id="door" src='/Content/Photos/Closed%20door.png' alt="closed-door"/>
+                    <p class="col-md-10 col-sm-10">
                         Please help us open the door to a new life for these children.
                     </p>
                 </div>
