@@ -26,3 +26,6 @@
 #bioContent .popover {
     max-width:600px;
 }
+#priorInfo {
+    visibility:hidden;
+}

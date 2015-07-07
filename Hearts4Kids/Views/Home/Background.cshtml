@@ -5,7 +5,7 @@
 
 
 @section Styles{
-    <style type="text/css">
+    <style type="text/css" media="all">
         #signature {
             width:33%;
         }
@@ -16,7 +16,6 @@
         .affix {
             top: 20px;
         }
-
         .affix-bottom {
             position: absolute;
         }
@@ -45,7 +44,34 @@
              text-align:center;
              padding-top:57px;
         }
-
+        @@media print{
+            figure{
+                width:85%
+            }
+            figure.lastfigures {
+                width:50%;
+                float:left;
+            }
+            .rightoffsetpic{
+                top:0;
+            }
+            #firstImage{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width:55%;
+            }
+             div.section{
+                page-break-before: always; 
+            }
+            #Need
+            {
+                page-break-before:avoid; /* limits the scope of the previous rule */
+            }
+            figure{
+                page-break-inside:avoid !important;
+            }
+        }
     </style>
 }
 
@@ -56,19 +82,20 @@
 </div>
 <div class="row">
     <div class="col-md-6 col-md-push-3">
-        <img class="img-responsive" src="~/Content/Photos/Slides/lg/Nicky and 3 patients.jpg" />
+        <img id="firstImage" class="img-responsive" src="~/Content/Photos/Slides/lg/Nicky and 3 patients.jpg" />
         <p>
             <q>The Hearts4Kids Trust has been set up specifically to fund the cost of providing a surgical mission to Fiji to operate on Pacific Island children with cardiac disease.
                 The repair of simple congenital heart defects is one of the most lifesaving and cost-effective operations to be done in the field of medicine today.</q>
         </p>
         
         <p class="text-right">
-            <img src="~/Content/Photos/Kirsten signature.jpg" id="signature"/><br/>Kirsten Finucane,<br/>Head of Paediatric &amp; Congenital Cardiac Surgery,<br/>Starship And Auckland Hospitals</p>
+            <img src="~/Content/Photos/Kirsten signature.jpg" id="signature"/><br/>Kirsten Finucane,<br/>Head of Paediatric &amp; Congenital Cardiac Surgery,<br/>Starship And Auckland Hospitals
+        </p>
     </div>
 </div>
 <hr/>
 <div class="row">
-    <div class="col-md-2 hidden-sm hidden-xs" id="indexContainer">
+    <div class="col-md-2 hidden-sm hidden-xs hidden-print" id="indexContainer">
         <ul class="nav nav-stacked nav-pills" id="navDoc" data-spy="affix">
             <li><a href="#Need">The Need</a></li>
             <li><a href="#FirstTrip">First Trip</a></li>
@@ -79,7 +106,7 @@
         </ul>
     </div> <!--col-->
     <div class="col-md-10" id="mainText">
-        <div id="Need">
+        <div id="Need" class="section">
             <h2>The Need</h2>
 
             <p>
@@ -139,7 +166,7 @@
                 have heart defects which are completely curable with a single operation.
             </p>
         </div>
-        <div id="FirstTrip">
+        <div id="FirstTrip" class="section">
             <h2>Our Inaugural Trip (2014)</h2>
             <p>
 
@@ -238,17 +265,8 @@
                 NZ for surgery (See stories).
             </p>
         </div>
-        <div class="row">
-            <figure class="col-md-10 col-md-push-1">
-                <img src="~/Content/Photos/Slides/lg/Baby%20Post%20Op.jpg" class="img-responsive">
-                <figcaption>
-                    Almost none of the specialist medical equipment seen in this photo is available in
-                    Fiji. It all has to be shipped.
-                </figcaption>
-            </figure>
-        </div>
 
-        <div id="Current">
+        <div id="Current" class="section">
             <h2>Our current situation</h2>
 
             <p>
@@ -274,10 +292,20 @@
                 disease. The repair of simple congenital heart defects is one of the most lifesaving
                 and cost-effective operations to be done in the field of medicine today.
             </p>
+            <div class="row">
+                <figure class="col-md-10 col-md-push-1">
+                    <img src="~/Content/Photos/Slides/lg/IMG_1543.JPG" class="col-md-8 img-responsive">
+                    <figcaption class="col-md-4">
+                        Dr John Wright performs an echocardiogram on Mary after her operation. Prior to her
+                        operation, she had been unable to take more than one step at a time due to
+                        breathlessness. Just days after this photo was taken, she was running!
+                    </figcaption>
+                </figure>
+            </div>
 
         </div>
 
-        <div id="Vision">
+        <div id="Vision" class="section">
             <h2>Our Vision</h2>
             <p>
                 <strong>
@@ -310,19 +338,9 @@
                 undoubtedly result in improved outcomes for other children requiring complex
                 care in the hospital.
             </p>
-            <div class="row">
-                <figure class="col-md-10 col-md-push-1">
-                    <img src="~/Content/Photos/Slides/lg/IMG_1543.JPG" class="col-md-8 img-responsive">
-                    <figcaption class="col-md-4">
-                        Dr John Wright performs an echocardiogram on Mary after her operation. Prior to her
-                        operation, she had been unable to take more than one step at a time due to
-                        breathlessness. Just days after this photo was taken, she was running!
-                    </figcaption>
-                </figure>
-            </div>
         </div>
 
-        <div id="WhyGive">
+        <div id="WhyGive"  class="section">
             <h2>Why give to H4K</h2>
 
             <p>
@@ -356,9 +374,18 @@
                     incredible difference your contribution has made to these children's quality of life.
                 </dd>
             </dl>
+            <div class="row">
+                <figure class="col-md-10 col-md-push-1">
+                    <img src="~/Content/Photos/Slides/lg/Baby%20Post%20Op.jpg" class="img-responsive">
+                    <figcaption>
+                        Almost none of the specialist medical equipment seen in this photo is available in
+                        Fiji. It all has to be shipped.
+                    </figcaption>
+                </figure>
+            </div>
         </div>
 
-        <div id="Summary">
+        <div id="Summary" class="section">
             <h2>Summary</h2>
 
             <p class="help-block">
@@ -372,7 +399,7 @@
             </p>
             <div class="row">
                 <div class="col-md-10 col-md-push-1">
-                    <figure>
+                    <figure class="lastfigures">
                         <img src="~/Content/Photos/Slides/lg/Carol And Ann.jpg" class="col-md-6 img-responsive">
                         <figcaption class="col-md-6">
                             Carol &amp; Ann surrounded by familiar equipment in their Fiji PICU (Paediatric Intensive
@@ -381,7 +408,7 @@
                     </figure>
 
 
-                    <figure>
+                    <figure class="lastfigures">
                         <img src="~/Content/Photos/Slides/lg/IMG_1580.JPG" class="col-md-6 img-responsive rightoffsetpic">
                         <figcaption class="col-md-6">
                             Gunesh

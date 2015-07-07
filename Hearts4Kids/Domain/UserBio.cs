@@ -32,6 +32,7 @@ namespace Hearts4Kids.Domain
         public bool Trustee { get; set; }
         public string CitationDescription { get; set; }
         public bool Approved { get; set; }
+        public string Address { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

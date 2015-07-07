@@ -37,4 +37,16 @@ namespace Hearts4Kids.Models
         [Display(Name = "Description", Description ="Not applicable to cash donations. Describe the goods, and in the case of a discount, also give details of the discount provided."),DataType(DataType.MultilineText), StringLength(2000)]
         public string Description { get; set; }
     }
+    public class DonorInfoSummaryModel : DonorInfoModel
+    {
+        public IEnumerable<PriorReceiptModel> ExistingReceipts { get; set; }
+    }
+    public class PriorReceiptModel
+    {
+        [DataType(DataType.Date)]
+        public DateTime DateReceived { private get; set; }
+        public String DateString { get { return DateReceived.ToShortDateString(); } }
+        [DataType(DataType.Currency)]
+        public decimal Amount { get; set; }
+    }
 }

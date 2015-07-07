@@ -30,7 +30,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <!--G End FacebooK -->
-    <div id="navbar" class="navbar navbar-inverse ">
+    <div id="navbar" class="navbar navbar-inverse hidden-print">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -75,7 +75,7 @@
         <hr>
 
         <div class="row" id="copyright">
-            <!--G Start--><div id="shareContainer" style="left:0 !important">
+            <!--G Start--><div id="shareContainer" style="left:0 !important" class="hidden-print">
                 <ul>
                     <li><a href="http://www.facebook.com/Hearts4KidsPasifika" target="_blank" class="facebook">&nbsp;</a></li>
                     <li><a href="https://twitter.com/Hearts4KidsNZ" target="_blank" class="twitter">&nbsp;</a></li>
@@ -101,7 +101,7 @@
             <span>&copy; 2015 - Hearts4Kids</span>
         </div>
     </div>
-    <footer class="footer panel-footer navbar-fixed-bottom">
+    <footer class="footer panel-footer navbar-fixed-bottom hidden-print">
         <div class="container">
             <div class="col-md-4">
                 @Html.ActionLink("Find out More","About","Home",null,new { @class = "btn btn-success btn-block", role = "button" })

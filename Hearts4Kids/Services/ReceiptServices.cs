@@ -90,6 +90,10 @@ namespace Hearts4Kids.Services
                 else
                 {
                     rcpt.AspNetUser = u;
+                    if (receipt.Address != null)
+                    {
+                        u.UserBio.Address = receipt.Address;
+                    }
                 }
                 
                 await db.SaveChangesAsync();

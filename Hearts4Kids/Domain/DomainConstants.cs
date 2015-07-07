@@ -15,8 +15,9 @@ namespace Hearts4Kids.Domain
             ICU,
             Wards,
             AllAreas,
-            NewZealand,
-            Fiji
+            NewZealandAdmin,
+            FijiSupportCrew,
+            MajorFundraiser
         }
         public enum Professions
         {
