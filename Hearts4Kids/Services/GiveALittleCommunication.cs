@@ -20,16 +20,17 @@ namespace Hearts4Kids.Services
         /// <returns>The number of new files added</returns>
         public static async Task<int> AddReceipts(Stream stream)
         {
+            
             using (var db = new Hearts4KidsEntities())
             {
                 var updatedTo = await (from r in db.Receipts
                                         where r.Id < DomainConstants.ReceiptIdentitySeed
                                         select (DateTime?)r.DateReceived).MaxAsync();
                 Task<int> t = null;
+                var val = new System.ComponentModel.DataAnnotations.EmailAddressAttribute();
                 int count = 0;
-                foreach (var gr in ExcelToReceiptList(stream,updatedTo))
+                foreach (var gr in ExcelToReceiptList(stream).Where(rl=>rl.Date > updatedTo))
                 {
-                    if (t != null) { await t; }
                     var r = new Receipt
                     {
                         Amount = gr.Amount,
@@ -38,31 +39,44 @@ namespace Hearts4Kids.Services
                         Id = gr.ReceiptId,
                         TransferMethod = DomainConstants.DonationTypes.GiveALittle
                     };
-                    var u = await db.AspNetUsers.FirstOrDefaultAsync(usr => usr.Email == gr.Email);
-                    if (u == null)
+                    if (val.IsValid(gr.Email))
                     {
-                        var n = await db.NewsletterSubscribers.FirstOrDefaultAsync(s => s.Email == gr.Email);
-                        if (n == null)
+                        if (t != null) { await t; }
+                        var u = await db.AspNetUsers.FirstOrDefaultAsync(usr => usr.Email == gr.Email);
+                        if (u == null)
                         {
-                            n = new NewsletterSubscriber
+                            var n = await db.NewsletterSubscribers.FirstOrDefaultAsync(s => s.Email == gr.Email);
+                            if (n == null)
                             {
-                                Email = gr.Email,
-                                Name = gr.Name,
-                                Subscription = DomainConstants.SubscriptionTypes.FullSubscription
-                            };
-                            db.NewsletterSubscribers.Add(n);
-                            r.NewsletterSubscriber = n;
+                                n = new NewsletterSubscriber
+                                {
+                                    Email = gr.Email,
+                                    Name = gr.Name,
+                                    Subscription = DomainConstants.SubscriptionTypes.FullSubscription,
+                                    UnsubscribeToken = Guid.NewGuid()
+                                };
+                                db.NewsletterSubscribers.Add(n);
+                                r.NewsletterSubscriber = n;
+                            }
+                            else
+                            {
+                                r.NewsletterSubscriber = n;
+                            }
                         }
                         else
                         {
-                            r.NewsletterSubscriber = n;
+                            r.AspNetUser = u;
+                        }
+                        db.Receipts.Add(r);
+                    }
+                    else //invalid email - anonymous donation
+                    {
+                        db.Receipts.Add(r);
+                        if (t != null)
+                        {
+                            await t;
                         }
                     }
-                    else
-                    {
-                        r.AspNetUser = u;
-                    }
-                    db.Receipts.Add(r);
 #if DEBUG
                     try
                     {
@@ -83,9 +97,8 @@ namespace Hearts4Kids.Services
             }
         }
 
-        public static IEnumerable<GiveALittleReceipt> ExcelToReceiptList(Stream stream, DateTime? after = null)
+        public static IEnumerable<GiveALittleReceipt> ExcelToReceiptList(Stream stream)
         {
-            if (!after.HasValue) { after = DateTime.MinValue; }
             using (IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream))
             {
                 Dictionary<string, int> columns = new Dictionary<string, int>();
@@ -96,33 +109,28 @@ namespace Hearts4Kids.Services
                     columns.Add(excelReader.GetString(i), i);
                 }
 
-                bool validValues = false;
-                while (excelReader.Read()) {
-                    DateTime recptDate = excelReader.GetDateTime(columns["Date"]);
-                    if (recptDate == DateTime.MinValue) { break; }
-                    if (recptDate > after) { validValues = true; break; }
-                }
-
-                if (validValues)
+                while (excelReader.Read())
                 {
-                    int currentId = excelReader.GetInt32(columns["Receipt #"]);
-                    do
+                    var returnVar = new GiveALittleReceipt
                     {
-                        yield return new GiveALittleReceipt
-                        {
-                            ReceiptId = currentId,
-                            Email = excelReader.GetString(columns["Donor Email"]),
-                            Name = excelReader.GetString(columns["Donor Name"]),
-                            Date = excelReader.GetDateTime(columns["Date"]),
-                            Amount = excelReader.GetDecimal(columns["Amount($)"]),
-                        };
-
-                    } while (excelReader.Read() && (currentId = excelReader.GetInt32(columns["Receipt #"]))!=int.MinValue);
+                        ReceiptId = excelReader.GetInt32(columns["Receipt #"]),
+                        Email = excelReader.GetString(columns["Donor Email"]),
+                        Name = excelReader.GetString(columns["Donor Name"]),
+                        Date = excelReader.GetDateTime(columns["Date"]),
+                        Amount = excelReader.GetDecimal(columns["Amount($)"]),
+                    };
+                    if (returnVar.ReceiptId == int.MinValue || returnVar.Date==DateTime.MinValue
+                        || returnVar.Amount == default(Decimal))
+                    {
+                        continue;
+                    }
+                    yield return returnVar;
                 }
 
             }
         }
     }
+
     public class GiveALittleReceipt
     {
         public int ReceiptId { get; set; }

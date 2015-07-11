@@ -677,6 +677,7 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\CreateReceipt.js" />
     <Content Include="Scripts\ImageUploadMultiple.js" />
     <EntityDeploy Include="Domain\MembersModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -803,9 +804,10 @@
     <Content Include="Views\Subscription\Unsubscribe.cshtml" />
     <Content Include="Views\Subscription\CreateReceipt.cshtml" />
     <Content Include="Views\Shared\_SubscribePartial.cshtml" />
-    <Content Include="Views\Fundraisers\Create.cshtml" />
+    <Content Include="Views\Fundraisers\CreateEdit.cshtml" />
     <Content Include="Views\Fundraisers\Index.cshtml" />
     <Content Include="Views\Subscription\UploadGiveALittleDonors.cshtml" />
+    <Content Include="Views\Account\EmailResent.cshtml" />
     <None Include="Web.openhost.config">
       <SubType>Designer</SubType>
     </None>

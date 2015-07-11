@@ -190,10 +190,11 @@ namespace Hearts4Kids.Controllers
             return View(model);
 
         }
-
+        public const int TokenExpireDays = 30;
         private async Task SendInviteAsync(int userId)
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
+
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userId, code = code }, protocol: Request.Url.Scheme);
             await UserManager.SendEmailAsync(userId, "Finalise your Hearts4Kids account", "<h2>Welcome to Hearts4Kids.</h2>"
                 + "<p>Please set up your account by clicking <a href=\"" + callbackUrl + "\">here</a></p>"
@@ -262,21 +263,22 @@ namespace Hearts4Kids.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
+        public ActionResult EmailResent()
+        {
+            return View();
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
-            if (userId == null || code == null)
+            if (userId == default(int) || code == null)
             {
                 return View("Error");
             }
-            int id;
-            int.TryParse(userId, out id);
             if (User.Identity.IsAuthenticated) {
                 var currentUsr = await UserManager.FindByNameAsync(User.Identity.Name);
-                if (currentUsr.Id != id) {
+                if (currentUsr.Id != userId) {
                     AuthenticationManager.SignOut();
                 }
                 else if (currentUsr.PasswordHash==null)
@@ -293,18 +295,27 @@ namespace Hearts4Kids.Controllers
                 }
             }
 
-            var usr = await UserManager.FindByIdAsync(id);
-            if (usr != null) {
-                if (usr.EmailConfirmed) {
-                    return RedirectToAction("Login");
-                }
-                var result = await UserManager.ConfirmEmailAsync(id, code);
-                if (result.Succeeded) {
-                    await SignInManager.SignInAsync(usr, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("Register");
-                }
+            var usr = await UserManager.FindByIdAsync(userId);
+            if (usr == null)
+            {
+                return View("EmailResent");
             }
-            return View("Error");
+
+            if (usr.EmailConfirmed) {
+                return RedirectToAction("Login");
+            }
+            var provider = (DataProtectorTokenProvider<ApplicationUser, int>)UserManager.UserTokenProvider;
+            TimeSpan defaultSpan = provider.TokenLifespan;
+            provider.TokenLifespan = TimeSpan.FromDays(TokenExpireDays);
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            provider.TokenLifespan = defaultSpan;
+
+            if (result.Succeeded) {
+                await SignInManager.SignInAsync(usr, isPersistent: false, rememberBrowser: false);
+                return RedirectToAction("Register");
+            }
+            await SendInviteAsync(userId);
+            return View("EmailResent");
         }
 
         //

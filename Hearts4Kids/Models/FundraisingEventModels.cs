@@ -7,11 +7,12 @@ namespace Hearts4Kids.Models
 {
     public class FundraisingEventModel
     {
+        public int? EventId { get; set; }
         [Display(Name="Event Name"), StringLength(50)]
         public string Name { get; set; }
         [Required, DataType(DataType.Date)]
         public DateTime? Date { get; set; }
-        [RegularExpression(@"^([0-9]|[0-1][0-9]|2[0-3]):[0-5][0-9] ?(am|pm|AM|PM)?$", ErrorMessage = "Invalid Time.")]
+        [RegularExpression(@"^([0-9]|[0-1][0-9]|2[0-3]):[0-5][0-9]( ?[aApP]\.?[mM]?\.?)?$", ErrorMessage = "Invalid Time.")]
         [Required, DataType(DataType.Time)]
         public string Time { get; set; }
         [StringLength(256),Required]
@@ -31,11 +32,17 @@ namespace Hearts4Kids.Models
             {
                 return Date.Value + DateTime.Parse(Time).TimeOfDay;
             }
+            set
+            {
+                this.Date = value.Date;
+                this.Time = value.ToString("hh:mm tt");
+            }
         }
     }
 
     public class FundraisingEventDetails
     {
+        public int Id { get; set; }
         [Display(Name = "Event Name"), StringLength(50)]
         public string Name { get; set; }
         [DisplayFormat(DataFormatString = "{0:f}")]

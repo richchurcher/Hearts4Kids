@@ -26,9 +26,15 @@ namespace Hearts4Kids.Services
                               let b = f.AspNetUser.UserBio
                               select new FundraisingEventDetails
                               {
-                                  Date = f.Date, Description =f.Description, Location =f.Location, FlyerUrl = f.FlyerUrl,
-                                  Name = f.Name, PrincipalOrganiser=b.FirstName + " " + b.Surname, PrincipalOrganiserId =f.AspNetUser.Id
-                                   
+                                  Id = f.Id,
+                                  Date = f.Date,
+                                  Description = f.Description,
+                                  Location = f.Location,
+                                  FlyerUrl = f.FlyerUrl,
+                                  Name = f.Name,
+                                  PrincipalOrganiser = b.FirstName + " " + b.Surname,
+                                  PrincipalOrganiserId = f.AspNetUser.Id
+
                               }).ToListAsync();
             }
         }
@@ -36,40 +42,85 @@ namespace Hearts4Kids.Services
         {
             using (var db = new Hearts4KidsEntities())
             {
-                return await (from u in db.UserBios
-                              orderby u.FirstName, u.Surname
-                                select new SelectListItem
-                                {
-                                    Value = u.Id.ToString(),
-                                    Text = u.FirstName + " " + u.Surname
-                                }).ToListAsync();
+                return await MembersToSelectList(db).ToListAsync();
+            }
+        }
+        static IQueryable<SelectListItem> MembersToSelectList(Hearts4KidsEntities db)
+        {
+            return (from u in db.UserBios
+                    orderby u.FirstName, u.Surname
+                    select new SelectListItem
+                    {
+                        Value = u.Id.ToString(),
+                        Text = u.FirstName + " " + u.Surname
+                    });
+        }
+        public static async Task<FundraisingEventModel> GetFundraiser(int id)
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                var returnVar = await (from f in db.FundraisingEvents
+                                  where f.Id == id
+                                  select new FundraisingEventModel
+                                  {
+                                      EventId = f.Id,
+                                      Description =f.Description,
+                                      FlyerUrl =f.FlyerUrl,
+                                      Location =f.Location,
+                                      Name =f.Name,
+                                      PrincipalOrganiserId = f.PrincipalOrganiserId,
+                                      EventDateTime = f.Date
+                                  }).FirstOrDefaultAsync();
+                returnVar.Organisers = await MembersToSelectList(db).ToListAsync();
+                return returnVar;
             }
         }
         const string flyerDir = "~/Content/Flyers/";
         public static async Task CreateFundraiser(FundraisingEventModel model, HttpPostedFileBase flyer)
         {
             var san = new Ganss.XSS.HtmlSanitizer();
-            var e = new FundraisingEvent
-            {
-                Date = model.EventDateTime,
-                FlyerUrl = flyer==null?null:(flyerDir + flyer.FileName),
-                Location = model.Location,
-                Name = model.Name,
-                PrincipalOrganiserId = model.PrincipalOrganiserId.Value,
-                Description = san.Sanitize(model.Description)//dont change baseUrl as it will be in email form
-            };
             IEnumerable<string> userEmails;
             IEnumerable<SubscriberEmailDetails> subscriberEmails;
             string organiserName;
+            FundraisingEvent e;
             using (var db = new Hearts4KidsEntities())
             {
-                db.FundraisingEvents.Add(e);
+
+                if (model.EventId.HasValue)
+                {
+                    e = db.FundraisingEvents.Find(model.EventId.Value);
+                }
+                else
+                {
+                    e = new FundraisingEvent();
+                    db.FundraisingEvents.Add(e);
+                }
+                e.Date = model.EventDateTime;
+                string oldPath = e.FlyerUrl;
+                e.FlyerUrl = flyer == null ? null : (flyerDir + flyer.FileName);
+                e.Location = model.Location;
+                e.Name = model.Name;
+                e.PrincipalOrganiserId = model.PrincipalOrganiserId.Value;
+                e.Description = san.Sanitize(model.Description);//dont change baseUrl as it will be in email form
+                
                 var t = db.SaveChangesAsync();
                 if (flyer != null)
                 {
                     flyer.SaveAs(HostingEnvironment.MapPath(e.FlyerUrl));
                 }
+                if (!string.IsNullOrEmpty(oldPath) && oldPath != e.FlyerUrl)
+                {
+                    try
+                    {
+                        System.IO.File.Delete(HostingEnvironment.MapPath(oldPath));
+                    }
+                    catch (System.IO.IOException)
+                    {
+                    }
+                    
+                }
                 await t;
+                if (model.EventId.HasValue) { return; }//everyone already emailed
                 organiserName = (from b in db.UserBios
                                 where b.Id == model.PrincipalOrganiserId
                                 select b.FirstName + " " + b.Surname).FirstOrDefault();

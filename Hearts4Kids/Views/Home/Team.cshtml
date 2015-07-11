@@ -101,10 +101,10 @@
                     The (pro-bono) support Crew
                 </div>
                 <div class="panel-body">
-                    @if (Model.ContainsKey(DomainConstants.Teams.NewZealand))
+                    @if (Model.ContainsKey(DomainConstants.Teams.NewZealandAdmin))
                     {
                     <dl>
-                        @foreach (var prof in Model[DomainConstants.Teams.NewZealand])
+                        @foreach (var prof in Model[DomainConstants.Teams.NewZealandAdmin])
                         {
                             foreach (var p in prof)
                             {

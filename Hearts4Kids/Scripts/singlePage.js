@@ -165,11 +165,50 @@
 })(jQuery);
 
 (function ($) {
-    var rgx = /([a-z0-9])([A-Z])/g;
-    $('option').each(function (indx, el) {
-        var $el = $(el);
-        $el.text($el.text().replace(rgx,'$1 $2'));
+    var $sel = $('select');
+    if (!$sel.length) {return;}
+    var rgx = /([a-z0-9])([A-Z])/g,
+        hasSpace = function(option,indx){
+            return $(option).text().indexOf(" ") > -1;
+        };
+    // Production steps of ECMA-262, Edition 5, 15.4.4.17
+    // Reference: http://es5.github.io/#x15.4.4.17
+    if (!Array.prototype.some) {
+        Array.prototype.some = function(fun/*, thisArg*/) {
+            'use strict';
+
+            if (this == null) {
+                throw new TypeError('Array.prototype.some called on null or undefined');
+            }
+
+            if (typeof fun !== 'function') {
+                throw new TypeError();
+            }
+
+            var t = Object(this);
+            var len = t.length >>> 0;
+
+            var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+            for (var i = 0; i < len; i++) {
+                if (i in t && fun.call(thisArg, t[i], i, t)) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+    }
+    
+    $sel.each(function () {
+        var $options = $('option',this).not(':first');
+        if (!Array.prototype.some.call($options,hasSpace)){
+            $options.each(function (indx, el) {
+                var $el = $(el);
+                $el.text($el.text().replace(rgx, '$1 $2'));
+            });
+        }
     });
+
 })(jQuery);
 
 
