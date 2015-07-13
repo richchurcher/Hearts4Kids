@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Hearts4Kids.Domain
+﻿namespace Hearts4Kids.Domain
 {
     public static class DomainConstants
     {
@@ -27,7 +22,8 @@ namespace Hearts4Kids.Domain
             AnaestheticTechnician,
             NurseSpecialist,
             Nurse,
-            NonMedical
+            NonMedicalProfessional,
+            Student
         }
         public enum DonationTypes
         {

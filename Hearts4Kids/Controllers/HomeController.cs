@@ -49,9 +49,10 @@ namespace Hearts4Kids.Controllers
             return View();
         }
 
-        public ActionResult YouthVolunteers()
+        public async Task<ActionResult> YouthVolunteers()
         {
-            return View();
+            var model = await MemberDetailServices.GetStudents();
+            return View(model);
         }
 
         public ActionResult Contact(int? id=null)

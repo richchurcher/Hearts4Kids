@@ -21,13 +21,21 @@
                 currentGroup.$items.eq(currentGroup.indx).fadeIn(fadeInterval);
             });
         };
-    $(document).ready(function(){
+    $(window).ready(function(){
         $.each(fadeItems, function (indx, el) {
             var maxHeight = 0,
-                $parent;
+                $parent,
+                imgLoaded = function () {
+                    var imgHt = $(this).height();
+                    if (imgHt > maxHeight) {
+                        maxHeight = imgHt;
+                        $parent.css('height', maxHeight);
+                    }
+                };
             el.$items.each(function (indx, el) {
                 var $t = $(el),
                     ht = $t.outerHeight();
+                $('img', el).on('load', imgLoaded);
                 if (ht > maxHeight) {
                     maxHeight = ht;
                 }

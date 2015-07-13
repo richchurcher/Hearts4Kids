@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -165,25 +166,38 @@ namespace Hearts4Kids.Services
                 await db.SaveChangesAsync();
             }
         }
+        static Expression<Func<UserBio, BioDisplay>> GetBioConverter()
+        {
+            return b => new BioDisplay
+            {
+                Bio = b.Bio,
+                BioPicUrl = b.BioPicUrl ?? defaultBioPic,
+                CitationDescription = b.CitationDescription,
+                Name = b.FirstName + " " + b.Surname,
+                Profession = b.Profession,
+                Team = b.Team,
+                Trustee = b.Trustee
+
+            };
+        }
+        public static async Task<IEnumerable<BioDisplay>> GetStudents()
+        {
+            using (var db = new Hearts4KidsEntities())
+            {
+                return await (db.UserBios.Where(b => b.Profession == DomainConstants.Professions.Student)
+                                .Select(GetBioConverter())).ToListAsync();
+            }
+        }
         public static string defaultBioPic = "~/Content/Photos/Bios/Surgical.png";
-        public static async Task<Dictionary<Domain.DomainConstants.Teams, ILookup<Domain.DomainConstants.Professions, BioDisplay>>> GetBiosForDisplay(bool isMainPage)
+        public static async Task<Dictionary<DomainConstants.Teams, ILookup<DomainConstants.Professions, BioDisplay>>> GetBiosForDisplay(bool isMainPage)
         {
             var bios = new List<BioDisplay>();
             using (var db = new Hearts4KidsEntities())
             {
-                bios = await (from b in db.UserBios
-                                where b.MainTeamPage == isMainPage
+                bios = await (db.UserBios.Where(b=>b.MainTeamPage == isMainPage
                                     && b.Approved
-                                select new BioDisplay
-                                {
-                                    Bio = b.Bio,
-                                    BioPicUrl = b.BioPicUrl ?? defaultBioPic,
-                                    CitationDescription = b.CitationDescription,
-                                    Name = b.FirstName + " " + b.Surname,
-                                    Profession = (Domain.DomainConstants.Professions)b.Profession,
-                                    Team = (Domain.DomainConstants.Teams)b.Team,
-                                    Trustee = b.Trustee
-                                }).ToListAsync();
+                                    && b.Profession!= DomainConstants.Professions.Student)
+                                .Select(GetBioConverter())).ToListAsync();
             }
             //
 
