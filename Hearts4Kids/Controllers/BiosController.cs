@@ -19,6 +19,11 @@ namespace Hearts4Kids.Controllers
             var model = MemberDetailServices.GetBioSumarries();
             return View(model);
         }
+
+        public async Task<ActionResult> AllUserContacts()
+        {
+            return View(await MemberDetailServices.GetAllUserContacts(User.Identity.Name));
+        }
         // GET: Bios
         public ActionResult CreateEditBio(int id=0)
         {
@@ -31,11 +36,6 @@ namespace Hearts4Kids.Controllers
             model.IsAdmin = IsAdmin;
             return View(model);
         }
-        public async Task<ActionResult> AllUserContacts()
-        {
-            return View(await MemberDetailServices.GetAllUserContacts(User.Identity.Name));
-        }
-
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateEditBio([Bind(Exclude ="IsAdmin")]BiosViewModel model, HttpPostedFileBase bioImg)
         {
@@ -79,7 +79,7 @@ namespace Hearts4Kids.Controllers
         {
             if (id == 0) { id = CurrentUser.Id; }
             var usr = UserManager.FindById(id);
-            if (string.IsNullOrEmpty(usr.PasswordHash))
+            if (string.IsNullOrEmpty(usr.PasswordHash) && id==CurrentUser.Id)
             {
                return RedirectToAction("Register","Account");
             }

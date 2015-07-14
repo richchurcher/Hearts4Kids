@@ -8,7 +8,6 @@ using System;
 using Hearts4Kids.Models;
 using System.IO;
 using System.Web;
-using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace Hearts4Kids.Services
@@ -82,8 +81,7 @@ namespace Hearts4Kids.Services
             string basePath = HostingEnvironment.MapPath(logoDir);
             var newSize = ImageSizes[1];
             string newFileName = newSize.GetFileNameWithExt(file.FileName);
-            Thread reduceFurtherSizes = new Thread(() => resizeImg(file, newSize, Path.Combine(basePath, newFileName)));
-            reduceFurtherSizes.Start();
+            resizeImg(file, newSize, Path.Combine(basePath, newFileName));
             return logoDir + '/' + newFileName;
         }
         public static string processBioImage(HttpPostedFileBase file)
@@ -91,8 +89,8 @@ namespace Hearts4Kids.Services
             string basePath = HostingEnvironment.MapPath(defaultDir);
             var newSize = ImageSizes[0];
             string newFileName = GetBioFileName(newSize.GetFileNameWithExt(file.FileName));
-            Thread reduceFurtherSizes = new Thread(() => multiResizeImage(file, newSize, basePath, newFileName));
-            reduceFurtherSizes.Start();
+            //multiResizeImage(file, newSize, basePath, newFileName);
+            multiResizeImage(file, newSize, basePath, newFileName);
             var returnSize = ImageSizes[1];
             return defaultDir + '/' + returnSize.FolderName + '/' + GetBioFileName(returnSize.GetFileNameWithExt(file.FileName));
         }
@@ -140,14 +138,15 @@ namespace Hearts4Kids.Services
             string fullUr = baseUr + ImageSizes[0].FolderName +'/';
             SiteImageSize thumb = ImageSizes[ImageSizes.Length - 1];
             string thumbUr = baseUr + thumb.FolderName +'/';
-            
-            return (from p in Directory.EnumerateFiles(Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName),"*",SearchOption.TopDirectoryOnly)
+
+            return (from p in Directory.EnumerateFiles(Path.Combine(HostingEnvironment.MapPath(defaultDir), ImageSizes[0].FolderName), "*", SearchOption.TopDirectoryOnly)
                     let fn = Path.GetFileName(p)
                     where !fn.StartsWith(bioPrefix) && imgExt.Any(e=>p.EndsWith(e, StringComparison.InvariantCultureIgnoreCase))
+                    let fne = fn.Replace(" ","%20")
                     select new GalleryModel
                     {
-                        url = fullUr + fn,
-                        thumbnailUrl = thumbUr + thumb.GetFileNameWithExt(fn)
+                        url = fullUr + fne,
+                        thumbnailUrl = thumbUr + thumb.GetFileNameWithExt(fne)
                     });
         }
         static string[] GetImgExt() { return new string[] { ".jpg", ".jpeg", ".png", ".bmp" }; }

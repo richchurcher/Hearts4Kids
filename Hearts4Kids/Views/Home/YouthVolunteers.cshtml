@@ -11,7 +11,8 @@
 <p>
     Below are summaries from these two keen volunteers.
 </p>
-<dl>
+
+<dl class="userBios">
     @foreach (var person in Model)
     {
         <dt>
@@ -21,7 +22,7 @@
             }
         </dt>
         <dd class="clearfix">
-            <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-1 col-lg-1 img-responsive pull-left" />
+            <img alt="picture of @person.Name" src="@Url.Content(person.BioPicUrl)" class="bioPhoto col-md-1 col-lg-1 col-sm-2 col-xs-3 img-responsive pull-left" />
             @Html.Raw(person.Bio)
         </dd>
     }
@@ -30,3 +31,27 @@
     There will potentially be opportunities to join us in a similar role over the coming years. Prerequisites will obviously be around positive attitude and willing to work hard.
     As well as being self-funded, you would have to be willing/able to help fundraise for the project as a whole (not just your own expenses) prior to coming.
 </p>
+
+<!-- Modal -->
+<div class="modal" id="bioModal" tabindex="-1" role="dialog"
+     aria-labelledby="bioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -157,7 +157,11 @@ namespace Hearts4Kids.Services
             using (var db = new Hearts4KidsEntities())
             {
                 var details = db.UserBios.Find(model.UserId);
-                details.BioPicUrl = model.BioPicUrl;
+                if (model.BioPicUrl!=null)
+                {
+                    details.BioPicUrl = model.BioPicUrl.Replace(" ","%20");
+                }
+                
                 details.Bio = model.Biography;
                 details.MainTeamPage = model.MainTeamPage;
                 details.Approved = isAdmin ? model.Approved :
