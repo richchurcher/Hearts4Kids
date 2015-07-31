@@ -30,7 +30,8 @@
             DirectBankTransfer = 1,
             GiveALittle = 2,
             GoodsInKind = 3,
-            DiscountedGoods = 4
+            DiscountedGoods = 4,
+            Cheque =5
         }
         public enum Countries
         {

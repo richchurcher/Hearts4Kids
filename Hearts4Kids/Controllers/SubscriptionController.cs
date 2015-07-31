@@ -1,6 +1,8 @@
-﻿using Hearts4Kids.Helpers;
+﻿using Hearts4Kids.Extensions;
+using Hearts4Kids.Helpers;
 using Hearts4Kids.Models;
 using Hearts4Kids.Services;
+using Mvc.JQuery.Datatables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +63,36 @@ namespace Hearts4Kids.Controllers
         {
             return new JsonResult { Data = await SubscriberServices.GetDonorInfo(email) };
         }
-
+        [Authorize(Roles = Admin),HttpGet]
+        public ViewResult AllReceipts()
+        {
+            return View();
+        }
+        [Authorize(Roles =Admin),HttpPost /*, ValidateAntiForgeryToken*/]
+        public DataTablesResult<DonorListItemModel> GetDonations(DataTablesParam dataTableParam)
+        {
+            using (var db = new Domain.Hearts4KidsEntities())
+            {
+                return DataTablesResult.Create(
+                    db.Receipts.Select(src => new DonorListItemModel
+                    {
+                        ReceiptNo = src.Id,
+                        Amount = src.Amount,
+                        Description = src.Description,
+                        DateReceived = src.DateReceived,
+                        ReceiptDate = src.DateSent,
+                        Name = (src.NewsletterSubscriber != null) ? src.NewsletterSubscriber.Name
+                            : (src.AspNetUser.UserBio.FirstName + " " + src.AspNetUser.UserBio.Surname),
+                        Email = (src.NewsletterSubscriber != null) ? src.NewsletterSubscriber.Email : src.AspNetUser.Email,
+                        TransferMethod = src.TransferMethod
+                    }),
+                    dataTableParam,
+                    uv => new { DateReceived = uv.DateReceived.ToString("dd/MM/yyyy"),
+                                ReceiptDate = uv.ReceiptDate.ToString("dd/MM/yyyy HH:mm"),
+                                Amount = uv.Amount.ToString("c")
+                              });
+            }
+        }
         public ActionResult UploadGiveALittleDonors()
         {
             return View();

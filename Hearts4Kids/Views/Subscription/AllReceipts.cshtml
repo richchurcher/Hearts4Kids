@@ -1,0 +1,61 @@
+﻿@using Mvc.JQuery.Datatables
+@using Hearts4Kids.Controllers
+@using Mvc.JQuery.Datatables.Models
+@using Mvc.JQuery.Datatables.Serialization
+@{
+    ViewBag.Title = "All Receipts";
+}
+
+<h2>All Receipts</h2>
+
+@section styles{
+    @Styles.Render("~/Content/themes/base/css")
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
+    <link rel="stylesheet" href="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.css" />
+    <link rel="stylesheet" href="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.css" />
+}
+
+@{
+    var vm = Html.DataTableVm("table-id", (SubscriptionController s) => s.GetDonations(null));
+    //vm.JsOptions.Add("iDisplayLength", 25);
+    //vm.JsOptions.Add("aLengthMenu", new object[] { new[] {5, 10, 25, 250, -1} , new object[] { 5, 10, 25, 250, "All"} });
+
+    vm.JsOptions.Add("fnCreatedRow", new Raw(@"function( nRow, aData, iDataIndex ) {
+        $(nRow).attr('data-id', aData[0]);
+    }"));
+    vm.ColumnFilter = true;
+    //vm.FilterOn("TransferMethod").Select(Enum.GetNames(typeof(Hearts4Kids.Domain.DomainConstants.DonationTypes)));
+    //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
+    vm.StateSave = true;
+    //vm.DrawCallback = "drawCallback";
+
+    //you can change the page length options...
+    vm.LengthMenu = LengthMenuVm.Default();
+    vm.PageLength = 25; //... and set a default
+    vm.ColVis = true;
+}
+<script type="text/javascript">
+    @*
+    function asCurrency(data, type, full) {
+        var val = +data;
+        if (isNaN(val)) {return '';}
+        return '$'+val.toFixed(2);
+    }
+    *@
+</script>
+@Html.Partial("DataTable", vm)
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryUI")
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.js"></script>
+    <!--https://datatables.net/extensions/tabletools"-->
+    <script type=" text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>    
+    <script type="text/javascript" >
+        //HACK ALERT - not sure where this is coming from
+        $('span.form-control', $('thead')).removeClass('form-control');
+    </script>
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mvc.JQuery.Datatables;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -48,5 +49,23 @@ namespace Hearts4Kids.Models
         public String DateString { get { return DateReceived.ToShortDateString(); } }
         [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
+    }
+
+    public class DonorListItemModel
+    {
+        public int ReceiptNo { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        [DataTablesFilter(DataTablesFilterType.DateRange), DataTables(DisplayName = "Date Received")]
+        public DateTime DateReceived { get; set; }
+        [DataTablesFilter(DataTablesFilterType.DateTimeRange), DataTables(DisplayName = "Receipt Issued")]
+        public DateTime ReceiptDate { get; set; }
+        //[DataTables(MRenderFunction = "asCurrency")]
+        [DataTablesFilter(DataTablesFilterType.NumberRange)]
+        public decimal Amount { get; set; }
+        [DataTables(DisplayName = "Transfer")]
+        public DonationTypes TransferMethod { get; set; }
+        [DataTables(DisplayName = "Description")]
+        public string Description { get; set; }
     }
 }
