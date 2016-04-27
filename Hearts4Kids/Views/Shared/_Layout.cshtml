@@ -47,7 +47,7 @@
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("The Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("Gallery", "Index", "Gallery")</li>
-                    <li>@Html.ActionLink("2015 letter", "DisplayPdf", "Home",new { id = "H4K 2015 Campaign Letter" },null) </li>
+                    <li>@Html.ActionLink("2015 report", "DisplayPdf", "Home",new { id = "Hearts4Kids 2015 project newsletter" },null) </li>
                     <li>@Html.ActionLink("Events", "Index", "Fundraisers")</li>
 @*
                     <li>@Html.ActionLink("Donor FAQs", "FAQ", "Home")</li>
@@ -60,7 +60,10 @@
     </div>
     <div class="container body-content">
         <div class="row">
-            <div class="col-md-6 text-center col-md-push-3">
+            <aside class="col-md-3 well" id="cancellationNote">
+                Please see our @Html.ActionLink("2016 letter", "DisplayPdf", "Home", new { id = "2016 Mission Cancellation letter" }, null) explaining why we have had to postpone this year's trip.
+            </aside>
+            <div class="col-md-6 text-center">
                 <img id="masthead" class="img-responsive" alt="Hearts4Kids Logo" src="~/Content/Logos/Full2.png" />
             </div>
             <!--G Facebook Like and Share -->

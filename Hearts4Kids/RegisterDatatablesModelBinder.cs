@@ -1,15 +1,15 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables;
 
-[assembly: PreApplicationStartMethod(typeof(Hearts4Kids.RegisterDatatablesModelBinder), "Start")]
+[assembly: PreApplicationStartMethod(typeof(Hearts4Kids.RegisterDataTablesModelBinder), "Start")]
 
 namespace Hearts4Kids {
-    public static class RegisterDatatablesModelBinder {
+    public static class RegisterDataTablesModelBinder {
         public static void Start() {
             if (!ModelBinders.Binders.ContainsKey(typeof(DataTablesParam)))
-                ModelBinders.Binders.Add(typeof(DataTablesParam), new Mvc.JQuery.Datatables.DataTablesModelBinder());
+                ModelBinders.Binders.Add(typeof(DataTablesParam), new Mvc.JQuery.DataTables.DataTablesModelBinder());
         }
     }
 }

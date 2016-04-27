@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69f4230edbb34a4eb68ad56f0e1ba9bc" Name="Diagram1" ZoomLevel="70">
+        <EntityTypeShape EntityType="Hearts4KidsModel.QA1" Width="1.5" PointX="3" PointY="9.75" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_QA_UserBios1" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.AspNetRole" Width="1.5" PointX="0.5" PointY="7.75" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.AspNetUser" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.CorporateSponsor" Width="1.5" PointX="10" PointY="4.375" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.FundraisingEvent" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.NewsletterSubscriber" Width="1.5" PointX="7.75" PointY="2.125" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.Quote" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.UserBio" Width="1.5" PointX="3" PointY="4.25" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_FundraisingEvents_AspNetUsers" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_UserBios_AspNetUsers" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_CorporateSponsors_NewsletterSubscribers" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_Quotes_UserBios" />
+        <AssociationConnector Association="Hearts4KidsModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.QA" Width="1.5" PointX="5.25" PointY="7.875" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_QA_UserBios" />
+        <EntityTypeShape EntityType="Hearts4KidsModel.Receipt" Width="1.5" PointX="10" PointY="0.75" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_Receipts_AspNetUsers" />
+        <AssociationConnector Association="Hearts4KidsModel.FK_Receipts_NewsletterSubscribers" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

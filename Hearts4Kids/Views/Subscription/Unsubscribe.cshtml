@@ -1,0 +1,37 @@
+﻿@model Hearts4Kids.Models.ChangeSubscriptionModel
+@{
+    ViewBag.Title = "Change Subscription";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (Model.Success)
+{
+    <p>
+        You have successfully altered your subscription. You will now receive
+        @switch (Model.CurrentSubscription)
+            {
+                case Hearts4Kids.Domain.DomainConstants.SubscriptionTypes.FullSubscription:
+                    @:all emails
+                    break;
+                case Hearts4Kids.Domain.DomainConstants.SubscriptionTypes.NoEmails:
+                    @:no further emails
+                    break;
+                case Hearts4Kids.Domain.DomainConstants.SubscriptionTypes.ReceiveFundraisers:
+                    @:fundraising event details only
+                    break;
+                case Hearts4Kids.Domain.DomainConstants.SubscriptionTypes.ReceiveNewsletter:
+                    @:newsletters only
+                    break;
+            }
+    </p>
+    <p>
+        Please feel free to feedback details on why you have chosen to change your subscription via our @Html.ActionLink("Contact Us","Contact","Home") page.
+    </p>
+}
+        else
+        {
+    <p>
+        There is currently a problem with changing your subscription - we do appologise. Please let us know you would like to unsubscribe manually by replying to the email from which you obtained this link.
+    </p>
+        }
+

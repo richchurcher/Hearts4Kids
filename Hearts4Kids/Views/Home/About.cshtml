@@ -25,6 +25,9 @@
         <li>See our full @Html.ActionLink("Background Document","Background")</li>
         <li>Download our @Html.ActionLink("Formal 2014 Mission Report","DisplayPdf", new { id="2014 Paediatric Report" }) (pdf)</li>
         <li>@Html.ActionLink("See a slide presentation", "DisplayPdf", new { id = "FIJI TRIP 2014 Slides" }) (pdf) made by @Html.ActionLink("Jackie Oliver","UserBios","Bios",new { name= "Jackie Oliver" },null)<small>(Cardiac Surgery Clinical Charge Nurse)</small> for her operating theatre colleagues</li>
-        <li>See the @Html.ActionLink("reports from Shamini & Matt","YouthVolunteers"), one of two university students who accompanied us (self funded) last year</li>
+        <li>See the @Html.ActionLink("reports from Shamini & Matt","YouthVolunteers"), two university students who accompanied us (self funded) last year</li>
+        <li>See the slides which were discussed during some recent presentations at a
+            @Html.ActionLink("Thursday night market", "DisplayPdf", new { id = "Thursday Night Market" }) and 
+            @Html.ActionLink("St Aidan's", "DisplayPdf", new { id = "St Aidans Presentation" }). <span class="text-danger">Warning: These slides include pictures of surgical procedures being performed.</span>
     </ul>
 </div>

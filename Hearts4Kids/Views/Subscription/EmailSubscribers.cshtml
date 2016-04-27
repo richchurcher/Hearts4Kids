@@ -1,0 +1,56 @@
+﻿@model Hearts4Kids.Models.EmailSubscribersModel
+
+@{
+    ViewBag.Title = "Create Email";
+}
+
+@section Styles {
+    @Styles.Render("~/Content/userForms")
+}
+
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="form-horizontal">
+    @using (Html.BeginForm("EmailSubscribers", "Subscription", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subject, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(m => m.Subject)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="attachment" class="col-md-2 control-label" >Attach</label>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" name="attachment" id="attachment" />
+                    </span>
+                </span>
+                <input type="text" class="form-control urlField" readonly="readonly" />
+            </div>
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Message, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Message, new { @class = "form-control input-block-level ckeditor" })
+                @Html.ValidationMessageFor(m => m.Message)
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+}
+

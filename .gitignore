@@ -394,3 +394,4 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/Hearts4Kids/App_Data

@@ -62,7 +62,7 @@ table.dataTable tbody td {
 }
 table.dataTable th.center,
 table.dataTable td.center,
-table.dataTable td.dataTables_empty {
+table.dataTable td.DataTables_empty {
   text-align: center;
 }
 table.dataTable th.right,
@@ -222,7 +222,7 @@ table.dataTable td.dt-left {
 }
 table.dataTable th.dt-center,
 table.dataTable td.dt-center,
-table.dataTable td.dataTables_empty {
+table.dataTable td.DataTables_empty {
   text-align: center;
 }
 table.dataTable th.dt-right,
@@ -299,32 +299,32 @@ table.dataTable td {
 /*
  * Control feature layout
  */
-.dataTables_wrapper {
+.DataTables_wrapper {
   position: relative;
   clear: both;
   *zoom: 1;
   zoom: 1;
 }
-.dataTables_wrapper .dataTables_length {
+.DataTables_wrapper .DataTables_length {
   float: left;
 }
-.dataTables_wrapper .dataTables_filter {
+.DataTables_wrapper .DataTables_filter {
   float: right;
   text-align: right;
 }
-.dataTables_wrapper .dataTables_filter input {
+.DataTables_wrapper .DataTables_filter input {
   margin-left: 0.5em;
 }
-.dataTables_wrapper .dataTables_info {
+.DataTables_wrapper .DataTables_info {
   clear: both;
   float: left;
   padding-top: 0.55em;
 }
-.dataTables_wrapper .dataTables_paginate {
+.DataTables_wrapper .DataTables_paginate {
   float: right;
   text-align: right;
 }
-.dataTables_wrapper .dataTables_paginate .fg-button {
+.DataTables_wrapper .DataTables_paginate .fg-button {
   box-sizing: border-box;
   display: inline-block;
   min-width: 1.5em;
@@ -337,18 +337,18 @@ table.dataTable td {
   color: #333 !important;
   border: 1px solid transparent;
 }
-.dataTables_wrapper .dataTables_paginate .fg-button:active {
+.DataTables_wrapper .DataTables_paginate .fg-button:active {
   outline: none;
 }
-.dataTables_wrapper .dataTables_paginate .fg-button:first-child {
+.DataTables_wrapper .DataTables_paginate .fg-button:first-child {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.dataTables_wrapper .dataTables_paginate .fg-button:last-child {
+.DataTables_wrapper .DataTables_paginate .fg-button:last-child {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-.dataTables_wrapper .dataTables_processing {
+.DataTables_wrapper .DataTables_processing {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -373,27 +373,27 @@ table.dataTable td {
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
   /* W3C */
 }
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_processing,
-.dataTables_wrapper .dataTables_paginate {
+.DataTables_wrapper .DataTables_length,
+.DataTables_wrapper .DataTables_filter,
+.DataTables_wrapper .DataTables_info,
+.DataTables_wrapper .DataTables_processing,
+.DataTables_wrapper .DataTables_paginate {
   color: #333;
 }
-.dataTables_wrapper .dataTables_scroll {
+.DataTables_wrapper .DataTables_scroll {
   clear: both;
 }
-.dataTables_wrapper .dataTables_scrollBody {
+.DataTables_wrapper .DataTables_scrollBody {
   *margin-top: -1px;
   -webkit-overflow-scrolling: touch;
 }
-.dataTables_wrapper .ui-widget-header {
+.DataTables_wrapper .ui-widget-header {
   font-weight: normal;
 }
-.dataTables_wrapper .ui-toolbar {
+.DataTables_wrapper .ui-toolbar {
   padding: 8px;
 }
-.dataTables_wrapper:after {
+.DataTables_wrapper:after {
   visibility: hidden;
   display: block;
   content: "";
@@ -402,15 +402,15 @@ table.dataTable td {
 }
 
 @media screen and (max-width: 767px) {
-  .dataTables_wrapper .dataTables_length,
-  .dataTables_wrapper .dataTables_filter,
-  .dataTables_wrapper .dataTables_info,
-  .dataTables_wrapper .dataTables_paginate {
+  .DataTables_wrapper .DataTables_length,
+  .DataTables_wrapper .DataTables_filter,
+  .DataTables_wrapper .DataTables_info,
+  .DataTables_wrapper .DataTables_paginate {
     float: none;
     text-align: center;
   }
-  .dataTables_wrapper .dataTables_filter,
-  .dataTables_wrapper .dataTables_paginate {
+  .DataTables_wrapper .DataTables_filter,
+  .DataTables_wrapper .DataTables_paginate {
     margin-top: 0.5em;
   }
 }

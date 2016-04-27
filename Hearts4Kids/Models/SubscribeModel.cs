@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using static Hearts4Kids.Domain.DomainConstants;
 
 namespace Hearts4Kids.Models
@@ -38,5 +39,13 @@ namespace Hearts4Kids.Models
         public int Id { get; set; }
         public Guid UnsubscribeGuid { get; set; }
         public SubscriptionTypes Subscription { get; set; }
+    }
+    public class EmailSubscribersModel
+    {
+        [StringLength(300)]
+        public string Subject { get; set; }
+        [DataType(DataType.MultilineText)]
+        [AllowHtml]
+        public string Message { get; set; }
     }
 }

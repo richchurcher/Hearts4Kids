@@ -1,24 +1,24 @@
-/*! Responsive 1.0.6
- * 2014-2015 SpryMedia Ltd - datatables.net/license
+/*! Responsive 1.0.7
+ * 2014-2015 SpryMedia Ltd - DataTables.net/license
  */
 
 /**
  * @summary     Responsive
  * @description Responsive tables plug-in for DataTables
- * @version     1.0.6
- * @file        dataTables.responsive.js
+ * @version     1.0.7
+ * @file        DataTables.responsive.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
  * @copyright   Copyright 2014-2015 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
- *   MIT license - http://datatables.net/license/mit
+ *   MIT license - http://DataTables.net/license/mit
  *
  * This source file is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
  *
- * For details please refer to: http://www.datatables.net
+ * For details please refer to: http://www.DataTables.net
  */
 
 (function(window, document, undefined) {
@@ -826,7 +826,7 @@ Api.register( 'responsive.recalc()', function () {
  * @name Responsive.version
  * @static
  */
-Responsive.version = '1.0.6';
+Responsive.version = '1.0.7';
 
 
 $.fn.dataTable.Responsive = Responsive;
@@ -858,11 +858,11 @@ return Responsive;
 
 // Define as an AMD module if possible
 if ( typeof define === 'function' && define.amd ) {
-	define( ['jquery', 'datatables'], factory );
+	define( ['jquery', 'DataTables'], factory );
 }
 else if ( typeof exports === 'object' ) {
     // Node/CommonJS
-    factory( require('jquery'), require('datatables') );
+    factory( require('jquery'), require('DataTables') );
 }
 else if ( jQuery && !jQuery.fn.dataTable.Responsive ) {
 	// Otherwise simply initialise as normal, stopping multiple evaluation

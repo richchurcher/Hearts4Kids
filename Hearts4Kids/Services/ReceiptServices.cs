@@ -124,7 +124,7 @@ namespace Hearts4Kids.Services
             m.To.Add(receipt.NewsletterSubscriber.Email);
             using (var stream = new MemoryStream())
             {
-                PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);
+                PdfDocumentRenderer renderer = new PdfDocumentRenderer(true);
                 Document doc = renderer.Document = CreatePdf(receipt, baseUr, author);
                 renderer.RenderDocument();
                 var security = renderer.PdfDocument.SecuritySettings;

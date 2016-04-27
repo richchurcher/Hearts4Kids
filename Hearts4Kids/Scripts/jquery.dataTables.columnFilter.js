@@ -1,5 +1,5 @@
 /*
-* File:        jquery.dataTables.columnFilter.js
+* File:        jquery.DataTables.columnFilter.js
 * Version:     0.9.0
 * Author:      Jovan Popovic 
 * 
@@ -19,7 +19,7 @@
 * @sRangeFormat                 string      Default format of the From ... to ... range inputs. Default is From {from} to {to}
 * @aoColumns                    Array       Array of the filter settings that will be applied on the columns
 
-http://www.datatables.net/plug-ins/filtering
+http://www.DataTables.net/plug-ins/filtering
 
 */
 (function ($) {

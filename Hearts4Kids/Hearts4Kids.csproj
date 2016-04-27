@@ -41,6 +41,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.5.41771, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.5\lib\net45\AngleSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
@@ -69,8 +73,8 @@
       <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HtmlSanitizer, Version=2.0.5623.30465, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlSanitizer.2.0.5623.30465\lib\net40\HtmlSanitizer.dll</HintPath>
+    <Reference Include="HtmlSanitizer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlSanitizer.3.2.103\lib\net45\HtmlSanitizer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -130,40 +134,44 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.50.3638.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3638-beta\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.50.3915.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3915-beta2\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MigraDoc.Rendering, Version=1.50.3638.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3638-beta\lib\net20\MigraDoc.Rendering.dll</HintPath>
+    <Reference Include="MigraDoc.Rendering, Version=1.50.3915.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3915-beta2\lib\net20\MigraDoc.Rendering.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MigraDoc.RtfRendering, Version=1.50.3638.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3638-beta\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
+    <Reference Include="MigraDoc.RtfRendering, Version=1.50.3915.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3915-beta2\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.5675.30408, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.155\lib\net45\Mvc.JQuery.Datatables.dll</HintPath>
+    <Reference Include="Mvc.JQuery.DataTables, Version=1.3.34.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.JQuery.DataTables.1.3.34\lib\net45\Mvc.JQuery.DataTables.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mvc.JQuery.DataTables.Core, Version=1.3.34.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.JQuery.DataTables.Core.1.3.34\lib\net45\Mvc.JQuery.DataTables.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MvcFileUploader, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcFileUploader.1.3.6\lib\40\MvcFileUploader.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PdfSharp, Version=1.50.3638.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3638-beta\lib\net20\PdfSharp.dll</HintPath>
+    <Reference Include="PdfSharp, Version=1.50.3915.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3915-beta2\lib\net20\PdfSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PdfSharp.Charting, Version=1.50.3638.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3638-beta\lib\net20\PdfSharp.Charting.dll</HintPath>
+    <Reference Include="PdfSharp.Charting, Version=1.50.3915.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3915-beta2\lib\net20\PdfSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -297,7 +305,7 @@
     <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Models\SubscribeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterDatatablesModelBinder.cs" />
+    <Compile Include="RegisterDataTablesModelBinder.cs" />
     <Compile Include="Services\FundraisingServices.cs" />
     <Compile Include="Services\GiveALittleCommunication.cs" />
     <Compile Include="Services\MemberDetailsServices.cs" />
@@ -307,16 +315,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2-set.js" />
-    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2-set.min.js" />
+    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2.js" />
+    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2.min.js" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-indicator.css" />
-    <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-indicator.min.css" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-video.css" />
-    <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-video.min.css" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery.css" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery.min.css" />
     <Content Include="Content\blueimp-gallery2\css\demo.css" />
-    <Content Include="Content\blueimp-gallery2\css\demo.min.css" />
     <Content Include="Content\blueimp-gallery2\img\error.png" />
     <Content Include="Content\blueimp-gallery2\img\error.svg" />
     <Content Include="Content\blueimp-gallery2\img\loading.gif" />
@@ -325,87 +330,62 @@
     <Content Include="Content\blueimp-gallery2\img\video-play.png" />
     <Content Include="Content\blueimp-gallery2\img\video-play.svg" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-fullscreen.js" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-fullscreen.min.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-indicator.js" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-indicator.min.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-video.js" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-video.min.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-vimeo.js" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-vimeo.min.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-youtube.js" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-youtube.min.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js" />
     <Content Include="Content\blueimp-gallery2\js\blueimp-helper.js" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-helper.min.js" />
     <Content Include="Content\blueimp-gallery2\js\demo.js" />
-    <Content Include="Content\blueimp-gallery2\js\demo.min.js" />
     <Content Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.js" />
     <Content Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js" />
+    <Content Include="Content\blueimp-gallery2\js\vendor\jquery.js" />
+    <Content Include="Content\blueimp-gallery2\___install.txt" />
     <Content Include="Content\blueimp-gallery2\___version.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ContactPage.css" />
-    <Content Include="Content\DataTables\css\dataTables.autoFill.css" />
-    <Content Include="Content\DataTables\css\dataTables.autoFill.min.css" />
     <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
-    <Content Include="Content\DataTables\css\dataTables.colReorder.css" />
-    <Content Include="Content\DataTables\css\dataTables.colReorder.min.css" />
-    <Content Include="Content\DataTables\css\dataTables.colVis.css" />
-    <Content Include="Content\DataTables\css\dataTables.colvis.jqueryui.css" />
-    <Content Include="Content\DataTables\css\dataTables.colVis.min.css" />
-    <Content Include="Content\DataTables\css\dataTables.fixedColumns.css" />
-    <Content Include="Content\DataTables\css\dataTables.fixedColumns.min.css" />
-    <Content Include="Content\DataTables\css\dataTables.fixedHeader.css" />
-    <Content Include="Content\DataTables\css\dataTables.fixedHeader.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
     <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
-    <Content Include="Content\DataTables\css\dataTables.keyTable.css" />
-    <Content Include="Content\DataTables\css\dataTables.keyTable.min.css" />
-    <Content Include="Content\DataTables\css\dataTables.responsive.css" />
-    <Content Include="Content\DataTables\css\dataTables.scroller.css" />
-    <Content Include="Content\DataTables\css\dataTables.scroller.min.css" />
-    <Content Include="Content\DataTables\css\dataTables.tableTools.css" />
-    <Content Include="Content\DataTables\css\dataTables.tableTools.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
     <Content Include="Content\DataTables\css\jquery.dataTables.css" />
     <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
     <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
-    <Content Include="Content\DataTables\images\background.png" />
-    <Content Include="Content\DataTables\images\back_disabled.png" />
-    <Content Include="Content\DataTables\images\back_enabled.png" />
-    <Content Include="Content\DataTables\images\back_enabled_hover.png" />
-    <Content Include="Content\DataTables\images\collection.png" />
-    <Content Include="Content\DataTables\images\collection_hover.png" />
-    <Content Include="Content\DataTables\images\copy.png" />
-    <Content Include="Content\DataTables\images\copy_hover.png" />
-    <Content Include="Content\DataTables\images\csv.png" />
-    <Content Include="Content\DataTables\images\csv_hover.png" />
-    <Content Include="Content\DataTables\images\details_close.png" />
-    <Content Include="Content\DataTables\images\details_open.png" />
-    <Content Include="Content\DataTables\images\filler.png" />
-    <Content Include="Content\DataTables\images\forward_disabled.png" />
-    <Content Include="Content\DataTables\images\forward_enabled.png" />
-    <Content Include="Content\DataTables\images\forward_enabled_hover.png" />
-    <Content Include="Content\DataTables\images\insert.png" />
-    <Content Include="Content\DataTables\images\loading-background.png" />
-    <Content Include="Content\DataTables\images\pdf.png" />
-    <Content Include="Content\DataTables\images\pdf_hover.png" />
-    <Content Include="Content\DataTables\images\print.png" />
-    <Content Include="Content\DataTables\images\print_hover.png" />
-    <Content Include="Content\DataTables\images\sort_asc.png" />
-    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
-    <Content Include="Content\DataTables\images\sort_both.png" />
-    <Content Include="Content\DataTables\images\sort_desc.png" />
-    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
-    <Content Include="Content\DataTables\images\xls.png" />
-    <Content Include="Content\DataTables\images\xls_hover.png" />
-    <Content Include="Content\DataTables\swf\copy_csv_xls.swf" />
-    <Content Include="Content\DataTables\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
     <Content Include="Content\DisplayPdf.css" />
     <Content Include="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js" />
+    <Content Include="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css" />
+    <Content Include="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js" />
     <Content Include="Content\LandingPage.css" />
     <Content Include="Content\Logos\8515783.jpg" />
     <Content Include="Content\Logos\favicon.ico" />
@@ -493,7 +473,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Icon.png" />
     <Content Include="Domain\MembersModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MembersModel.edmx</DependentUpon>
@@ -591,6 +570,7 @@
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
@@ -656,44 +636,6 @@
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
@@ -739,28 +681,39 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\ColumnFilterHack.js" />
     <Content Include="Scripts\CreateReceipt.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
     <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
     <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
     <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.colVis.js" />
-    <Content Include="Scripts\DataTables\dataTables.colVis.min.js" />
     <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
     <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
     <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
     <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
     <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
     <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
     <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
     <Content Include="Scripts\DataTables\dataTables.responsive.js" />
     <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
     <Content Include="Scripts\DataTables\dataTables.scroller.js" />
     <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.tableTools.js" />
-    <Content Include="Scripts\DataTables\dataTables.tableTools.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
     <Content Include="Scripts\DataTables\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
     <Content Include="Scripts\ImageUploadMultiple.js" />
@@ -771,12 +724,6 @@
     <Content Include="Domain\MembersModel.edmx.diagram">
       <DependentUpon>MembersModel.edmx</DependentUpon>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.ttf" />
@@ -786,8 +733,22 @@
     <Content Include="Content\PublicPdfs\H4K 2015 Campaign Letter.pdf" />
     <Content Include="App_Data\Documents\H4K 2015 Campaign Letter.docx" />
     <Content Include="App_Data\Documents\H4K 2015 Campaign Letter.rtf" />
-    <Content Include="Content\DataTables\css\dataTables.responsive.scss" />
-    <Content Include="Content\DataTables\css\dataTables.jqueryui.scss" />
+    <Content Include="Content\PublicPdfs\Thursday Night Market.pdf" />
+    <Content Include="Content\PublicPdfs\St Aidans Presentation.pdf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\PublicPdfs\Hearts4Kids 2015 project newsletter.pdf" />
+    <Content Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js.map" />
+    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js.map" />
+    <Content Include="Content\blueimp-gallery2\css\blueimp-gallery.min.css.map" />
+    <Content Include="Content\blueimp-gallery2\css\blueimp-gallery.less" />
+    <Content Include="Content\PublicPdfs\2016 Mission Cancellation letter.pdf" />
     <None Include="Properties\PublishProfiles\openhost.pubxml" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
@@ -797,15 +758,12 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-1.11.3.intellisense.js" />
-    <Content Include="Scripts\jquery-1.11.3.js" />
-    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <None Include="Scripts\jquery-1.12.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.3.js" />
+    <Content Include="Scripts\jquery-1.12.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -821,7 +779,6 @@
     <Content Include="Scripts\mvcfileupload\blueimp\load-image.min.js" />
     <Content Include="Scripts\mvcfileupload\blueimp\tmpl.min.js" />
     <Content Include="Scripts\mvcfileupload\vendor\bootstrap.min.js" />
-    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\pdfHeightPolyfill.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -881,7 +838,6 @@
     <Content Include="Views\Home\Success.cshtml" />
     <Content Include="Views\Bios\Index.cshtml" />
     <Content Include="Views\Bios\UserBios.cshtml" />
-    <Content Include="Scripts\jquery-1.11.3.min.map" />
     <Content Include="Views\Manage\ViewAllUsers.cshtml" />
     <Content Include="Views\Gallery\GalleryWithDelete.cshtml" />
     <Content Include="Views\Bios\AllUserContacts.cshtml" />
@@ -898,6 +854,8 @@
     <Content Include="Views\Account\EmailResent.cshtml" />
     <Content Include="Views\Subscription\AllReceipts.cshtml" />
     <Content Include="Views\Shared\DataTable.cshtml" />
+    <Content Include="Views\Subscription\EmailSubscribers.cshtml" />
+    <Content Include="Scripts\jquery-1.12.3.min.map" />
     <None Include="Web.openhost.config">
       <SubType>Designer</SubType>
     </None>
@@ -908,17 +866,6 @@
     <Folder Include="Views\BaseUser\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\demo.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-helper.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-youtube.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-vimeo.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-video.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-indicator.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery-fullscreen.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2-set.min.js.map" />
-    <Content Include="Content\blueimp-gallery2\_install\_Layout.cshtml" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

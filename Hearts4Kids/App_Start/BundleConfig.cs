@@ -15,6 +15,15 @@ namespace Hearts4Kids
                 "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/UIAttachment.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/mvc-DataTables").Include(
+                "~/Scripts/DataTables/jquery.DataTables.js",
+                "~/Scripts/DataTables/DataTables.tableTools.js",
+                "~/Content/jquery-DataTables-column-filter/jquery-ui-timepicker-addon.js",
+                "~/Content/jquery-DataTables-column-filter/media/js/jquery.DataTables.columnFilter.js",
+                "~/Scripts/DataTables/DataTables.colVis.js",
+                "~/Scripts/ColumnFilterHack.js"
+                ));
+
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                 "~/Content/themes/base/base.css",
                 "~/Content/themes/base/core.css",

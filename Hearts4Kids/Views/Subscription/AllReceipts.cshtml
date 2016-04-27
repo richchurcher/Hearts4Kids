@@ -1,7 +1,7 @@
-﻿@using Mvc.JQuery.Datatables
+﻿@using Mvc.JQuery.DataTables
 @using Hearts4Kids.Controllers
-@using Mvc.JQuery.Datatables.Models
-@using Mvc.JQuery.Datatables.Serialization
+@using Mvc.JQuery.DataTables.Models
+@using Mvc.JQuery.DataTables.Serialization
 @{
     ViewBag.Title = "All Receipts";
 }
@@ -10,11 +10,11 @@
 
 @section styles{
     @Styles.Render("~/Content/themes/base/css")
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
-    <link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
-    <link rel="stylesheet" href="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.css" />
-    <link rel="stylesheet" href="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" href="//cdn.DataTables.net/1.10.0/css/jquery.DataTables.css" />
+    <link rel="stylesheet" href="//cdn.DataTables.net/colvis/1.1.1/css/DataTables.colVis.css" />
+    <link rel="stylesheet" href="//cdn.DataTables.net/tabletools/2.2.1/css/DataTables.tableTools.css" />
+    <link rel="stylesheet" href="/Content/jquery-DataTables-column-filter/media/js/jquery.DataTables.columnFilter.css" />
+    <link rel="stylesheet" href="/Content/jquery-DataTables-column-filter/jquery-ui-timepicker-addon.css" />
 }
 
 @{
@@ -48,14 +48,8 @@
 @Html.Partial("DataTable", vm)
 @section scripts{
     @Scripts.Render("~/bundles/jqueryUI")
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.js"></script>
-    <!--https://datatables.net/extensions/tabletools"-->
-    <script type=" text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
-    <script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>    
-    <script type="text/javascript" >
-        //HACK ALERT - not sure where this is coming from
-        $('span.form-control', $('thead')).removeClass('form-control');
-    </script>
+    <!--https://DataTables.net/extensions/tabletools"-->
+
+    @Scripts.Render("~/bundles/mvc-DataTables")
+
 }

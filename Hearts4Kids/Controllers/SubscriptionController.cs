@@ -1,10 +1,7 @@
-﻿using Hearts4Kids.Extensions;
-using Hearts4Kids.Helpers;
-using Hearts4Kids.Models;
+﻿using Hearts4Kids.Models;
 using Hearts4Kids.Services;
-using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -113,6 +110,22 @@ namespace Hearts4Kids.Controllers
                 ViewBag.Updated = await GiveALittleCommunication.AddReceipts(spreadsheet.InputStream);
             }
             return View();
+        }
+        [Authorize(Roles=Admin)]
+        public ActionResult EmailSubscribers()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken, Authorize(Roles = Admin)]
+        public async Task<ActionResult> EmailSubscribers(EmailSubscribersModel model, HttpPostedFileBase attachment)
+        {
+            if (ModelState.IsValid)
+            {
+                await SubscriberServices.SendSubscriberEmails(model.Subject, model.Message, attachment);
+                return RedirectToAction("Index","Manage");
+            }
+            return View(model);
         }
 
         static ReceiptModel GetNewReceiptModel()

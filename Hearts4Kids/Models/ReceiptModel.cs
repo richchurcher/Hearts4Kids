@@ -1,4 +1,4 @@
-﻿using Mvc.JQuery.Datatables;
+﻿using Mvc.JQuery.DataTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -1,6 +1,6 @@
 ﻿@using System.Data.Odbc
 @using System.Linq
-@using Mvc.JQuery.Datatables
+@using Mvc.JQuery.DataTables
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Linq
 @model DataTableConfigVm
@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <tr>
-            <td colspan="@Model.Columns.Count()" class="dataTables_empty">Loading data from server
+            <td colspan="@Model.Columns.Count()" class="DataTables_empty">Loading data from server
             </td>
         </tr>
     </tbody>
@@ -61,7 +61,7 @@
             options["sAjaxSource"] = Model.AjaxUrl;
             if (Model.TableTools)
             {
-                options["oTableTools"] = new JRaw("{ 'sSwfPath': '//cdn.datatables.net/tabletools/2.2.1/swf/copy_csv_xls_pdf.swf' }");
+                options["oTableTools"] = new JRaw("{ 'sSwfPath': '//cdn.DataTables.net/tabletools/2.2.1/swf/copy_csv_xls_pdf.swf' }");
             }
             options["fnServerData"] = new JRaw(
                 "function(sSource, aoData, fnCallback) { " + 
