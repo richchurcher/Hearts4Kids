@@ -11,6 +11,7 @@ using static Hearts4Kids.Domain.DomainConstants;
 using System.Web.Hosting;
 using System.Threading;
 using System.Net.Mail;
+using System.Diagnostics;
 
 namespace Hearts4Kids.Services
 {
@@ -102,8 +103,9 @@ namespace Hearts4Kids.Services
                 e.Name = model.Name;
                 e.PrincipalOrganiserId = model.PrincipalOrganiserId.Value;
                 e.Description = san.Sanitize(model.Description);//dont change baseUrl as it will be in email form
+
+                await db.SaveChangesAsync();
                 
-                var t = db.SaveChangesAsync();
                 if (flyer != null)
                 {
                     flyer.SaveAs(HostingEnvironment.MapPath(e.FlyerUrl));
@@ -119,7 +121,6 @@ namespace Hearts4Kids.Services
                     }
                     
                 }
-                await t;
                 if (model.EventId.HasValue) { return; }//everyone already emailed
                 organiserName = (from b in db.UserBios
                                 where b.Id == model.PrincipalOrganiserId

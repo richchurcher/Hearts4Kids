@@ -380,7 +380,7 @@
           <Property Name="FlyerUrl" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="PrincipalOrganiserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Hearts4KidsModel.FK_FundraisingEvents_AspNetUsers" FromRole="FundraisingEvent" ToRole="AspNetUser" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NewsletterSubscriber">
           <Key>

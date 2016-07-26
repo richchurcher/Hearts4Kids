@@ -21,7 +21,7 @@ namespace Hearts4Kids.Models
         public string FlyerUrl { get; set; }
         [Required, Display(Name="Principal Organiser")]
         public int? PrincipalOrganiserId { get; set; }
-        [DataType(DataType.MultilineText), StringLength(2000), Required, AllowHtml]
+        [DataType(DataType.MultilineText), Required, AllowHtml]
         public string Description { get; set; }
 
         public IEnumerable<SelectListItem> Organisers { get; set; }
