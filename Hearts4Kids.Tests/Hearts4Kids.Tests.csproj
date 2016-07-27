@@ -123,8 +123,9 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LibraryTests\Magick.cs" />
-    <Compile Include="LibraryTests\Sanitizer.cs" />
+    <Compile Include="LibraryTests\MagickTests.cs" />
+    <Compile Include="LibraryTests\ReceiptTests.cs" />
+    <Compile Include="LibraryTests\SanitizerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Samples\Magick.NET\DetailedDebugInformation.cs" />
@@ -160,11 +161,6 @@
     <Content Include="Content\blueimp-gallery2\js\vendor\jquery.js" />
     <Content Include="Content\blueimp-gallery2\___install.txt" />
     <Content Include="Content\blueimp-gallery2\___version.txt" />
-    <Content Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hearts4Kids\Hearts4Kids.csproj">
@@ -181,8 +177,6 @@
     <None Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js.map" />
     <None Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js.map" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-3.1.0.min.map" />
-    <None Include="Scripts\jquery-3.1.0.slim.min.map" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

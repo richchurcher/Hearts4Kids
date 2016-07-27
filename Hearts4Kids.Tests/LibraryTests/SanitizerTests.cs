@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Hearts4Kids.Tests.LibraryTests
 {
     [TestClass]
-    public class Sanitizer
+    public class SanitizerTests
     {
         [TestMethod]
         public void TestXSSSanitizer()

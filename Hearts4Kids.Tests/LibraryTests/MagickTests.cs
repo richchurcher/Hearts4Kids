@@ -5,7 +5,7 @@ using Hearts4Kids.Tests.Samples.MagickNET;
 namespace Hearts4Kids.Tests.LibraryTests
 {
     [TestClass]
-    public class Magick
+    public class MagickTests
     {
         /*
         [TestMethod]

@@ -271,6 +271,7 @@ namespace Hearts4Kids.Services
             }
             if (!string.IsNullOrEmpty(receipt.Description))
             {
+                paragraph = section.AddParagraph();
                 paragraph.AddFormattedText("Description:\t", TextFormat.Bold);
 
                 paragraph.AddText(string.Join("\n",
