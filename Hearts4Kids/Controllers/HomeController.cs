@@ -84,7 +84,11 @@ namespace Hearts4Kids.Controllers
         {
             try
             {
-               if (ModelState.IsValid)
+                if (!await RecaptchaServices.Validate(Request))
+                {
+                    ModelState.AddModelError(string.Empty, "You have not confirmed that you are not a robot");
+                }
+                if (ModelState.IsValid)
                 {
                     const string body = "<p>Email From: {0} ({1}) Ph: {2}</p><p>Message:</p><p>{3}</p>";
                     var msg = new IdentityMessage

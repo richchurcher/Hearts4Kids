@@ -8,7 +8,6 @@ using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System;
 using Hearts4Kids.Services;
-using System.Data.Entity;
 using System.Collections.Generic;
 
 namespace Hearts4Kids.Controllers
@@ -16,8 +15,6 @@ namespace Hearts4Kids.Controllers
     [Authorize]
     public class AccountController : BaseUserController
     {
-
-
         public AccountController()
         {
         }

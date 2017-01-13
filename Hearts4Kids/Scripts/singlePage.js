@@ -1,5 +1,5 @@
 ﻿//identify all containers with .fadeThrough, and fade the children 1 at a time but each container out of phase
-; (function ($) {
+(function ($) {
     "use strict";
     var $fades = $(".fadeThrough"),
         fadesCount = $fades.length,
@@ -75,7 +75,7 @@
 })(jQuery);
 
 //links for the bios page - truncate to a few words and smaller photo - show details in bootstrap dialog
-; (function ($) {
+(function ($) {
     "use strict";
     var detailLink = $("<a class='seeMoreLink'>see more…</a>"),
         $bioDlg = $("#bioModal"),
@@ -86,7 +86,7 @@
             var children = el.childNodes, child, i=0;
             for (; i < children.length; i++) {
                 child = children[i];
-                if (child.tagName == "P") {
+                if (child.tagName === "P") {
                     var grandChildren = child.childNodes, grandChild, j = 0;
                     for (; j < grandChildren.length; j++) {
                         grandChild = grandChildren[j];
@@ -116,7 +116,7 @@
             var $bioPhoto;
             $(".modal-body", $bioDlg)[0].innerHTML = inner;
             $(".modal-title", $bioDlg).text(title);
-            $(".modal-content", $bioDlg).attr('class', 'modal-content ' + className)
+            $(".modal-content", $bioDlg).attr('class', 'modal-content ' + className);
             $bioPhoto = $(".bioPhoto", $bioDlg);
             $bioPhoto.attr('class', $bioPhoto.attr('class').replace(/(col-\w\w)-\d+/g, "$1-4"));
             $bioDlg.modal('show');
@@ -134,7 +134,7 @@
         if (Modernizr.history) {
             $bioDlg.on('hidden.bs.modal', function () {
                 history.back();
-            })
+            });
         }
         if (name) {
             var $foundItem;
@@ -168,7 +168,7 @@
 (function ($) {
     var token;
     $.ajaxSetup({
-        data: { __RequestVerificationToken: (token || (token = $('input[name="__RequestVerificationToken"]').val())) }
+        data: { __RequestVerificationToken: token || (token = $('input[name="__RequestVerificationToken"]').val()) }
     });
 })(jQuery);
 
@@ -185,7 +185,7 @@
         Array.prototype.some = function(fun/*, thisArg*/) {
             'use strict';
 
-            if (this == null) {
+            if (this === null) {
                 throw new TypeError('Array.prototype.some called on null or undefined');
             }
 
@@ -236,7 +236,7 @@ function getParameterByName(name) {
 }
 
 function parseCss(href, useStringFn) {
-    var sheets = $('link[rel="stylesheet"][href*="' + href + '"]')
+    var sheets = $('link[rel="stylesheet"][href*="' + href + '"]');
     $.ajax({
         url: sheets[sheets.length - 1].href,
         dataType: "text"

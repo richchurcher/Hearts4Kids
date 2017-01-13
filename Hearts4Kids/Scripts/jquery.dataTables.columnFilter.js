@@ -130,7 +130,7 @@ http://www.DataTables.net/plug-ins/filtering
 
             var iMin = document.getElementById(sFromId).value * 1;
             var iMax = document.getElementById(sToId).value * 1;
-            if (iMin != 0 && iMax != 0 && iMin > iMax)
+            if (iMin !== 0 && iMax !== 0 && iMin > iMax)
                 return;
 
             oTable.fnDraw();
@@ -209,7 +209,7 @@ http://www.DataTables.net/plug-ins/filtering
         th.wrapInner('<span class="filterColumn filter_select" />');
         select.change(function () {
             //var val = $(this).val();
-            if ($(this).val() != "") {
+            if ($(this).val() !== "") {
                 $(this).removeClass("search_init");
             } else {
                 $(this).addClass("search_init");

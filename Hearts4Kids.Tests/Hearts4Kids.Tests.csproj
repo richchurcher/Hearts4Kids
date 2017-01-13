@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Hearts4Kids.Tests</RootNamespace>
     <AssemblyName>Hearts4Kids.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AngleSharp, Version=0.9.6.41832, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
-      <HintPath>..\packages\AngleSharp.0.9.6\lib\net45\AngleSharp.dll</HintPath>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -132,9 +132,13 @@
     <Compile Include="UpdateMembers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.config" />
-    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2.js" />
-    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2.min.js" />
+    <Content Include="App.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery.css" />
+    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery.js" />
+    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery.min.css" />
+    <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery.min.js" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-indicator.css" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-video.css" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery.css" />
@@ -159,8 +163,13 @@
     <Content Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.js" />
     <Content Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js" />
     <Content Include="Content\blueimp-gallery2\js\vendor\jquery.js" />
-    <Content Include="Content\blueimp-gallery2\___install.txt" />
+    <Content Include="Content\blueimp-gallery2\___sample.txt" />
     <Content Include="Content\blueimp-gallery2\___version.txt" />
+    <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hearts4Kids\Hearts4Kids.csproj">
@@ -172,11 +181,14 @@
     <Folder Include="Samples\Magick.NET\Files\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\blueimp-gallery2\ans-blueimp-gallery.less" />
     <None Include="Content\blueimp-gallery2\css\blueimp-gallery.less" />
     <None Include="Content\blueimp-gallery2\css\blueimp-gallery.min.css.map" />
     <None Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js.map" />
     <None Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js.map" />
     <None Include="packages.config" />
+    <None Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\jquery-3.1.1.slim.min.map" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

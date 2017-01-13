@@ -7,9 +7,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
 using System.Net.Mail;
-using System.Linq;
-using System.Collections.Generic;
-using System.Web;
 
 namespace Hearts4Kids
 {

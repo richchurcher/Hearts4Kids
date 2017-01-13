@@ -1,4 +1,4 @@
-﻿; (function ($) {
+﻿(function ($) {
     var $thead = $('thead'),
         i=0,
         defer = function () {

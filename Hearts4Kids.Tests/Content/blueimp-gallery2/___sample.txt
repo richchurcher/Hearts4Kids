@@ -1,0 +1,41 @@
+﻿CSS:
+	<link href="/Content/blueimp-gallery2/ans-blueimp-gallery.min.css" rel="stylesheet" />
+
+
+
+HTML:
+	<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+		<div class="slides"></div>
+		<h3 class="title"></h3>
+		<a class="prev">‹</a>
+		<a class="next">›</a>
+		<a class="close">×</a>
+		<a class="play-pause"></a>
+		<ol class="indicator"></ol>
+	</div>
+	<h3>Gallery 1</h3>
+	<div class="gallery">
+		<a href="/Files/01.jpg"><img src="/Files/th/01.jpg" /></a>
+		<a href="/Files/02.jpg"><img src="/Files/th/02.jpg" /></a>
+	</div>
+	<h3>Gallery 2</h3>
+	<div class="gallery">
+		<a href="/Files/01.jpg"><img src="/Files/th/01.jpg" /></a>
+		<a href="/Files/02.jpg"><img src="/Files/th/02.jpg" /></a>
+		<a href="/Files/03.jpg"><img src="/Files/th/03.jpg" /></a>
+	</div>
+	<h3>Gallery 3</h3>
+	<div class="gallery">
+		<a href="/Files/01.jpg"><img src="/Files/th/01.jpg" /></a>
+		<a href="/Files/02.jpg"><img src="/Files/th/02.jpg" /></a>
+		<a href="/Files/03.jpg"><img src="/Files/th/03.jpg" /></a>
+		<a href="/Files/04.jpg"><img src="/Files/th/04.jpg" /></a>
+		<a href="/Files/05.jpg"><img src="/Files/th/05.jpg" /></a>
+	</div>
+
+
+
+JS:
+	<script src="/Scripts/jquery-3.min.js"></script>		
+	<script src="/Content/blueimp-gallery2/js/blueimp-gallery.min.js"></script>
+	<script src="/Content/blueimp-gallery2/ans-blueimp-gallery.min.js"></script>

@@ -6,6 +6,7 @@
 
 @section Styles {
     @Styles.Render("~/Content/ContactPage.css")
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 }
 
 
@@ -31,7 +32,7 @@
 
 <hr>
 <div>
-    <h3 class="text-center"><strong>Send us a Letter</strong></h3>
+    <h3 class="text-center"><strong>Send us a Note</strong></h3>
     <p>
         We'd love to hear from you. 
      </p>
@@ -78,49 +79,52 @@
             </div>
         </div>
         <div class="row-message">
+            <div class="g-recaptcha" data-sitekey='@System.Configuration.ConfigurationManager.AppSettings["RecaptchaClientKey"]'></div>
+        </div>
+        <div class="row-message">
             <div>
                 <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
             </div>
         </div>
-                    @*Passed off to specific submit page
-                        <div class="row-message">
-                            <div>
-                                @if (Model==null || Model.Success == null)
-                                {
-                                    <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
-                                }
-                                else if (Model.Success == true)
-                                {
-                                    <hr /><p><em>Thank you your message has been sent to Hearts4Kids.</em></p>
-                                }
-                                else
-                                {
-                                    <hr /><p>Apologies, there is a problem with the mail system and your message could not be sent at present.  Please copy your message to try again later</p>
-                                }
+        @*Passed off to specific submit page
+            <div class="row-message">
+                <div>
+                    @if (Model==null || Model.Success == null)
+                    {
+                        <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
+                    }
+                    else if (Model.Success == true)
+                    {
+                        <hr /><p><em>Thank you your message has been sent to Hearts4Kids.</em></p>
+                    }
+                    else
+                    {
+                        <hr /><p>Apologies, there is a problem with the mail system and your message could not be sent at present.  Please copy your message to try again later</p>
+                    }
 
-                            </div>
-                        </div>
-                    *@
-                }
-                @section Scripts {
-                    @Scripts.Render("~/bundles/jqueryval")
-                }
-                @*  G's prototype layout
-                           <div class="row-message">
-                            <label for="name">Your name:</label><br />
-                            <input id="name" class="input" name="name" type="text" value="" size="30" /><br />  <!--G placeholder="First Name" -->
-                        </div>
-                        <div class="row-message">
-                            <label for="email">Your email or phone number:</label><br />
-                            <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
-                        </div>
-                        <div class="row-message">
-                            <label for="message">Your message:</label><br />
-                            <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
-                        </div>
-                        <input type="hidden" name="action" value="submit" /><br />
-                        <input id="submit_button" type="submit" value="Send Your Message" />
-                    </form>
-                *@
+                </div>
             </div>
+        *@
+        }
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        @*  G's prototype layout
+                    <div class="row-message">
+                    <label for="name">Your name:</label><br />
+                    <input id="name" class="input" name="name" type="text" value="" size="30" /><br />  <!--G placeholder="First Name" -->
+                </div>
+                <div class="row-message">
+                    <label for="email">Your email or phone number:</label><br />
+                    <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
+                </div>
+                <div class="row-message">
+                    <label for="message">Your message:</label><br />
+                    <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
+                </div>
+                <input type="hidden" name="action" value="submit" /><br />
+                <input id="submit_button" type="submit" value="Send Your Message" />
+            </form>
+        *@
+    </div>
             <!--G End -->

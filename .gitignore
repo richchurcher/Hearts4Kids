@@ -395,3 +395,7 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 /Hearts4Kids/App_Data
+*.config
+Hearts4Kids/Web.config
+Hearts4Kids/Web.openhost.config
+*.config

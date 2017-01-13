@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Hearts4Kids</RootNamespace>
     <AssemblyName>Hearts4Kids</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -41,8 +41,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AngleSharp, Version=0.9.6.41832, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
-      <HintPath>..\packages\AngleSharp.0.9.6\lib\net45\AngleSharp.dll</HintPath>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -130,12 +130,12 @@
       <HintPath>..\packages\PDFsharp-MigraDoc.1.50.3915-beta2\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mvc.JQuery.DataTables, Version=1.3.50.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.DataTables.1.3.50\lib\net45\Mvc.JQuery.DataTables.dll</HintPath>
+    <Reference Include="Mvc.JQuery.DataTables, Version=1.3.52.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.JQuery.DataTables.1.3.52\lib\net45\Mvc.JQuery.DataTables.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mvc.JQuery.DataTables.Core, Version=1.3.50.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.DataTables.Core.1.3.50\lib\net45\Mvc.JQuery.DataTables.Core.dll</HintPath>
+    <Reference Include="Mvc.JQuery.DataTables.Core, Version=1.3.52.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.JQuery.DataTables.Core.1.3.52\lib\net45\Mvc.JQuery.DataTables.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MvcFileUploader, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -293,8 +293,10 @@
     <Compile Include="Services\FundraisingServices.cs" />
     <Compile Include="Services\GiveALittleCommunication.cs" />
     <Compile Include="Services\MemberDetailsServices.cs" />
+    <Compile Include="Services\MissingFormKeyException.cs" />
     <Compile Include="Services\PhotoServices.cs" />
     <Compile Include="Services\ReceiptServices.cs" />
+    <Compile Include="Services\RecaptchaServices.cs" />
     <Compile Include="Services\SubscriberServices.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -835,11 +837,11 @@
     <Content Include="Scripts\DataTables-1.9.0\extras\ColVis\media\js\ColVis.min.js.gz" />
     <Content Include="Scripts\DataTables-1.9.0\extras\ColReorder\media\js\ColReorder.min.js.gz" />
     <Content Include="Scripts\DataTables-1.9.0\extras\AutoFill\media\js\AutoFill.min.js.gz" />
-    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\mvcfileupload\blueimp\canvas-to-blob.min.js" />
@@ -926,9 +928,9 @@
     <Content Include="Views\Subscription\AllReceipts.cshtml" />
     <Content Include="Views\Shared\DataTable.cshtml" />
     <Content Include="Views\Subscription\EmailSubscribers.cshtml" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\MvcUploaderTest\Demo.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Web.openhost.config">
       <SubType>Designer</SubType>
     </None>

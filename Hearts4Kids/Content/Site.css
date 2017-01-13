@@ -154,7 +154,7 @@ body > .container {
   /* G Test End */
  
 /* PM corrections adding FB link */
-div#copyright {
+#copyright {
     max-height: 32px;
 }
 
@@ -165,11 +165,11 @@ div#copyright {
 
 .form-group { margin-bottom: 0; padding: 10px; } /*G-- Subscribe --*/
 
-img.pull-left {
+.pull-left {
     margin-right:10px;
 }
 
-img.pull-right {
+.pull-right {
     margin-left:10px;
 }
 
