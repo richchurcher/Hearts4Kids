@@ -165,11 +165,9 @@
     <Content Include="Content\blueimp-gallery2\js\vendor\jquery.js" />
     <Content Include="Content\blueimp-gallery2\___sample.txt" />
     <Content Include="Content\blueimp-gallery2\___version.txt" />
-    <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hearts4Kids\Hearts4Kids.csproj">
@@ -187,8 +185,7 @@
     <None Include="Content\blueimp-gallery2\js\blueimp-gallery.min.js.map" />
     <None Include="Content\blueimp-gallery2\js\jquery.blueimp-gallery.min.js.map" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-3.1.1.min.map" />
-    <None Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <None Include="Scripts\jquery-1.11.3.min.map" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

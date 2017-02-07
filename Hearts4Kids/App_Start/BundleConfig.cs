@@ -11,32 +11,8 @@ namespace Hearts4Kids
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
-                "~/Scripts/jquery-ui-{version}.js",
-                "~/Scripts/UIAttachment.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/mvc-DataTables").Include(
-                "~/Scripts/DataTables/jquery.DataTables.js",
-                "~/Scripts/DataTables/DataTables.tableTools.js",
-                "~/Content/jquery-DataTables-column-filter/jquery-ui-timepicker-addon.js",
-                "~/Content/jquery-DataTables-column-filter/media/js/jquery.DataTables.columnFilter.js",
-                "~/Scripts/DataTables/DataTables.colVis.js",
-                "~/Scripts/ColumnFilterHack.js"
-                ));
-
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                "~/Content/themes/base/base.css",
-                "~/Content/themes/base/core.css",
-                "~/Content/themes/base/dialog.css",
-                "~/Content/themes/base/theme.css",
-                "~/Content/themes/base/datepicker.css"));
-
-            bundles.Add(new StyleBundle("~/Content/userForms").Include(
-                "~/Content/userForms.css"));
-
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*",
-                        "~/Scripts/ValidationCustomisation.js"));
+                        "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -49,7 +25,7 @@ namespace Hearts4Kids
 
             bundles.Add(new ScriptBundle("~/bundles/h4kutilities").Include(
             "~/Scripts/singlePage.js"));
-            
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -67,8 +43,8 @@ namespace Hearts4Kids
                 "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-process.js",
                 "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-image.js",
                 "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-validate.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-ui.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-jquery-ui.js"));
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-ui.js"));
         }
     }
 }
+

@@ -9,41 +9,40 @@
     @Styles.Render("/Content/mvcfileupload/blueimp/jquery.fileupload-ui.css")
 }
 
-    <h2>Upload Photos to Gallery</h2>
-    <div class="well">
-        
-        <p class="help-block">jpg/png size max 5 MB</p>
-        @(
+<h2>Upload Photos to Gallery</h2>
+<div class="well">
+
+    <p class="help-block">jpg/png size max 5 MB</p>
+    @(
         Html.MvcFileUpload()
         .UploadAt(Url.Action("UploadFile"))
         .UIStyle(UploadUI.Bootstrap)
         .WithFileTypes(@"/(\.|\/)(jpe?g|png)$/i")
         .WithMaxFileSize(5000000)
         .RenderInline("_MvcFileupload")
-        )
-        
-    </div>
+    )
+
+</div>
 @section Scripts{
     <!-- Blueimp Jquery File Upload-->
-    <!--HERE-->
     @Scripts.Render("~/bundles/mvcFileUploader")
 
     @*
-    @if (ViewBag.IsAdmin)
-    {
-        <script>
-            (function ($) {
-                $.ajax({url:'@Url.Action("UploadFile")'})
-                    .success(function (data) {
-                        var $form = $('form[id^="fileupload"]');
-                        //$form.fileupload();
-                        $form.fileupload('option', 'done').call($form, $.Event('done'), { result: { files: data } });
-                        getFn();
-                    })
-            })(jQuery)
+        @if (ViewBag.IsAdmin)
+        {
+            <script>
+                (function ($) {
+                    $.ajax({url:'@Url.Action("UploadFile")'})
+                        .success(function (data) {
+                            var $form = $('form[id^="fileupload"]');
+                            //$form.fileupload();
+                            $form.fileupload('option', 'done').call($form, $.Event('done'), { result: { files: data } });
+                            getFn();
+                        })
+                })(jQuery)
 
-        </script>
-    }
+            </script>
+        }
     *@
 }
 <!--template and scripts end-->
