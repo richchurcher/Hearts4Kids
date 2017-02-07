@@ -46,6 +46,9 @@
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model=>model.ContactId)
+        <div class="row">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
         <div class="row-message">
             @Html.LabelFor(m => m.FromName)
             <div class="row-message">

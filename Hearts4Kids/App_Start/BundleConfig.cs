@@ -67,7 +67,8 @@ namespace Hearts4Kids
                 "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-process.js",
                 "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-image.js",
                 "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-validate.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-ui.js"));
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-ui.js",
+                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-jquery-ui.js"));
         }
     }
 }

@@ -19,7 +19,8 @@ namespace Hearts4Kids.Services
             string recaptchaResponse = request.Form[recaptchaKey];
             if (string.IsNullOrEmpty(recaptchaResponse))
             {
-                throw new MissingFormKeyException(recaptchaKey);
+                return false;
+                //throw new MissingFormKeyException(recaptchaKey);
             }
             using (var client = new HttpClient { BaseAddress = new Uri("https://www.google.com") })
             {
