@@ -11,8 +11,32 @@ namespace Hearts4Kids
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
+            "~/Scripts/jquery-ui-{version}.js",
+            "~/Scripts/UIAttachment.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mvc-DataTables").Include(
+                "~/Scripts/DataTables/jquery.DataTables.js",
+                "~/Scripts/DataTables/DataTables.tableTools.js",
+                "~/Content/jquery-DataTables-column-filter/jquery-ui-timepicker-addon.js",
+                "~/Content/jquery-DataTables-column-filter/media/js/jquery.DataTables.columnFilter.js",
+                "~/Scripts/DataTables/DataTables.colVis.js",
+                "~/Scripts/ColumnFilterHack.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+                "~/Content/themes/base/base.css",
+                "~/Content/themes/base/core.css",
+                "~/Content/themes/base/dialog.css",
+                "~/Content/themes/base/theme.css",
+                "~/Content/themes/base/datepicker.css"));
+
+            bundles.Add(new StyleBundle("~/Content/userForms").Include(
+                "~/Content/userForms.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/ValidationCustomisation.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
