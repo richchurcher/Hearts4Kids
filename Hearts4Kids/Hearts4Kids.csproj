@@ -300,6 +300,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2.js" />
     <Content Include="Content\blueimp-gallery2\ans-blueimp-gallery2.min.js" />
     <Content Include="Content\blueimp-gallery2\css\blueimp-gallery-indicator.css" />
@@ -849,7 +850,9 @@
     <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\file_types.psd" />
     <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\copy document.psd" />
     <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\collection.psd" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.ttf" />
