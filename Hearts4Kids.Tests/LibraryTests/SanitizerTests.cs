@@ -1,17 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 namespace Hearts4Kids.Tests.LibraryTests
 {
-    [TestClass]
     public class SanitizerTests
     {
-        [TestMethod]
+        [Fact]
         public void TestXSSSanitizer()
         {
             var san = new Ganss.XSS.HtmlSanitizer();
             const string benign = "<p>benign string</p>";
-            Assert.AreEqual(benign,san.Sanitize(benign));
+            Assert.Equal(benign,san.Sanitize(benign));
         }
     }
 }

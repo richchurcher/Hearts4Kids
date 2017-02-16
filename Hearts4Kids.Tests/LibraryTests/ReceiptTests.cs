@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using MigraDoc.DocumentObjectModel;
 using Hearts4Kids.Services;
 using MigraDoc.RtfRendering;
@@ -8,10 +8,9 @@ using MigraDoc.Rendering;
 
 namespace Hearts4Kids.Tests.LibraryTests
 {
-    [TestClass]
     public class ReceiptTests
     {
-        [TestMethod]
+        [Fact]
         public void CreateRtf()
         {
             

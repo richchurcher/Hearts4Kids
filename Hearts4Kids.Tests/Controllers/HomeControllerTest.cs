@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hearts4Kids;
+﻿using System.Web.Mvc;
 using Hearts4Kids.Controllers;
+using Xunit;
 
 namespace Hearts4Kids.Tests.Controllers
 {
-    [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Fact]
         public void Index()
         {
             // Arrange
@@ -22,10 +16,10 @@ namespace Hearts4Kids.Tests.Controllers
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void About()
         {
             // Arrange
@@ -38,7 +32,7 @@ namespace Hearts4Kids.Tests.Controllers
             //Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
-        [TestMethod]
+        [Fact]
         public void Contact()
         {
             // Arrange
@@ -48,7 +42,7 @@ namespace Hearts4Kids.Tests.Controllers
             ViewResult result = controller.Contact() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
         }
     }
 }
