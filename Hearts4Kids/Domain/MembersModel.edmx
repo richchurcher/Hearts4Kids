@@ -404,7 +404,6 @@
           <Property Name="Text" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="Approved" Type="Boolean" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserBio" Relationship="Hearts4KidsModel.FK_Quotes_UserBios" FromRole="Quote" ToRole="UserBio" />
         </EntityType>
         <EntityType Name="UserBio">
           <Key>
@@ -421,7 +420,6 @@
           <Property Name="Trustee" Type="Boolean" Nullable="false" />
           <Property Name="CitationDescription" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Approved" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Hearts4KidsModel.FK_UserBios_AspNetUsers" FromRole="UserBio" ToRole="AspNetUser" />
           <NavigationProperty Name="Quotes" Relationship="Hearts4KidsModel.FK_Quotes_UserBios" FromRole="UserBio" ToRole="Quote" />
           <NavigationProperty Name="QAs" Relationship="Hearts4KidsModel.FK_QA_UserBios" FromRole="UserBio" ToRole="QA" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -488,7 +486,6 @@
           <Property Name="Answer" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="AnswerUserId" Type="Int32" />
           <Property Name="Approved" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserBio" Relationship="Hearts4KidsModel.FK_QA_UserBios" FromRole="QA" ToRole="UserBio" />
         </EntityType>
         <Association Name="FK_QA_UserBios">
           <End Type="Hearts4KidsModel.UserBio" Role="UserBio" Multiplicity="0..1" />
