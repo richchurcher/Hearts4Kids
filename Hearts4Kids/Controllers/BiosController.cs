@@ -16,13 +16,13 @@ namespace Hearts4Kids.Controllers
         [Authorize(Roles=Domain.DomainConstants.Admin)]
         public ActionResult Index()
         {
-            var model = MemberDetailServices.GetBioSumarries();
+            var model = MemberDetailService.GetBioSummaries();
             return View(model);
         }
 
         public async Task<ActionResult> AllUserContacts()
         {
-            return View(await MemberDetailServices.GetAllUserContacts(User.Identity.Name));
+            return View(await MemberDetailService.GetAllUserContacts(User.Identity.Name));
         }
         // GET: Bios
         public ActionResult CreateEditBio(int id=0)
@@ -32,7 +32,7 @@ namespace Hearts4Kids.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            var model = MemberDetailServices.GetBioDetails(id) ?? new BiosViewModel() { UserId=id  };
+            var model = MemberDetailService.GetBioDetails(id) ?? new BiosViewModel() { UserId=id  };
             model.IsAdmin = IsAdmin;
             return View(model);
         }
@@ -52,7 +52,7 @@ namespace Hearts4Kids.Controllers
                     model.BioPicUrl = PhotoServices.processBioImage(bioImg);
                 }
                 
-                await MemberDetailServices.UpdateBios(model, ModelState, IsAdmin);
+                await MemberDetailService.UpdateBios(model, ModelState, IsAdmin);
                 if (ModelState.IsValid)
                 {
                     if (!isAdmin)
@@ -87,7 +87,7 @@ namespace Hearts4Kids.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Request.RawUrl });
             }
-            var returnView = MemberDetailServices.GetMemberDetails(usr.Id) ?? new BioDetailsViewModel { UserId = usr.Id };
+            var returnView = MemberDetailService.GetMemberDetails(usr.Id) ?? new BioDetailsViewModel { UserId = usr.Id };
             returnView.PhoneNumber = usr.PhoneNumber;
             returnView.Email = usr.Email;
             returnView.UserName = usr.UserName;
@@ -103,11 +103,11 @@ namespace Hearts4Kids.Controllers
             }
             if (ModelState.IsValid)
             {
-                MemberDetailServices.UpdateMemberDetails(model, ModelState);
+                MemberDetailService.UpdateMemberDetails(model, ModelState);
                 //to do allow phone number update
                 if (ModelState.IsValid)
                 {
-                    if (model.UserId == CurrentUser.Id && MemberDetailServices.BioRequired(model.UserId))
+                    if (model.UserId == CurrentUser.Id && MemberDetailService.BioRequired(model.UserId))
                     {
                         return RedirectToAction("CreateEditBio", model.UserId);
                     }
@@ -121,7 +121,7 @@ namespace Hearts4Kids.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> UserBios(string name=null)
         {
-            var model = await MemberDetailServices.GetBiosForDisplay(isMainPage: false);
+            var model = await MemberDetailService.GetBiosForDisplay(isMainPage: false);
             return View(model);
         }
         bool IsAuthorised(int id)

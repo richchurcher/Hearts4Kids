@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Hearts4Kids.Models
 { 
-    public class BiosViewModel :BioSumaryModel
+    public class BiosViewModel :BioSummaryModel
     {
         [DataType(DataType.MultilineText)]
         [StringLength(4000)]
@@ -19,7 +19,7 @@ namespace Hearts4Kids.Models
         public bool IsAdmin { get; set; }
     }
 
-    public class BioSumaryModel
+    public class BioSummaryModel
     {
         public int UserId { get; set; }
         public string Name { get; set; }

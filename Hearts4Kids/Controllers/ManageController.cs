@@ -117,7 +117,7 @@ namespace Hearts4Kids.Controllers
         public async Task<ActionResult> ViewAllUsers()
         {
 
-            var model = await Services.MemberDetailServices.UserBioLength(User.Identity.Name);
+            var model = await Services.MemberDetailService.UserBioLength(User.Identity.Name);
 
             return View(model);
         }

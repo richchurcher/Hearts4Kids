@@ -17,7 +17,7 @@ namespace Hearts4Kids.Controllers
 
         public async Task<ActionResult> Team()
         {
-            var model = await MemberDetailServices.GetBiosForDisplay(true);
+            var model = await MemberDetailService.GetBiosForDisplay(true);
             return View(model);
         }
 
@@ -51,7 +51,7 @@ namespace Hearts4Kids.Controllers
 
         public async Task<ActionResult> YouthVolunteers()
         {
-            var model = await MemberDetailServices.GetStudents();
+            var model = await MemberDetailService.GetStudents();
             return View(model);
         }
 

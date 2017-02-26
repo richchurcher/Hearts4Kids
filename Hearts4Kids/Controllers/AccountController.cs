@@ -247,7 +247,7 @@ namespace Hearts4Kids.Controllers
                     result = await UserManager.AddPasswordAsync(CurrentUser.Id, model.Password);
                     if (result.Succeeded)
                     {
-                        MemberDetailServices.UpdateMemberDetails(model, ModelState);
+                        MemberDetailService.UpdateMemberDetails(model, ModelState);
                         if (ModelState.IsValid)
                         {
                             return RedirectToAction("CreateEditBio", "Bios");
@@ -282,7 +282,7 @@ namespace Hearts4Kids.Controllers
                 {
                     return RedirectToAction("Register");
                 }
-                else if (MemberDetailServices.BioRequired(currentUsr.Id))
+                else if (MemberDetailService.BioRequired(currentUsr.Id))
                 {
                     return RedirectToAction("CreateEditBio","Bios");
                 }
