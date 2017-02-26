@@ -304,6 +304,7 @@
       <DependentUpon>MembersModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Installers\ControllersInstaller.cs" />
+    <Compile Include="Installers\PersistenceInstaller.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BiosViewModels.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
