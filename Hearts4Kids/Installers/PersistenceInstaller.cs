@@ -3,6 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Hearts4Kids.Domain;
+using Hearts4Kids.Services;
 
 namespace Hearts4Kids.Installers
 {
@@ -14,6 +15,7 @@ namespace Hearts4Kids.Installers
                                         .ImplementedBy<Hearts4KidsEntities>()
                                         .LifestylePerWebRequest()
                               );
+            container.Register(Component.For<MemberDetailService>());
         }
     }
 }

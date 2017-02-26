@@ -10,6 +10,13 @@ namespace Hearts4Kids.Controllers
 {
     public class HomeController : BaseUserController
     {
+        private readonly MemberDetailService members;
+
+        public HomeController(MemberDetailService members)
+        {
+            this.members = members;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -17,7 +24,7 @@ namespace Hearts4Kids.Controllers
 
         public async Task<ActionResult> Team()
         {
-            var model = await MemberDetailService.GetBiosForDisplay(true);
+            var model = await members.GetBiosForDisplay(true);
             return View(model);
         }
 
@@ -30,6 +37,7 @@ namespace Hearts4Kids.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<ActionResult> Subscribe(SubscribeModel subscriberMail)
         {
