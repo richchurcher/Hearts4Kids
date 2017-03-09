@@ -59,7 +59,7 @@ namespace Hearts4Kids.Controllers
 
         public async Task<ActionResult> YouthVolunteers()
         {
-            var model = await MemberDetailService.GetStudents();
+            var model = await members.GetStudents();
             return View(model);
         }
 

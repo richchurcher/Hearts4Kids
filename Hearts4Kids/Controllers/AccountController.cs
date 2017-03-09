@@ -15,8 +15,11 @@ namespace Hearts4Kids.Controllers
     [Authorize]
     public class AccountController : BaseUserController
     {
-        public AccountController()
+        private readonly MemberDetailService members;
+
+        public AccountController(MemberDetailService members)
         {
+            this.members = members;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
@@ -247,7 +250,7 @@ namespace Hearts4Kids.Controllers
                     result = await UserManager.AddPasswordAsync(CurrentUser.Id, model.Password);
                     if (result.Succeeded)
                     {
-                        MemberDetailService.UpdateMemberDetails(model, ModelState);
+                        members.UpdateMemberDetails(model, ModelState);
                         if (ModelState.IsValid)
                         {
                             return RedirectToAction("CreateEditBio", "Bios");
@@ -282,7 +285,7 @@ namespace Hearts4Kids.Controllers
                 {
                     return RedirectToAction("Register");
                 }
-                else if (MemberDetailService.BioRequired(currentUsr.Id))
+                else if (members.BioRequired(currentUsr.Id))
                 {
                     return RedirectToAction("CreateEditBio","Bios");
                 }

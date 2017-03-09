@@ -15,9 +15,9 @@ namespace Hearts4Kids.Services
     {
         private Hearts4KidsEntities db;
 
-        public MemberDetailService(Hearts4KidsEntities db)
+        public MemberDetailService(IHearts4KidsEntities db)
         {
-            this.db = db;
+            this.db = db as Hearts4KidsEntities;
         }
 
         public IEnumerable<BioSummaryModel> GetBioSummaries()
@@ -201,6 +201,7 @@ namespace Hearts4Kids.Services
                     */
         }
     }
+
     /*
     Use the existing validator
     public class RegexUtilities

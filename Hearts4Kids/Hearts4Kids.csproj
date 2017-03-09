@@ -267,6 +267,7 @@
     <Compile Include="Domain\FundraisingEvent.cs">
       <DependentUpon>MembersModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\IHearts4KidsEntities.cs" />
     <Compile Include="Domain\NewsletterSubscriber.cs">
       <DependentUpon>MembersModel.tt</DependentUpon>
     </Compile>

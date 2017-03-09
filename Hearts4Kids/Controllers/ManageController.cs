@@ -5,12 +5,20 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Hearts4Kids.Models;
+using Hearts4Kids.Services;
 
 namespace Hearts4Kids.Controllers
 {
     [Authorize]
     public class ManageController : BaseUserController
     {
+
+        private readonly MemberDetailService members;
+
+        public ManageController(MemberDetailService members)
+        {
+            this.members = members;
+        }
 
         //
         // GET: /Manage/Index
@@ -117,7 +125,7 @@ namespace Hearts4Kids.Controllers
         public async Task<ActionResult> ViewAllUsers()
         {
 
-            var model = await Services.MemberDetailService.UserBioLength(User.Identity.Name);
+            var model = await members.UserBioLength(User.Identity.Name);
 
             return View(model);
         }

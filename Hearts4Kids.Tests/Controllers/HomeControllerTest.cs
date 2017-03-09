@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Hearts4Kids.Controllers;
 using Hearts4Kids.Domain;
+using Hearts4Kids.Services;
 using Moq;
 using SimpleFixture.Moq;
 using Xunit;
@@ -76,7 +77,9 @@ namespace Hearts4Kids.Tests.Controllers
                 fixture.Generate<UserBio>(),
                 fixture.Generate<UserBio>()
             });
-            var actual = new HomeController().Team() as Task<ActionResult>;
+            var context = new Mock<Hearts4KidsEntities>();
+            var members = new MemberDetailService(context);
+            var actual = new HomeController(members).Team() as Task<ActionResult>;
             Assert.Equal(3, 1);
         }
     }

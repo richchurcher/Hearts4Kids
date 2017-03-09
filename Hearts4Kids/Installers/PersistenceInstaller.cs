@@ -16,6 +16,7 @@ namespace Hearts4Kids.Installers
                                         .LifestylePerWebRequest()
                               );
             container.Register(Component.For<MemberDetailService>());
+            container.Register(Component.For<IHearts4KidsEntities>());
         }
     }
 }
