@@ -44,11 +44,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     <li>@Html.ActionLink("The Team", "Team", "Home")</li>
                     <li>@Html.ActionLink("Gallery", "Index", "Gallery")</li>
                     <li>@Html.ActionLink("2015 report", "DisplayPdf", "Home",new { id = "Hearts4Kids 2015 project newsletter" },null) </li>
-                    <li>@Html.ActionLink("Events", "Index", "Fundraisers")</li>
+@*                    <li>@Html.ActionLink("Events", "Index", "Fundraisers")</li>*@
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
 @*
                     <li>@Html.ActionLink("Donor FAQs", "FAQ", "Home")</li>
 *@
@@ -60,10 +60,7 @@
     </div>
     <div class="container body-content">
         <div class="row">
-            <aside class="col-md-3 well" id="cancellationNote">
-                Please see our @Html.ActionLink("2016 letter", "DisplayPdf", "Home", new { id = "2016 Mission Cancellation letter" }, null) explaining why we have had to postpone this year's trip.
-            </aside>
-            <div class="col-md-6 text-center">
+            <div class="col-md-6 col-md-offset-3 text-center">
                 <img id="masthead" class="img-responsive" alt="Hearts4Kids Logo" src="~/Content/Logos/Full2.png" />
             </div>
             <!--G Facebook Like and Share -->
@@ -83,10 +80,7 @@
                     <li><a href="http://www.facebook.com/Hearts4KidsPasifika" target="_blank" class="facebook">&nbsp;</a></li>
                     <li><a href="https://twitter.com/Hearts4KidsNZ" target="_blank" class="twitter">&nbsp;</a></li>
                     <li><a href="https://instagram.com/hearts4kidsnz/" target="_blank" class="instagram">&nbsp;</a></li>
-                    <li><small>(coming soon - more ways to keep up with H4K)</small></li>
 @*
-                    <li><small>coming soon</small></li>
-
                     <li><a href="" target="_blank" class="pinterest">&nbsp;</a></li>
                     <li><a href="" target="_blank" class="youtube">&nbsp;</a></li>
                     <li><a href="" target="_blank" class="googleplus">&nbsp;</a></li>
@@ -101,7 +95,7 @@
                     <li></li>
                 </ul>
             </div><!--G End-->
-            <span>&copy; 2015 - Hearts4Kids</span>
+            <span>&copy; @DateTime.Now.Year Hearts4Kids</span>
         </div>
     </div>
     <footer class="footer panel-footer navbar-fixed-bottom hidden-print">
