@@ -1,132 +1,196 @@
-﻿using System.Web.Mvc;
-using System.Data;
-using Hearts4Kids.Models;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Hearts4Kids.Services;
-using Hearts4Kids.Extensions;
-
-namespace Hearts4Kids.Controllers
+﻿namespace Hearts4Kids.Controllers
 {
-    public class HomeController : BaseUserController
+    using System.Diagnostics;
+    using System.Net;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using Boilerplate.Web.Mvc;
+    using Boilerplate.Web.Mvc.Filters;
+    using Hearts4Kids.Constants;
+    using Hearts4Kids.Services;
+
+    public class HomeController : Controller
     {
+        #region Fields
+
+        private readonly IBrowserConfigService browserConfigService;
+        private readonly IFeedService feedService;
+        private readonly IManifestService manifestService;
+        private readonly IOpenSearchService openSearchService;
+        private readonly IRobotsService robotsService;
+        private readonly ISitemapService sitemapService; 
+
+        #endregion
+
+        #region Constructors
+
+        public HomeController(
+            IBrowserConfigService browserConfigService,
+            IFeedService feedService,
+            IManifestService manifestService,
+            IOpenSearchService openSearchService,
+            IRobotsService robotsService,
+            ISitemapService sitemapService)
+        {
+            this.browserConfigService = browserConfigService;
+            this.feedService = feedService;
+            this.manifestService = manifestService;
+            this.openSearchService = openSearchService;
+            this.robotsService = robotsService;
+            this.sitemapService = sitemapService;
+        }
+
+        #endregion
+
+        [Route("", Name = HomeControllerRoute.GetIndex)]
         public ActionResult Index()
         {
-            return View();
+            return this.View(HomeControllerAction.Index);
         }
 
-        public async Task<ActionResult> Team()
-        {
-            var model = await MemberDetailServices.GetBiosForDisplay(true);
-            return View(model);
-        }
-
+        [Route("about", Name = HomeControllerRoute.GetAbout)]
         public ActionResult About()
         {
-            return View();
+            return this.View(HomeControllerAction.About);
         }
 
-        public ActionResult Donate()
+        [Route("contact", Name = HomeControllerRoute.GetContact)]
+        public ActionResult Contact()
         {
-            return View();
-        }
-        [HttpPost]
-        public async Task<ActionResult> Subscribe(SubscribeModel subscriberMail)
-        {
-            var res = await SubscriberServices.AddEmail(subscriberMail, true);
-            return new JsonResult{ Data = res.ToString().SplitCamelCase() };
+            return this.View(HomeControllerAction.Contact);
         }
 
-        public ActionResult FAQ()
+        /// <summary>
+        /// Gets the Atom 1.0 feed for the current site. Note that Atom 1.0 is used over RSS 2.0 because Atom 1.0 is a 
+        /// newer and more well defined format. Atom 1.0 is a standard and RSS is not. See
+        /// http://rehansaeed.com/building-rssatom-feeds-for-asp-net-mvc/
+        /// </summary>
+        /// <returns>The Atom 1.0 feed for the current site.</returns>
+        [OutputCache(CacheProfile = CacheProfileName.Feed)]
+        [Route("feed", Name = HomeControllerRoute.GetFeed)]
+        public async Task<ActionResult> Feed()
         {
-            ViewBag.Message = "Your frequently asked Questions page.";
-
-            return View();
+            // A CancellationToken signifying if the request is cancelled. See
+            // http://www.davepaquette.com/archive/2015/07/19/cancelling-long-running-queries-in-asp-net-mvc-and-web-api.aspx
+            CancellationToken cancellationToken = this.Response.ClientDisconnectedToken;
+            return new AtomActionResult(await this.feedService.GetFeed(cancellationToken));
         }
 
-        public ActionResult Sponsors()
+        [Route("search", Name = HomeControllerRoute.GetSearch)]
+        public ActionResult Search(string query)
         {
-            return View();
+            // You can implement a proper search function here and add a Search.cshtml page.
+            // return this.View(HomeControllerAction.Search);
+
+            // Or you could use Google Custom Search (https://cse.google.co.uk/cse) to index your site and display your 
+            // search results in your own page.
+
+            // For simplicity we are just assuming your site is indexed on Google and redirecting to it.
+            return this.Redirect(string.Format(
+                "https://www.google.co.uk/?q=site:{0} {1}", 
+                this.Url.AbsoluteRouteUrl(HomeControllerRoute.GetIndex),
+                query));
         }
 
-        public async Task<ActionResult> YouthVolunteers()
+        /// <summary>
+        /// Gets the browserconfig XML for the current site. This allows you to customize the tile, when a user pins 
+        /// the site to their Windows 8/10 start screen. See http://www.buildmypinnedsite.com and 
+        /// https://msdn.microsoft.com/en-us/library/dn320426%28v=vs.85%29.aspx
+        /// </summary>
+        /// <returns>The browserconfig XML for the current site.</returns>
+        [NoTrailingSlash]
+        [OutputCache(CacheProfile = CacheProfileName.BrowserConfigXml)]
+        [Route("browserconfig.xml", Name = HomeControllerRoute.GetBrowserConfigXml)]
+        public ContentResult BrowserConfigXml()
         {
-            var model = await MemberDetailServices.GetStudents();
-            return View(model);
+            Trace.WriteLine(string.Format(
+                "browserconfig.xml requested. User Agent:<{0}>.",
+                this.Request.Headers.Get("User-Agent")));
+            string content = this.browserConfigService.GetBrowserConfigXml();
+            return this.Content(content, ContentType.Xml, Encoding.UTF8);
         }
 
-        public ActionResult Contact(int? id=null)
+        /// <summary>
+        /// Gets the manifest JSON for the current site. This allows you to customize the icon and other browser 
+        /// settings for Chrome/Android and FireFox (FireFox support is coming). See https://w3c.github.io/manifest/
+        /// for the official W3C specification. See http://html5doctor.com/web-manifest-specification/ for more 
+        /// information. See https://developer.chrome.com/multidevice/android/installtohomescreen for Chrome's 
+        /// implementation.
+        /// </summary>
+        /// <returns>The manifest JSON for the current site.</returns>
+        [NoTrailingSlash]
+        [OutputCache(CacheProfile = CacheProfileName.ManifestJson)]
+        [Route("manifest.json", Name = HomeControllerRoute.GetManifestJson)]
+        public ContentResult ManifestJson()
         {
-            return View(new ContactViewModel { ContactId = id });
+            Trace.WriteLine(string.Format(
+                "manifest.jsonrequested. User Agent:<{0}>.",
+                this.Request.Headers.Get("User-Agent")));
+            string content = this.manifestService.GetManifestJson();
+            return this.Content(content, ContentType.Json, Encoding.UTF8);
         }
 
-        public ActionResult Background()
+        /// <summary>
+        /// Gets the Open Search XML for the current site. You can customize the contents of this XML here. The open 
+        /// search action is cached for one day, adjust this time to whatever you require. See
+        /// http://www.hanselman.com/blog/CommentView.aspx?guid=50cc95b1-c043-451f-9bc2-696dc564766d
+        /// http://www.opensearch.org
+        /// </summary>
+        /// <returns>The Open Search XML for the current site.</returns>
+        [NoTrailingSlash]
+        [OutputCache(CacheProfile = CacheProfileName.OpenSearchXml)]
+        [Route("opensearch.xml", Name = HomeControllerRoute.GetOpenSearchXml)]
+        public ContentResult OpenSearchXml()
         {
-            return View();
+            Trace.WriteLine(string.Format(
+                "opensearch.xml requested. User Agent:<{0}>.", 
+                this.Request.Headers.Get("User-Agent")));
+            string content = this.openSearchService.GetOpenSearchXml();
+            return this.Content(content, ContentType.Xml, Encoding.UTF8);
         }
 
-        public ActionResult Success()
+        /// <summary>
+        /// Tells search engines (or robots) how to index your site. 
+        /// The reason for dynamically generating this code is to enable generation of the full absolute sitemap URL
+        /// and also to give you added flexibility in case you want to disallow search engines from certain paths. The 
+        /// sitemap is cached for one day, adjust this time to whatever you require. See
+        /// http://rehansaeed.com/dynamically-generating-robots-txt-using-asp-net-mvc/
+        /// </summary>
+        /// <returns>The robots text for the current site.</returns>
+        [NoTrailingSlash]
+        [OutputCache(CacheProfile = CacheProfileName.RobotsText)]
+        [Route("robots.txt", Name = HomeControllerRoute.GetRobotsText)]
+        public ContentResult RobotsText()
         {
-            return View();
+            Trace.WriteLine(string.Format(
+                "robots.txt requested. User Agent:<{0}>.", 
+                this.Request.Headers.Get("User-Agent")));
+            string content = this.robotsService.GetRobotsText();
+            return this.Content(content, ContentType.Text, Encoding.UTF8);
         }
 
-        public ActionResult DisplayPdf(string id)
+        /// <summary>
+        /// Gets the sitemap XML for the current site. You can customize the contents of this XML from the 
+        /// <see cref="SitemapService"/>. The sitemap is cached for one day, adjust this time to whatever you require.
+        /// http://www.sitemaps.org/protocol.html
+        /// </summary>
+        /// <param name="index">The index of the sitemap to retrieve. <c>null</c> if you want to retrieve the root 
+        /// sitemap file, which may be a sitemap index file.</param>
+        /// <returns>The sitemap XML for the current site.</returns>
+        [NoTrailingSlash]
+        [Route("sitemap.xml", Name = HomeControllerRoute.GetSitemapXml)]
+        public ActionResult SitemapXml(int? index = null)
         {
-            ViewBag.Source = "/Content/PublicPdfs/" + id + ".pdf";
-            return View();
-        }
+            string content = this.sitemapService.GetSitemapXml(index);
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ContactSubmit(
-            [Bind(Include = "FromName, FromEmail, FromPhone, Message, ContactId")]
-            ContactViewModel model)
-        {
-            try
+            if (content == null)
             {
-                if (!await RecaptchaServices.Validate(Request))
-                {
-                    ModelState.AddModelError(string.Empty, "You have not confirmed that you are not a robot");
-                }
-                if (ModelState.IsValid)
-                {
-                    const string body = "<p>Email From: {0} ({1}) Ph: {2}</p><p>Message:</p><p>{3}</p>";
-                    var msg = new IdentityMessage
-                    {
-                        Body = string.Format(body, model.FromName, model.FromEmail, model.FromPhone, model.Message),
-                        Subject = "H4K Web form Message"
-                    };
-                    if (model.ContactId.HasValue)
-                    {
-                        var usr = await UserManager.FindByIdAsync(model.ContactId.Value);
-                        if (usr == null) { throw new System.Exception("Unknown User Id"); }
-                        var client = new System.Net.Mail.SmtpClient();
-                        client.SendCompleted += (s, e) => {
-                            client.Dispose();
-                        };
-                        var mail = new System.Net.Mail.MailMessage
-                        {
-                            Subject = msg.Subject, Body = msg.Body, IsBodyHtml = true
-                        };
-                        mail.To.Add(usr.Email);
-                        await client.SendMailAsync(mail); 
-                    }
-                    else
-                    {
-                        await SendEmailsToRoleAsync(Domain.DomainConstants.Admin, msg);
-                    }
-                    return RedirectToAction("Success");
-                }
-            }
-            catch (DataException ex/* dex */)
-            {
-                ModelState.AddModelError("", "Unable to send message. Please try again later.");
-                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
-                model.Success = false;
-                return View("Contact", model);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Sitemap index is out of range.");
             }
 
-            return View("Contact", model);
-        }
+            return this.Content(content, ContentType.Xml, Encoding.UTF8);
+        }  
     }
 }

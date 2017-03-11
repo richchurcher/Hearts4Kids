@@ -1,93 +1,153 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    // title - The title of the page which appears in the browser window title. Aim for the title to be less than 70
+    //         characters. The site name appears at the end for better SEO.
+    ViewBag.Title = "Home";
+    // Description - Used by search engines. Aim for more than 160 characters.
+    ViewBag.Description = "A professional ASP.NET MVC template for building secure, fast, robust and adaptable web applications or sites. It provides the minimum amount of code required on top of the default MVC template provided by Microsoft.";
+    // Author - (Optional) Used by search engines. The author of the page.
+    ViewBag.Author = "Muhammad Rehan Saeed";
+    // Referrer - (Optional) Controls what is sent in the HTTP referrer header when a client navigates from your page
+    //            to an external site for increased user privacy and security. See ReferrerMode for more information.
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+
+    // Add Twitter Card and Open Graph social meta tags so we can customize what happens when our page is shared
+    // on these social networks. Note that other social networks like Google+, Pintrest and others also use these.
+    // There are dozens of different Twitter Card or Open Graph object types we could add, a different one is added
+    // on each page as an example.
+    // These helpers make it very easy to add the meta tags. For best performance, see what tags are generated and
+    // hand code them yourself instead of using these helpers.
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@RehanSaeedUK");
+    ViewBag.OpenGraph = new OpenGraphWebsite(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/content/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 })
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+        SiteName = Application.Name
+    };
 }
 
-    @section Styles {
-        @Styles.Render("~/Content/LandingPage.css")
-    }
+<header class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+    <p class="lead">@ViewBag.Description</p>
+    <p><a href="https://github.com/ASP-NET-MVC-Boilerplate/Templates" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</header>
 
-    <div class="row">
-        <div class="jumbotron text-center">
-            <p id="mission"> New Zealand volunteer medical team performing life saving surgery on children born with heart disease.</p>
-        </div>
-    </div>
-    <div id ="action-row" class="row">
-      <div class="col-md-7 photoContainer">
-        <div class="photobanner">
-        </div>
-      </div>
-      <div class="col-md-5" id="quotes">
-        <ul class="list-unstyled fadeThrough">
-			<li><blockquote>“There are hundreds of children, from neighbouring countries of the Pacific that need our help to get life-saving cardiac care. They depend on the generosity and humanity of others to help them. I speak for the Hearts4Kids team when I say that we enjoy the privilege of using our expertise and time to reach some of the poorest children in the world to change their lives.” <small class="quoter">Kirsten Finucane <span class="quoterRole">Cardiac Surgeon &amp; Project Leader</span></small></blockquote></li>
-			<li><blockquote>“These people did not hope for better health but their operations have completely changed their quality of life, or saved children who were otherwise going to die, and their gratitude is overwhelming. When you experience it you just want to keep going back.” <small class="quoter">Carol Robinson <span class="quoterRole">Intensive Care Nursing Lead</span></small></blockquote></li>
-			@*
-            <li><blockquote>“One operation can change a child's life - not just by saving it, but by transforming them from being crippled by heart failure, to leading healthy, physically active lives into their old age.” <small class="quoter">Brent McSharry <span class="quoterRole">Team Intensive Care Specialist</span></small></blockquote></li>
-            *@
-        </ul>
-      </div>
-        <div id="final-thought" class="col-md-7 ">
-            <hr />
-            <p>Each year in the Pacific, 350<sup>*</sup> children are born with congenital heart disease.</p>
-
-            <p>
-                Unfortunately, they have limited access to life saving surgery.
-            </p>
-
-            <p>
-                With your help these children have the opportunity to lead active and fulfilling lives.
-            </p>
-
-            <p>Please support the volunteer team at Hearts4Kids who hope to visit Fiji in 2017.</p>
-
-            <p class="help-block"><small>*based on population incidence estimates. See the @Html.ActionLink("About Us", "About", "Home") section</small></p>
-        </div>
-        <div class="col-md-5" id="partners">
-            <h4>Proudly in partnership with:</h4>
-            <ul class="list-unstyled fadeThrough text-center">
-                <li>
-                    <a href="http://romac.org.au/">
-                        <img src="~/Content/Logos/Romac.png" alt="ROMAC/Rotary" />
-                    </a>
-                </li>
-                <li class="fof">
-                    <a href="http://friends-of-fiji-heart-foundation.org.nz/">
-                        <img src="~/Content/Logos/FOF.png" alt="Friends of Fiji Heart Foundation" />
-                    </a>
-                </li>
-                <li>Please @Html.ActionLink("Contact Us", "Contact", "Home") if your corporation is willing to support our project (either via a donation or providing discounted medical goods, flights or accommodation), and we will add your logo here</li>
-            </ul>
-        </div>
-    </div>
-@*
 <div class="row">
-    <!--G Test Start-->
-    <br>
-    <hr>
-    <div class="col-md-12">
-        <h2>OUR MISSION</h2>
-        <h3><span> TO CHANGE THE LIFE OF THOSE CHILDREN WHO HAVE NO HOPE!</span></h3>
-        <div class="col-md-7 parabox">
-            <p>
-                Reet aliquameo. Ut us dolor, pibus eget tum vel, cursus eleifend, elit. Aenean auctor wisi. Aliquam erat volutpat.Duis ac turpis. Integer rutrum ante eu uisque nulla.<br>
-
-                Vestibulum libero nisl, porta vel, scelerisqueeget. malea at, nequeivamus eget nibh. Etiam cursus leo vel metusulla lisi. Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit sed leo. Ut pharetra augue nec augue. Nam elit magna, hendrerit sit amet, tincidunt ac viverra sednulla. Donec porta diam eu massa. Quisque diam lorem interdum vitae dapibus ac scelerisque vitae, pede.
-            </p>
-            <a class="vreport" href="#">view our report <span>2014</span></a>
-            <blockquote class="report">“Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit. Ut pharetra augue nec augue.” <cite class="quoter">Vestibulum ante</cite> <small class="quoterRole">Aenean nec eros</small></blockquote>
-        </div>
-        <div class="col-md-5 parabox-right">
-            <div class="bg-image">
-                <!--G img alt="Heart4Kids" src="./Home Page - Hearts4Kids_files/parabox-right.png" -->
-                <p><strong>Child's rights in Fiji</strong><br> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit sed leo. Ut pharetra augue nec augue. Quisque diam lorem interdum vitae dapibus ac scelerisque vitae. Lorem interdum vitae dapibus ac scelerisque vitae.</p><br>
-                <a class="learnmore-btn" href="">Learn more</a>
-            </div>
-        </div>
-    </div>
-    <!--G Test End -->
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-book"></span> Getting started</h2>
+        </header>
+        <p>
+            <a href="http://go.microsoft.com/fwlink/?LinkId=301870">ASP.NET Web API</a> is a framework that makes it easy to build HTTP services that reach
+            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
+            is an ideal platform for building RESTful applications on the .NET Framework.
+        </p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-dropbox"></span> Get more libraries</h2>
+        </header>
+        <p><a href="http://go.microsoft.com/fwlink/?LinkId=301871">NuGet</a> is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-cloud"></span> Web Hosting</h2>
+        </header>
+        <p>You can easily find a <a href="http://go.microsoft.com/fwlink/?LinkId=301872">web hosting</a> company that offers the right mix of features and price for your applications.</p>
+    </article>
 </div>
-*@
-@*
-    @section Scripts {
-        @Scripts.Render("~/Scripts/singlePage.js")
-    }
-*@
+
+<div class="row">
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-mobile"></span> Bootstrap</h2>
+        </header>
+        <p><a href="http://getbootstrap.com/getting-started/">Bootstrap</a> is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web and is used for theming this site.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-flag"></span> Font Awesome</h2>
+        </header>
+        <p><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a> gives you scalable vector icons that can instantly be customized — size, colour, drop shadow, and anything that can be done with the power of CSS.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-check"></span> Modernizr</h2>
+        </header>
+        <p><a href="http://modernizr.com/">Modernizr</a> is a JavaScript library that detects HTML5 and CSS3 features in the user's browser.</p>
+    </article>
+</div>
+
+<div class="row">
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-lock"></span> NWebsec</h2>
+        </header>
+        <p><a href="https://github.com/NWebsec/NWebsec">NWebsec</a> makes securing your ASP.NET MVC site easy with a handful of simple attributes you can add to your global filters, controllers or actions.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-life-ring"></span> Elmah</h2>
+        </header>
+        <p><a href="https://code.google.com/p/elmah/wiki/MVC">ELMAH</a> (Error Logging Modules and Handlers) is an application-wide error logging facility that is completely pluggable.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-line-chart"></span> Glimpse</h2>
+        </header>
+        <p><a href="http://getglimpse.com/">Glimpse</a> makes debugging and performance testing easier by providing real time diagnostics & insights.</p>
+    </article>
+</div>
+
+<div class="row">
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-link"></span> Autofac</h2>
+        </header>
+        <p><a href="http://autofac.org/">Autofac</a> is an addictive <a href="http://martinfowler.com/articles/injection.html">inversion of control</a> container. The idea behind inversion of control is that, rather than tie the classes in your application together and let classes "new up" their dependencies, you switch it around so dependencies are instead passed in during class construction.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-wifi"></span> jQuery</h2>
+        </header>
+        <p><a href="http://jquery.com/">jQuery</a> is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers.</p>
+    </article>
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-html5"></span> HTML5</h2>
+        </header>
+        <p><a href="http://en.wikipedia.org/wiki/HTML5">HTML5</a> is a core technology markup language of the Internet used for structuring and presenting content for the World Wide Web.</p>
+    </article>
+</div>
+
+<div class="row">
+    <article class="col-md-4" role="article">
+        <header>
+            <h2><span aria-hidden="true" class="fa fa-link"></span> ASP.NET MVC Boilerplate</h2>
+        </header>
+        <p>Find out more about how the <a href="http://rehansaeed.com/asp-net-mvc-boilerplate/">ASP.NET MVC Boilerplate</a> project template was put together and what features it includes out of the box. Read the <a href="https://github.com/ASP-NET-MVC-Boilerplate/Templates/blob/master/RELEASE%20NOTES.md">release notes</a> to find out what updates are made to the project template and see the <a href="https://github.com/ASP-NET-MVC-Boilerplate/Templates/blob/master/TODO.md">To-Do list</a> to view a list of features that will be added in the future.</p>
+    </article>
+    <article class="col-md-4">
+        <h2><span aria-hidden="true" class="fa fa-file-o"></span> This App Contains</h2>
+        <ul>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetIndex)"><strong>@Url.RouteUrl(HomeControllerRoute.GetIndex)</strong></a> - This index page.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetAbout)"><strong>@Url.RouteUrl(HomeControllerRoute.GetAbout)</strong></a> - An about us page.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetContact)"><strong>@Url.RouteUrl(HomeControllerRoute.GetContact)</strong></a> - A contact us page.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetFeed)"><strong>@Url.RouteUrl(HomeControllerRoute.GetFeed)</strong></a> - An <a href="https://en.wikipedia.org/wiki/Atom_%28standard%29">Atom 1.0</a> feed.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetRobotsText).TrimEnd('/')"><strong>@Url.RouteUrl(HomeControllerRoute.GetRobotsText).TrimEnd('/')</strong></a> - <a href="http://en.wikipedia.org/wiki/Robots_exclusion_standard">Robots text</a>.</li>
+            <li><a href="~/humans.txt"><strong>/humans.txt</strong></a> - <a href="http://humanstxt.org">Humans text</a>.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetSitemapXml).TrimEnd('/')"><strong>@Url.RouteUrl(HomeControllerRoute.GetSitemapXml).TrimEnd('/')</strong></a> - <a href="http://www.sitemaps.org/protocol.html">Site-map XML</a>.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetOpenSearchXml).TrimEnd('/')"><strong>@Url.RouteUrl(HomeControllerRoute.GetOpenSearchXml).TrimEnd('/')</strong></a> - <a href="http://www.hanselman.com/blog/CommentView.aspx?guid=50cc95b1-c043-451f-9bc2-696dc564766d#commentstart">Open search XML</a>.</li>
+            <li><a href="/@ConfigurationManager.AppSettings["elmah.mvc.route"]"><strong>/@ConfigurationManager.AppSettings["elmah.mvc.route"]</strong></a> - <a href="https://code.google.com/p/elmah/">Elmah</a> error logs.</li>
+            <li><a href="/glimpse.axd"><strong>/glimpse.axd</strong></a> - <a href="http://getglimpse.com">Glimpse</a> settings (Debug Only).</li>
+            <li><a href="/trace.axd"><strong>/trace.axd</strong></a> - Site <a href="https://msdn.microsoft.com/en-us/library/bb386420%28v=vs.140%29.aspx">trace</a> (Debug Only).</li>
+            <li><a href="@Url.RouteUrl(ErrorControllerRoute.GetBadRequest)"><strong>@Url.RouteUrl(ErrorControllerRoute.GetBadRequest)</strong></a> - <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_Client_Error">400</a> error.</li>
+            <li><a href="@Url.RouteUrl(ErrorControllerRoute.GetForbidden)"><strong>@Url.RouteUrl(ErrorControllerRoute.GetForbidden)</strong></a> - <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_Client_Error">403</a> error.</li>
+            <li><a href="@Url.RouteUrl(ErrorControllerRoute.GetInternalServerError)"><strong>@Url.RouteUrl(ErrorControllerRoute.GetInternalServerError)</strong></a> - <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_Server_Error">500</a> error.</li>
+            <li><a href="@Url.RouteUrl(ErrorControllerRoute.GetNotFound)"><strong>@Url.RouteUrl(ErrorControllerRoute.GetNotFound)</strong></a> - <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_Client_Error">404</a> error.</li>
+            <li><a href="@Url.RouteUrl(ErrorControllerRoute.GetUnauthorized)"><strong>@Url.RouteUrl(ErrorControllerRoute.GetUnauthorized)</strong></a> - <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_Client_Error">401</a> error.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetBrowserConfigXml).TrimEnd('/')"><strong>@Url.RouteUrl(HomeControllerRoute.GetBrowserConfigXml).TrimEnd('/')</strong></a> - <a href="http://www.buildmypinnedsite.com">Windows 8.1/10 Icons</a>.</li>
+            <li><a href="@Url.RouteUrl(HomeControllerRoute.GetManifestJson).TrimEnd('/')"><strong>@Url.RouteUrl(HomeControllerRoute.GetManifestJson).TrimEnd('/')</strong></a> - <a href="https://developer.chrome.com/multidevice/android/installtohomescreen">Android/Chrome Icons</a>.</li>
+        </ul>
+    </article>
+</div>

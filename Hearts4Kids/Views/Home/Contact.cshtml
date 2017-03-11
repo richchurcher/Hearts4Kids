@@ -1,133 +1,40 @@
-﻿@model Hearts4Kids.Models.ContactViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Contact";
-}
-
-@section Styles {
-    @Styles.Render("~/Content/ContactPage.css")
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-}
-
-
-<h2>@ViewBag.Title.</h2>
-
-<address>
-    Hearts4Kids Trust<br />
-    15 Eastbourne Rd<br />
-    Remuera 1050<br />
-    New Zealand
-    <!-- <abbr title="Phone">P:</abbr>
-    (00) 0000 0000-->
-</address>
-
-<!--G Start -->
-<address>
-    <strong>Social media: </strong><br />
-    @*
-        Send us a tweet: <a target ="_blank" href="">twitter.com/Hearts4KidsPasifika</a><br />
-    *@
-    Post on our Facebook wall:&nbsp;<a target="_blank" href="https://www.facebook.com/Hearts4KidsPasifika">facebook.com/Hearts4KidsPasifika</a>
-</address>
-
-<hr>
-<div>
-    <h3 class="text-center"><strong>Send us a Note</strong></h3>
-    <p>
-        We'd love to hear from you. 
-     </p>
-    <p>
-        It may take a few days to answer because Hearts4Kids is run entirely by volunteers (all of whom work full time in our respective professions).
-    </p>
-</div>
-<hr>
-<div>
-    @using (Html.BeginForm("ContactSubmit", "Home",FormMethod.Post, new { id = "contact-form" }))
+    ViewBag.Description = "The ASP.NET MVC Boilerplate contact page.";
+    ViewBag.Author = "Muhammad Rehan Saeed";
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@RehanSaeedUK");
+    ViewBag.OpenGraph = new OpenGraphProfile(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/content/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 })
     {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model=>model.ContactId)
-        <div class="row">
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-        </div>
-        <div class="row-message">
-            @Html.LabelFor(m => m.FromName)
-            <div class="row-message">
-                @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.FromName)
-            </div>
-        </div>
-        <div class="row-message">
-            @Html.LabelFor(m => m.FromEmail)
+        Determiner = OpenGraphDeterminer.Blank,
+        FirstName = "Muhammad Rehan",
+        Gender = OpenGraphGender.Male,
+        LastName = "Saeed",
+        SiteName = Application.Name,
+        Username = "Muhammad Rehan Saeed"
+    };
+}
 
-            <div class="row-message">
-                @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.FromEmail)
-            </div>
-        </div>
-        <div class="row">
-            <strong> AND/OR...</strong>
-        </div>
-        <div class="row-message">
-            @Html.LabelFor(m => m.FromPhone)
-            <div class="row-message">
-                @Html.TextBoxFor(m => m.FromPhone, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.FromPhone)
-            </div>
-        </div>
-        <div class="row-message">
-            @Html.LabelFor(m => m.Message)
-            <div class="row-message">
-                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", @cols = "40", @rows = "3" })
-                @Html.ValidationMessageFor(m => m.Message)
-            </div>
-        </div>
-        <div class="row-message">
-            <div class="g-recaptcha" data-sitekey='@System.Configuration.ConfigurationManager.AppSettings["RecaptchaClientKey"]'></div>
-        </div>
-        <div class="row-message">
-            <div>
-                <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
-            </div>
-        </div>
-        @*Passed off to specific submit page
-            <div class="row-message">
-                <div>
-                    @if (Model==null || Model.Success == null)
-                    {
-                        <input type="submit" id="submit-button" class="btn btn-default" value="Send Your Message" />
-                    }
-                    else if (Model.Success == true)
-                    {
-                        <hr /><p><em>Thank you your message has been sent to Hearts4Kids.</em></p>
-                    }
-                    else
-                    {
-                        <hr /><p>Apologies, there is a problem with the mail system and your message could not be sent at present.  Please copy your message to try again later</p>
-                    }
+<header class="page-header">
+    <h1><span aria-hidden="true" class="fa fa-phone"></span> @ViewBag.Title</h1>
+</header>
 
-                </div>
-            </div>
-        *@
-        }
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-        @*  G's prototype layout
-                    <div class="row-message">
-                    <label for="name">Your name:</label><br />
-                    <input id="name" class="input" name="name" type="text" value="" size="30" /><br />  <!--G placeholder="First Name" -->
-                </div>
-                <div class="row-message">
-                    <label for="email">Your email or phone number:</label><br />
-                    <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
-                </div>
-                <div class="row-message">
-                    <label for="message">Your message:</label><br />
-                    <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
-                </div>
-                <input type="hidden" name="action" value="submit" /><br />
-                <input id="submit_button" type="submit" value="Send Your Message" />
-            </form>
-        *@
-    </div>
-            <!--G End -->
+<div class="row">
+    <section class="col-md-9" role="region">
+        <p>@ViewBag.Description</p>
+    </section>
+    <aside class="col-md-3" role="complementary">
+        <address>
+            One Microsoft Way<br>
+            Redmond, WA 98052-6399<br>
+            <abbr title="Phone">P:</abbr>
+            425.555.0100
+        </address>
+        <address>
+            <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+            <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        </address>
+    </aside>
+</div>

@@ -1,74 +1,111 @@
-﻿using System.Web;
-using System.Web.Optimization;
-
-namespace Hearts4Kids
+﻿namespace Hearts4Kids
 {
-    public class BundleConfig
+    using System.Web.Optimization;
+    using Hearts4Kids.Constants;
+
+    public static class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// <summary>
+        /// For more information on bundling, visit <see cref="http://go.microsoft.com/fwlink/?LinkId=301862"/>.
+        /// </summary>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            // Enable Optimizations
+            // Set EnableOptimizations to false for debugging. For more information,
+            // Web.config file system.web/compilation[debug=true]
+            // OR
+            // BundleTable.EnableOptimizations = true;
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
-            "~/Scripts/jquery-ui-{version}.js",
-            "~/Scripts/UIAttachment.js"));
+            // Enable CDN usage.
+            // Note: that you can choose to remove the CDN if you are developing an intranet application.
+            // Note: We are using Google's CDN where possible and then Microsoft if not available for better
+            //       performance (Google is more likely to have been cached by the users browser).
+            // Note: that protocol (http:) is omitted from the CDN URL on purpose to allow the browser to choose the protocol.
+            bundles.UseCdn = true;
 
-            bundles.Add(new ScriptBundle("~/bundles/mvc-DataTables").Include(
-                "~/Scripts/DataTables/jquery.DataTables.js",
-                "~/Scripts/DataTables/DataTables.tableTools.js",
-                "~/Content/jquery-DataTables-column-filter/jquery-ui-timepicker-addon.js",
-                "~/Content/jquery-DataTables-column-filter/media/js/jquery.DataTables.columnFilter.js",
-                "~/Scripts/DataTables/DataTables.colVis.js",
-                "~/Scripts/ColumnFilterHack.js"
-                ));
+            AddCss(bundles);
+            AddJavaScript(bundles);
+        }
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                "~/Content/themes/base/base.css",
-                "~/Content/themes/base/core.css",
-                "~/Content/themes/base/dialog.css",
-                "~/Content/themes/base/theme.css",
-                "~/Content/themes/base/datepicker.css"));
+        private static void AddCss(BundleCollection bundles)
+        {
+            // Bootstrap - Twitter Bootstrap CSS (http://getbootstrap.com/).
+            // Site - Your custom site CSS.
+            // Note: No CDN support has been added here. Most likely you will want to customize your copy of bootstrap.
+            bundles.Add(new StyleBundle(
+                "~/Content/css")
+                .Include("~/Content/bootstrap/site.css")
+                .Include("~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/userForms").Include(
-                "~/Content/userForms.css"));
+            // Font Awesome - Icons using font (http://fortawesome.github.io/Font-Awesome/).
+            bundles.Add(new StyleBundle(
+                "~/Content/fa",
+                ContentDeliveryNetwork.MaxCdn.FontAwesomeUrl)
+                .Include("~/Content/fontawesome/site.css"));
+        }
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*",
-                        "~/Scripts/ValidationCustomisation.js"));
+        /// <summary>
+        /// Creates and adds JavaScript bundles to the bundle collection. Content Delivery Network's (CDN) are used
+        /// where available.
+        ///
+        /// Note: MVC's built in <see cref="System.Web.Optimization.Bundle.CdnFallbackExpression"/> is not used as
+        /// using in-line scripts is not permitted under Content Security Policy (CSP) (See <see cref="FilterConfig"/>
+        /// for more details).
+        ///
+        /// Instead, we create our own fail-over bundles. If a CDN is not reachable, the fail-over script loads the
+        /// local bundles instead. The fail-over script is only a few lines of code and should have a minimal impact,
+        /// although it does add an extra request (Two if the browser is IE8 or less). If you feel confident in the CDN
+        /// availability and prefer better performance, you can delete these lines.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddJavaScript(BundleCollection bundles)
+        {
+            // jQuery - The JavaScript helper API (http://jquery.com/).
+            Bundle jqueryBundle = new ScriptBundle("~/bundles/jquery", ContentDeliveryNetwork.Google.JQueryUrl)
+                .Include("~/Scripts/jquery-{version}.js");
+            bundles.Add(jqueryBundle);
 
+            // jQuery Validate - Client side JavaScript form validation (http://jqueryvalidation.org/).
+            Bundle jqueryValidateBundle = new ScriptBundle(
+                "~/bundles/jqueryval",
+                ContentDeliveryNetwork.Microsoft.JQueryValidateUrl)
+                .Include("~/Scripts/jquery.validate*");
+            bundles.Add(jqueryValidateBundle);
+
+            // Microsoft jQuery Validate Unobtrusive - Validation using HTML data- attributes
+            // http://stackoverflow.com/questions/11534910/what-is-jquery-unobtrusive-validation
+            Bundle jqueryValidateUnobtrusiveBundle = new ScriptBundle(
+                "~/bundles/jqueryvalunobtrusive",
+                ContentDeliveryNetwork.Microsoft.JQueryValidateUnobtrusiveUrl)
+                .Include("~/Scripts/jquery.validate*");
+            bundles.Add(jqueryValidateUnobtrusiveBundle);
+
+            // Modernizr - Allows you to check if a particular API is available in the browser (http://modernizr.com).
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            // Note: The current version of Modernizr does not support Content Security Policy (CSP) (See FilterConfig).
+            // See here for details: https://github.com/Modernizr/Modernizr/pull/1263 and
+            // http://stackoverflow.com/questions/26532234/modernizr-causes-content-security-policy-csp-violation-errors
+            Bundle modernizrBundle = new ScriptBundle(
+                "~/bundles/modernizr",
+                ContentDeliveryNetwork.Microsoft.ModernizrUrl)
+                .Include("~/Scripts/modernizr-*");
+            bundles.Add(modernizrBundle);
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            // Bootstrap - Twitter Bootstrap JavaScript (http://getbootstrap.com/).
+            Bundle bootstrapBundle = new ScriptBundle(
+                "~/bundles/bootstrap",
+                ContentDeliveryNetwork.Microsoft.BootstrapUrl)
+                .Include("~/Scripts/bootstrap.js");
+            bundles.Add(bootstrapBundle);
 
-            bundles.Add(new ScriptBundle("~/bundles/h4kutilities").Include(
-            "~/Scripts/singlePage.js"));
-
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/mvcFileUploader").Include(
-                "~/Scripts/mvcfileupload/blueimp/jquery.ui.widget.js",
-                "~/Scripts/mvcfileupload/blueimp/tmpl.min.js",
-                //< !--The Load Image plugin is included for the preview images and image resizing functionality-- >
-                "~/Scripts/mvcfileupload/blueimp/load-image.min.js",
-                //< !--The Canvas to Blob plugin is included for image resizing functionality-- >
-                "~/Scripts/mvcfileupload/blueimp/canvas-to-blob.min.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.iframe-transport.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-process.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-image.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-validate.js",
-                "~/Scripts/mvcfileupload/blueimp/jquery.fileupload-ui.js"));
+            // Script bundle for the site. The fall-back scripts are for when a CDN fails, in this case we load a local
+            // copy of the script instead.
+            Bundle failoverCoreBundle = new ScriptBundle("~/bundles/site")
+                .Include("~/Scripts/Fallback/styles.js")
+                .Include("~/Scripts/Fallback/scripts.js")
+                .Include("~/Scripts/site.js");
+            bundles.Add(failoverCoreBundle);
         }
     }
 }
-

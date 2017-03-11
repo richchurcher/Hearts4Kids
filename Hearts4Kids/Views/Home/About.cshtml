@@ -1,33 +1,27 @@
 ﻿@{
-    ViewBag.Title = "About Hearts4Kids";
+    ViewBag.Title = "About";
+    ViewBag.Description = "The ASP.NET MVC Boilerplate about page.";
+    ViewBag.Author = "Muhammad Rehan Saeed";
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@RehanSaeedUK");
+    ViewBag.OpenGraph = new OpenGraphBusiness(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/content/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 },
+        new OpenGraphContactData("1 Street Name", "City", "SW1 1SW", "United Kingdom")
+        {
+            Email = "email@example.com",
+            Phone = "111-222-333-444",
+            Website = Url.AbsoluteRouteUrl(HomeControllerRoute.GetIndex)
+        },
+        new OpenGraphLocation(51.5286417, -0.1015987))
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+        SiteName = Application.Name
+    };
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <h2>@ViewBag.Title</h2>
-        <div class="col-md-4 pull-right" id="images">
-            <ul class="list-unstyled fadeThrough photoContainer">
-                <li><img src="~/Content/Photos/Slides/pv/IMG_3186.png" alt="H4K team with patient" class="img-responsive"/></li>
-                <li><img src="~/Content/Photos/Slides/pv/IMG_3196.png" alt="2014 patient and grandmother" class="img-responsive"/></li>
-            </ul>
-        </div>
-        <p>The Hearts4Kids Trust is a volunteer medical team from New Zealand that travels to Fiji to perform life-saving congenital heart surgery on babies and children. With help these children have the opportunity to lead an active and fulfilling life.</p>
-        <p>Repairing simple congenital heart defects is one of the most lifesaving operations to be done in the field of medicine today. 
-            Unfortunately there are 350 children born each year in the Pacific Islands that do not have immediate access to this life saving surgery without travelling to New Zealand or receiving medical missions from other countries.</p>
-        <p>The Hearts4Kids Trust needs $85,000 to travel to Fiji in September to operate on 15 children over a 5 day period. Just 15% of the equivalent cost if the same children were brought to New Zealand for surgery. All of the funds donated will be used specifically to operate and care for the children in Fiji. Priority will be given to purchase equipment, disposables and drugs and the balance of funds will be used to pay for economy travel and house the medical team. The support and administration of Hearts4Kids Trust is fully pro-bono.</p>
-        <p>Hearts4Kids also hopes to empower the local medical and nursing staff to detect and care for babies from birth or time of diagnosis. As the organisation further develops its relationships with the local community Hearts4Kids will develop the local facilities and educate the local staff. This would create sustainability for future visits as the more medical and nursing staff become up skilled in this field, the less team members we need to take with us. Skills learnt in this area of medicine will also undoubtedly result in improved outcomes for other children requiring complex care in the hospital.</p>
-        <p>Hearts4Kids is a dedicated team that has the privilege to use our specialist expertise and time to reach some of the poorest children in the world and give them the opportunity to lead active and fulfilling lives. But, we need help to make it happen.</p>
-    </div>
-</div>
-<div class="row">
-    <h3>Find Out More</h3>
-    <ul>
-        <li>See our full @Html.ActionLink("Background Document","Background")</li>
-        <li>Download our @Html.ActionLink("Formal 2014 Mission Report","DisplayPdf", new { id="2014 Paediatric Report" }) (pdf)</li>
-        <li>@Html.ActionLink("See a slide presentation", "DisplayPdf", new { id = "FIJI TRIP 2014 Slides" }) (pdf) made by @Html.ActionLink("Jackie Oliver","UserBios","Bios",new { name= "Jackie Oliver" },null)<small>(Cardiac Surgery Clinical Charge Nurse)</small> for her operating theatre colleagues</li>
-        <li>See the @Html.ActionLink("reports from Shamini & Matt","YouthVolunteers"), two university students who accompanied us (self funded) last year</li>
-        <li>See the slides which were discussed during some recent presentations at a
-            @Html.ActionLink("Thursday night market", "DisplayPdf", new { id = "Thursday Night Market" }) and 
-            @Html.ActionLink("St Aidan's", "DisplayPdf", new { id = "St Aidans Presentation" }). <span class="text-danger">Warning: These slides include pictures of surgical procedures being performed.</span>
-    </ul>
-</div>
+<header class="page-header">
+    <h1><span aria-hidden="true" class="fa fa-users"></span> @ViewBag.Title</h1>
+</header>
+
+<p>@ViewBag.Description</p>
