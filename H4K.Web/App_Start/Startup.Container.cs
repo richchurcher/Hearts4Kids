@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using H4K.Core.Services;
+using H4K.Core.Services.Robots;
 using Owin;
 
 namespace H4K.Web
@@ -32,8 +34,7 @@ namespace H4K.Web
 
         private static void RegisterServices(ContainerBuilder builder)
         {
-            //builder.RegisterType<BrowserConfigService>().As<IBrowserConfigService>().InstancePerRequest();
-            //builder.RegisterType<CacheService>().As<ICacheService>().SingleInstance();
+            builder.RegisterType<RobotsService>().As<IRobotsService>().InstancePerRequest();
         }
 
         private static void RegisterMvc(ContainerBuilder builder, Assembly assembly)

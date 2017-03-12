@@ -109,7 +109,7 @@
                 "browserconfig.xml requested. User Agent:<{0}>.",
                 this.Request.Headers.Get("User-Agent")));
             string content = this.browserConfigService.GetBrowserConfigXml();
-            return this.Content(content, ContentType.Xml, Encoding.UTF8);
+            return Content(content, ContentType.Xml, Encoding.UTF8);
         }
 
         /// <summary>

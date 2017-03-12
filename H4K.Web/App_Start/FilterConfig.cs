@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using System.Web.Routing;
 using NWebsec.Mvc.HttpHeaders;
 using NWebsec.Mvc.HttpHeaders.Csp;
 
@@ -10,7 +10,6 @@ namespace H4K.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-
 
             // Require HTTPS to be used across the whole site. System.Web.Mvc.RequireHttpsAttribute performs a
             // 302 Temporary redirect from a HTTP URL to a HTTPS URL. This filter gives you the option to perform a
