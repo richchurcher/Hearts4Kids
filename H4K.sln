@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H4K.Test", "H4K.Test\H4K.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H4K.Web", "H4K.Web\H4K.Web.csproj", "{16442389-4305-41E6-8AEA-B1293BC77949}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H4K.Boilerplate", "H4K.Boilerplate\H4K.Boilerplate.csproj", "{A1CFF88C-F070-4D94-8719-CB99B41E81EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{16442389-4305-41E6-8AEA-B1293BC77949}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16442389-4305-41E6-8AEA-B1293BC77949}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16442389-4305-41E6-8AEA-B1293BC77949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CFF88C-F070-4D94-8719-CB99B41E81EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CFF88C-F070-4D94-8719-CB99B41E81EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CFF88C-F070-4D94-8719-CB99B41E81EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CFF88C-F070-4D94-8719-CB99B41E81EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
