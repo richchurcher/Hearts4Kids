@@ -9,6 +9,7 @@ namespace H4K.Web
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            ConfigureContainer(app);
         }
     }
 }
